@@ -1,0 +1,2 @@
+# Ignore wrong detected perl file
+**/.latexmkrc linguist-vendored

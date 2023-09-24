@@ -1,0 +1,11 @@
+black
+ipykernel
+matplotlib
+nbformat
+nbconvert
+nbstripout
+numpyarray-to-latex
+pandas
+pre-commit
+seaborn
+scikit-learn
