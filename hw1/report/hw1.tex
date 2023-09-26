@@ -54,8 +54,8 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 \begin{figure}[H]
     \centering
     \includegraphics[width=15cm]{partial_tree_dataset_d}
-    \caption{Partially Learnt Decision Tree and Dataset D from Part I}
-    \label{fig:partial-decision-tree-dataset-d}
+    \caption{Partially Learnt Decision Tree and Dataset $D$ from Part I}
+    \label{fig:PartI-partial-decision-tree-dataset-d}
 \end{figure}
 
 \begin{enumerate}[leftmargin=\labelsep]
@@ -94,35 +94,41 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
 
 \begin{enumerate}[leftmargin=\labelsep]
     \item \textbf{Apply \texttt{f\_classif} from \texttt{sklearn} to assess the discriminative power of the input variables.
-    Identify the input variable with the highest and lowest discriminative power.
-    Plot the class-conditional probability density functions of these two input variables.}
+          Identify the input variable with the highest and lowest discriminative power.
+          Plot the class-conditional probability density functions of these two input variables.}
 
-    Blah
+          Blah
 
     \item \textbf{Using a stratified 70-30 training-testing split with a fixed seed (\texttt{random\_state=0}), assess in a
-    single plot both the training and testing accuracies of a decision tree with depth limits in
-    ${1,2,3,4,5,6,8,10}$ and the remaining parameters as default.
-    \textit{[optional]} Note that split thresholding of numeric variables in decision trees is non-deterministic
-    in sklearn, hence you may opt to average the results using 10 runs per parameterization.}
+          single plot both the training and testing accuracies of a decision tree with depth limits in
+          $\{1,2,3,4,5,6,8,10\}$ and the remaining parameters as default.\vskip 0.05cm
+          \textit{[Optional]} Note that split thresholding of numeric variables in decision trees is non-deterministic
+          in sklearn, hence you may opt to average the results using 10 runs per parameterization.}
 
-    Blah
+          \vskip -0.5cm
+          \begin{figure}[H]
+              \centering
+              \includesvg[width=14cm]{training_testing_accuracies.svg}
+              \caption{Accuracy of trained decision tree, applied to both a test and training sets, for varying depth limits.}
+              \label{fig:PartII-ex2-plot}
+          \end{figure}
 
     \item \textbf{Comment on the results, including the generalization capacity across settings.}
 
-    Blah
+          Blah
 
     \item \textbf{To deploy the predictor, a healthcare team opted to learn a single decision tree
-    (\texttt{random\_state=0}) using \textit{all} available data as training data, and further ensuring that each leaf has
-    a minimum of 20 individuals in order to avoid overfitting risks.}
-        \begin{enumerate}
-        \item \textbf{Plot the decision tree.}
+          (\texttt{random\_state=0}) using \textit{all} available data as training data, and further ensuring that each leaf has
+          a minimum of 20 individuals in order to avoid overfitting risks.}
+          \begin{enumerate}
+          \item \textbf{Plot the decision tree.}
 
-        Blah
+          Blah
 
-        \item \textbf{Characterize a hernia condition by identifying the hernia-conditional associations.}
+          \item \textbf{Characterize a hernia condition by identifying the hernia-conditional associations.}
 
-        Blah
-        \end{enumerate}
+          Blah
+          \end{enumerate}
 \end{enumerate}
 
 \vskip 1cm

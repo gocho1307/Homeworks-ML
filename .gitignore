@@ -140,3 +140,4 @@ dmypy.json
 *.run.xml
 *.synctex.gz
 *.xdv
+**/svg-inkscape
