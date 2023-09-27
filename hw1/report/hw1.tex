@@ -97,7 +97,10 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
           Identify the input variable with the highest and lowest discriminative power.
           Plot the class-conditional probability density functions of these two input variables.}
 
-          \vskip -0.5cm
+          \vskip 0.3cm
+          \lstinputlisting[language=Python]{code_1.py}
+
+          \vskip -0.8cm
           \begin{figure}[H]
               \centering
               \includesvg[width=14cm]{class_conditional_probability.svg}
@@ -105,18 +108,20 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
               \label{fig:PartII-ex1-plot}
           \end{figure}
 
-    \newpage
     \item \textbf{Using a stratified 70-30 training-testing split with a fixed seed (\texttt{random\_state=0}), assess in a
           single plot both the training and testing accuracies of a decision tree with depth limits in
           $\{1,2,3,4,5,6,8,10\}$ and the remaining parameters as default.\vskip 0.05cm
           \textit{[Optional]} Note that split thresholding of numeric variables in decision trees is non-deterministic
           in sklearn, hence you may opt to average the results using 10 runs per parameterization.}
 
-          \vskip -0.5cm
+          \vskip 0.3cm
+          \lstinputlisting[language=Python]{code_2.py}
+
+          \vskip -0.8cm
           \begin{figure}[H]
               \centering
               \includesvg[width=14cm]{training_testing_accuracies.svg}
-              \caption{Accuracy of trained decision tree, applied to both a test and training sets, for varying depth limits.}
+              \caption{Accuracy of the trained decision tree, applied to both a test and training sets, for varying depth limits.}
               \label{fig:PartII-ex2-plot}
           \end{figure}
 
