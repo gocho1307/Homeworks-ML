@@ -1,4 +1,4 @@
-import pandas as pd, matplotlib.pyplot as plt, numpy as np
+import pandas as pd, matplotlib.pyplot as plt
 from scipy.io.arff import loadarff
 from sklearn import metrics, tree
 from sklearn.model_selection import train_test_split
@@ -30,9 +30,8 @@ for depth_limit in DEPTH_LIMIT:
 
     # Get the accuracy of each test
     train_acc = metrics.accuracy_score(y_train, y_train_pred)
-    test_acc = metrics.accuracy_score(y_test, y_test_pred)
-
     training_accuracy.append(train_acc)
+    test_acc = metrics.accuracy_score(y_test, y_test_pred)
     test_accuracy.append(test_acc)
 
 plt.plot(

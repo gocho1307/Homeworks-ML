@@ -1,5 +1,5 @@
 \documentclass[12pt]{article}
-\usepackage[paper=letterpaper,margin=2.5cm]{geometry}
+\usepackage[paper=letterpaper,margin=2cm]{geometry}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{newtxtext, newtxmath}
 \usepackage{enumitem}
@@ -63,6 +63,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     Consider that: i) a minimum of 4 observations is required to split an internal node, and
     ii) decisions by ascending alphabetic order should be placed in case of ties.}
 
+    \vskip 0.3cm
     The entropy of \(y_{out}\) is given by:
 
     \begin{equation}
@@ -78,13 +79,10 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
     \[
         \begin{aligned}
-            E(y_{out}) & = - \left(\frac{3}{7} \log_2\left(\frac{3}{7}\right) + \frac{2}{7} \log_2\left(\frac{2}{7}\right) 
-                            + \frac{2}{7} \log_2\left(\frac{2}{7}\right)\right) \\
-                       & = 1.5567
+            E(y_{out}) & = - \left(\frac{3}{7} \log_2\left(\frac{3}{7}\right) + \frac{2}{7} \log_2\left(\frac{2}{7}\right)
+                            + \frac{2}{7} \log_2\left(\frac{2}{7}\right)\right) = 1.5567
         \end{aligned}
     \]
-     
-    \newpage
 
     The next step is calculating $E(y_{out} | y_1 > 0.4 , y_x)$, in which x will take the values of 2, 3 or 4:
 
@@ -111,12 +109,12 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
             p(y_2 = 0, y_1 > 0.4)          & = \frac{3}{7}                                                                                               \\
             p(y_2 = 1, y_1 > 0.4)          & = \frac{2}{7}                                                                                              \\
             p(y_2 = 1, y_1 > 0.4)          & = \frac{2}{7}                                                                                              \\
-            E(y_{out} | y_x > 0.4 , y_2 = 0) & = - \left(\frac{1}{3} \log_2\left(\frac{1}{3}\right) + \frac{1}{3} \log_2\left(\frac{1}{3}\right) 
+            E(y_{out} | y_x > 0.4 , y_2 = 0) & = - \left(\frac{1}{3} \log_2\left(\frac{1}{3}\right) + \frac{1}{3} \log_2\left(\frac{1}{3}\right)
                 + \frac{1}{3} \log_2\left(\frac{1}{3}\right)\right) = 1.5849                                                                   \\
-            E(y_{out} | y_x > 0.4 , y_2 = 1) & = - \left(\frac{0}{2} \log_2\left(\frac{0}{2}\right) + \frac{1}{2} \log_2\left(\frac{1}{2}\right) 
+            E(y_{out} | y_x > 0.4 , y_2 = 1) & = - \left(\frac{0}{2} \log_2\left(\frac{0}{2}\right) + \frac{1}{2} \log_2\left(\frac{1}{2}\right)
                 + \frac{1}{2} \log_2\left(\frac{1}{2}\right)\right) = 1                                                                        \\
-            E(y_{out} | y_x > 0.4 , y_2 = 2) & = - \left(\frac{2}{2} \log_2\left(\frac{2}{2}\right) + \frac{0}{2} \log_2\left(\frac{0}{2}\right) 
-                + \frac{0}{2} \log_2\left(\frac{0}{2}\right)\right) = 0                  
+            E(y_{out} | y_x > 0.4 , y_2 = 2) & = - \left(\frac{2}{2} \log_2\left(\frac{2}{2}\right) + \frac{0}{2} \log_2\left(\frac{0}{2}\right)
+                + \frac{0}{2} \log_2\left(\frac{0}{2}\right)\right) = 0
         \end{aligned}
     \]
 
@@ -134,8 +132,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     \[
         IG(y_{2}) = 1.5567 - 0.965 = 0.5917
     \]
-    
-    \newpage
+
     \textbf{Now, let's calculate for x = 3}:
 
     \[
@@ -143,12 +140,12 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
             p(y_3 = 0, y_1 > 0.4)          & = \frac{1}{7}                                                                                    \\
             p(y_3 = 1, y_1 > 0.4)          & = \frac{2}{7}                                                                                    \\
             p(y_3 = 2, y_1 > 0.4)          & = \frac{4}{7}                                                                                    \\
-            E(y_{out} | y_x > 0.4 , y_3 = 0) & = - \left(\frac{0}{1} \log_2\left(\frac{0}{1}\right) + \frac{1}{1} \log_2\left(\frac{1}{1}\right) 
+            E(y_{out} | y_x > 0.4 , y_3 = 0) & = - \left(\frac{0}{1} \log_2\left(\frac{0}{1}\right) + \frac{1}{1} \log_2\left(\frac{1}{1}\right)
                 + \frac{0}{1} \log_2\left(\frac{0}{1}\right)\right) = 0                                                                       \\
-            E(y_{out} | y_x > 0.4 , y_3 = 1) & = - \left(\frac{1}{2} \log_2\left(\frac{1}{2}\right) + \frac{1}{2} \log_2\left(\frac{1}{2}\right) 
+            E(y_{out} | y_x > 0.4 , y_3 = 1) & = - \left(\frac{1}{2} \log_2\left(\frac{1}{2}\right) + \frac{1}{2} \log_2\left(\frac{1}{2}\right)
                 + \frac{0}{2} \log_2\left(\frac{0}{2}\right)\right) = 1                                                                       \\
-            E(y_{out} | y_x > 0.4 , y_3 = 2) & = - \left(\frac{2}{4} \log_2\left(\frac{2}{4}\right) + \frac{0}{4} \log_2\left(\frac{0}{4}\right) 
-                + \frac{2}{4} \log_2\left(\frac{2}{4}\right)\right) = 1                  
+            E(y_{out} | y_x > 0.4 , y_3 = 2) & = - \left(\frac{2}{4} \log_2\left(\frac{2}{4}\right) + \frac{0}{4} \log_2\left(\frac{0}{4}\right)
+                + \frac{2}{4} \log_2\left(\frac{2}{4}\right)\right) = 1
         \end{aligned}
     \]
 
@@ -164,7 +161,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     Finally, we can calculate the information gain, as per \eqref{ex1-ig},
 
     \[
-        IG(y_{3}) = 1.5567 - 0.8571 = 0.6996 
+        IG(y_{3}) = 1.5567 - 0.8571 = 0.6996
     \]
 
     \textbf{Finally, let's calculate for x = 4}:
@@ -174,12 +171,12 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
             p(y_4 = 0, y_1 > 0.4)          & = \frac{2}{7}                                                                                     \\
             p(y_4 = 1, y_1 > 0.4)          & = \frac{3}{7}                                                                                     \\
             p(y_4 = 1, y_1 > 0.4)          & = \frac{2}{7}                                                                                     \\
-            E(y_{out} | y_x > 0.4 , y_4 = 0) & = - \left(\frac{1}{2} \log_2\left(\frac{1}{2}\right) + \frac{0}{2} \log_2\left(\frac{0}{2}\right) 
+            E(y_{out} | y_x > 0.4 , y_4 = 0) & = - \left(\frac{1}{2} \log_2\left(\frac{1}{2}\right) + \frac{0}{2} \log_2\left(\frac{0}{2}\right)
                 + \frac{1}{2} \log_2\left(\frac{1}{3}\right)\right) = 1                                                                   \\
-            E(y_{out} | y_x > 0.4 , y_4 = 1) & = - \left(\frac{1}{3} \log_2\left(\frac{1}{3}\right) + \frac{2}{3} \log_2\left(\frac{2}{3}\right) 
+            E(y_{out} | y_x > 0.4 , y_4 = 1) & = - \left(\frac{1}{3} \log_2\left(\frac{1}{3}\right) + \frac{2}{3} \log_2\left(\frac{2}{3}\right)
                 + \frac{0}{3} \log_2\left(\frac{0}{3}\right)\right) = 0.9183                                                                       \\
-            E(y_{out} | y_x > 0.4 , y_4 = 2) & = - \left(\frac{1}{2} \log_2\left(\frac{1}{2}\right) + \frac{0}{2} \log_2\left(\frac{0}{2}\right) 
-                + \frac{1}{2} \log_2\left(\frac{1}{2}\right)\right) = 1                  
+            E(y_{out} | y_x > 0.4 , y_4 = 2) & = - \left(\frac{1}{2} \log_2\left(\frac{1}{2}\right) + \frac{0}{2} \log_2\left(\frac{0}{2}\right)
+                + \frac{1}{2} \log_2\left(\frac{1}{2}\right)\right) = 1
         \end{aligned}
     \]
 
@@ -187,8 +184,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
     \[
         \begin{aligned}
-            E(y_{out} | y_1>0.4, y_4) & = \frac{2}{7} \times 1.5849 + \frac{3}{7} \times 1 +  \frac{2}{7} \times 0\\
-                             & = 0.965.
+            E(y_{out} | y_1>0.4, y_4) & = \frac{2}{7} \times 1.5849 + \frac{3}{7} \times 1 +  \frac{2}{7} \times 0 = 0.965.
         \end{aligned}
     \]
 
@@ -197,28 +193,30 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     \[
         IG(y_{4}) = 1.5849 - 0.965 = 0.5917
     \]
-    
-    
+
+
     \textbf{Upon computing the information gains for each attribute,} it is evident that $y_3$ yields the highest value of 0.6996. Consequently,
         it is selected as the next node, resulting in the construction of the following decision tree:
 
-    Por arvore aqui (ns bem como fazer help)
-    
     \item \textbf{Draw the training confusion matrix for the learnt decision tree.}
 
+    \vskip 0.3cm
     Blah
 
     \item \textbf{Identify which class has the lowest training F1 score.}
 
+    \vskip 0.3cm
     Blah
 
     \item \textbf{Considering $y_2$ to be ordinal, assess if $y_1$ and $y_2$ are correlated using the Spearman coefficient.}
 
+    \vskip 0.3cm
     Blah
 
     \item \textbf{Draw the class-conditional relative histograms of $y_1$ using 5 equally spaced bins in $[0,1]$.
     Find the root split using the discriminant rules from these empirical distributions.}
 
+    \vskip 0.3cm
     Blah
 \end{enumerate}
 
@@ -239,10 +237,10 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
           \vskip 0.3cm
           \lstinputlisting[language=Python]{./assets/code_1.py}
 
-          \vskip -0.8cm
+          \vskip -0.7cm
           \begin{figure}[H]
               \centering
-              \includesvg[width=14cm]{./assets/class_conditional_probability.svg}
+              \includesvg[width=15cm]{./assets/class_conditional_probability.svg}
               \caption{Class-conditional probability density functions of the highest and lowest discriminative power variables.}
               \label{fig:PartII-ex1-plot}
           \end{figure}
@@ -256,7 +254,7 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
           \vskip 0.3cm
           \lstinputlisting[language=Python]{./assets/code_2.py}
 
-          \vskip -0.8cm
+          \vskip -0.7cm
           \begin{figure}[H]
               \centering
               \includesvg[width=14cm]{./assets/training_testing_accuracies.svg}
@@ -266,26 +264,29 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
 
     \item \textbf{Comment on the results, including the generalization capacity across settings.}
 
+          \vskip 0.3cm
           Blah
-    
-    \newpage
-    
+
     \item \textbf{To deploy the predictor, a healthcare team opted to learn a single decision tree
           (\texttt{random\_state=0}) using \textit{all} available data as training data, and further ensuring that each leaf has
           a minimum of 20 individuals in order to avoid overfitting risks.}
           \begin{enumerate}
           \item \textbf{Plot the decision tree.}
 
-          \vskip -0.5cm
+          \vskip 0.3cm
+          \lstinputlisting[language=Python]{./assets/code_4_a.py}
+
+          \vskip -0.7cm
           \begin{figure}[H]
               \centering
-              \includesvg[width=14cm]{decision_tree.svg}
-              \caption{Accuracy of trained decision tree, applied to both a test and training sets, for varying depth limits.}
-              \label{fig:PartII-ex2-plot}
+              \includesvg[width=18cm]{./assets/decision_tree.svg}
+              \caption{Decision Tree}
+              \label{fig:PartII-ex4a-plot}
           \end{figure}
 
           \item \textbf{Characterize a hernia condition by identifying the hernia-conditional associations.}
 
+          \vskip 0.3cm
           Blah
           \end{enumerate}
 \end{enumerate}
