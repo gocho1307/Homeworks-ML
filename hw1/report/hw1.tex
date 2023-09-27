@@ -123,14 +123,22 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
     \item \textbf{Comment on the results, including the generalization capacity across settings.}
 
           Blah
-
+    
+    \newpage
+    
     \item \textbf{To deploy the predictor, a healthcare team opted to learn a single decision tree
           (\texttt{random\_state=0}) using \textit{all} available data as training data, and further ensuring that each leaf has
           a minimum of 20 individuals in order to avoid overfitting risks.}
           \begin{enumerate}
           \item \textbf{Plot the decision tree.}
 
-          Blah
+          \vskip -0.5cm
+          \begin{figure}[H]
+              \centering
+              \includesvg[width=14cm]{decision_tree.svg}
+              \caption{Accuracy of trained decision tree, applied to both a test and training sets, for varying depth limits.}
+              \label{fig:PartII-ex2-plot}
+          \end{figure}
 
           \item \textbf{Characterize a hernia condition by identifying the hernia-conditional associations.}
 
