@@ -53,7 +53,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=15cm]{partial_tree_dataset_d}
+    \includegraphics[width=15cm]{./assets/partial_tree_dataset_d}
     \caption{Partially Learnt Decision Tree and Dataset $D$ from Part I}
     \label{fig:PartI-partial-decision-tree-dataset-d}
 \end{figure}
@@ -98,12 +98,12 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
           Plot the class-conditional probability density functions of these two input variables.}
 
           \vskip 0.3cm
-          \lstinputlisting[language=Python]{code_1.py}
+          \lstinputlisting[language=Python]{./assets/code_1.py}
 
           \vskip -0.8cm
           \begin{figure}[H]
               \centering
-              \includesvg[width=14cm]{class_conditional_probability.svg}
+              \includesvg[width=14cm]{./assets/class_conditional_probability.svg}
               \caption{Class-conditional probability density functions of the highest and lowest discriminative power variables.}
               \label{fig:PartII-ex1-plot}
           \end{figure}
@@ -115,12 +115,12 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
           in sklearn, hence you may opt to average the results using 10 runs per parameterization.}
 
           \vskip 0.3cm
-          \lstinputlisting[language=Python]{code_2.py}
+          \lstinputlisting[language=Python]{./assets/code_2.py}
 
           \vskip -0.8cm
           \begin{figure}[H]
               \centering
-              \includesvg[width=14cm]{training_testing_accuracies.svg}
+              \includesvg[width=14cm]{./assets/training_testing_accuracies.svg}
               \caption{Accuracy of the trained decision tree, applied to both a test and training sets, for varying depth limits.}
               \label{fig:PartII-ex2-plot}
           \end{figure}

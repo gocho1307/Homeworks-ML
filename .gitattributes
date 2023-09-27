@@ -1,2 +1,8 @@
 # Ignore wrong detected perl file
 **/.latexmkrc linguist-vendored
+
+# Ignore python files that are only used for LaTeX
+hw1/report/assets/*.py linguist-vendored
+hw2/report/assets/*.py linguist-vendored
+hw3/report/assets/*.py linguist-vendored
+hw4/report/assets/*.py linguist-vendored
