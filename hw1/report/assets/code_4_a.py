@@ -15,6 +15,6 @@ clf.fit(X, y)
 # Set style and plot the decision tree
 plt.figure(figsize=(15, 10))
 plot_tree(clf, filled=True, feature_names=list(X.columns),
-          class_names=list(np.unique(y)), rounded=True, fontsize=10)
+          class_names=list(np.unique(y)), rounded=True, fontsize=12)
 plt.savefig("./report/decision_tree.svg")
 plt.show()

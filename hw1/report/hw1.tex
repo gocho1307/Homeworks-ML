@@ -197,7 +197,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     \begin{figure}[H]
         \centering
         \includegraphics[width=14cm]{./assets/decision_tree_ex1_PartI.png}
-        \caption{Decision Tree from exercise I.1}
+        \caption{Decision Tree for exercise I.1}
         \label{fig:decision_tree}
     \end{figure}
 
@@ -387,7 +387,7 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
 
           \begin{figure}[H]
               \centering
-              \includegraphics[width=15cm]{./assets/class_conditional_probability.png}
+              \includegraphics[width=14cm]{./assets/class_conditional_probability.png}
               \caption{Class-conditional probability density functions of the highest and lowest discriminative power variables.}
               \label{fig:PartII-ex1-plot}
           \end{figure}
@@ -412,7 +412,22 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
     \item \textbf{Comment on the results, including the generalization capacity across settings.}
 
           \vskip 0.3cm
-          Blah
+          % Depth Limit and Training Accuracy
+          The graphic illustrates that as the depth limit of the decision tree increases, the training accuracy steadily rises.
+          This observation suggests that deeper trees can better fit the training data, capturing intricate patterns and achieving higher accuracy when evaluated
+          on the same dataset. However, it's crucial to keep in mind that higher training accuracy doesn't necessarily translate to better predictive
+          performance on unseen data.
+
+          % Generalization Capacity
+          The testing accuracy follows a distinct pattern. Initially, it improves as the depth limit
+          increases, indicating improved generalization. However, beyond a certain depth limit (around 4 or 5 in this case), the testing accuracy starts to
+          decline. This signifies a loss in generalization capacity, a phenomenon known as overfitting. It implies that overly complex decision trees can fit
+          noise in the training data and perform poorly on new, unseen data.
+
+          % Optimal Depth Limit
+          The optimal depth limit appears to be around 4 or 5, striking a balance between model complexity and generalization to new data.
+          It's crucial to avoid both underfitting (too simple) and overfitting (too complex) by selecting a depth limit that maximizes testing accuracy.
+          \vskip 0.3cm
 
     \item \textbf{To deploy the predictor, a healthcare team opted to learn a single decision tree
           (\texttt{random\_state=0}) using \textit{all} available data as training data, and further ensuring that each leaf has
@@ -427,7 +442,7 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
           \begin{figure}[H]
               \centering
               \includegraphics[width=\linewidth]{./assets/decision_tree_ex4a_PartII.png}
-              \caption{Decision Tree}
+              \caption{Decision Tree for exercise II.4a}
               \label{fig:PartII-ex4a-plot}
           \end{figure}
 
