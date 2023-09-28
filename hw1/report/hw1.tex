@@ -155,7 +155,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
         \end{aligned}
     \]
 
-    Finally, we can calculate the information gain, as per \label{ex4-sp},
+    Finally, we can calculate the information gain, as per \eqref{ex1-ig},
 
     \[
         IG(y_{3}) = 1.5567 - 0.8571 = 0.6996
@@ -228,45 +228,64 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
     Therefore, \textbf{let's start by calculating the precision for A, B and C} by replacing the values on \eqref{e3-p}:
 
-    \begin{equation}
-        Precision_A = \frac{4}{4+1} = \frac{4}{5}
-    \end{equation}
+    \[
+        \begin{aligned}
+            Precision_A = \frac{4}{4+1} = \frac{4}{5}
+        \end{aligned}
+    \]
 
-    \begin{equation}
-        Precision_B = \frac{2}{2+0} = 1
-    \end{equation}
+    \[
+        \begin{aligned}
+            Precision_B = \frac{2}{2+0} = 1
+        \end{aligned}
+    \]
 
-    \begin{equation}
-        Precision_C = \frac{4}{4+1} = \frac{4}{5}
-    \end{equation}
+    \[
+        \begin{aligned}
+            Precision_C = \frac{4}{4+1} = \frac{4}{5} 
+        \end{aligned}
+    \]
+
 
     \textbf{Now, it's time to calculate the recalls for A, B and C}, using the equation on \eqref{e3-r}:
 
-    \begin{equation}
-        Recall_A = \frac{4}{4+0} = 1
-    \end{equation}
+    \[
+        \begin{aligned}
+            Recall_A = \frac{4}{4+0} = 1
+        \end{aligned}
+    \]
 
-    \begin{equation}\label{e3-r}
-        Recall_B = \frac{2}{2+2} = \frac{1}{2}
-    \end{equation}
+    \[
+        \begin{aligned}
+            Recall_B = \frac{2}{2+2} = \frac{1}{2}
+        \end{aligned}
+    \]
 
-    \begin{equation}\label{e3-r}
-        Recall_A = \frac{4}{4+0} = 1
-    \end{equation}
+    \[
+        \begin{aligned}
+            Recall_C = \frac{4}{4+0} = 1
+        \end{aligned}
+    \]
 
     \textbf{Finally, let's calculate the $F1_{score}$}, using the equation \eqref{ex3-f1}:
+    
+    \[
+        \begin{aligned}
+            F1_{score} A = 2 \cdot \frac{{ \frac{4}{5} \cdot 1 }}{{ \frac{4}{5} + 1 }} = 0.8889
+        \end{aligned}
+    \]
 
-    \begin{equation}\label{ex3-f1}
-        F1_{score} A = 2 \cdot \frac{{ \frac{4}{5} \cdot 1 }}{{ \frac{4}{5} + 1 }} = 0.8889
-    \end{equation}
+    \[
+        \begin{aligned}
+            F1_{score} B = 2 \cdot \frac{{ \frac{1}{2} \cdot 1 }}{{ \frac{1}{2} + 1 }} = 0.6667
+        \end{aligned}
+    \]
 
-    \begin{equation}\label{ex3-f1}
-        F1_{score} B = 2 \cdot \frac{{ \frac{1}{2} \cdot 1 }}{{ \frac{1}{2} + 1 }} = 0.6667
-    \end{equation}
-
-    \begin{equation}\label{ex3-f1}
-        F1_{score} C = 2 \cdot \frac{{ 1 \cdot \frac{4}{5} }}{{ 1 + \frac{4}{5} }} = 0,8889
-    \end{equation}
+    \[
+        \begin{aligned}
+            F1_{score} C = 2 \cdot \frac{{ 1 \cdot \frac{4}{5} }}{{ 1 + \frac{4}{5} }} = 0,8889
+        \end{aligned}
+    \]
 
     \textbf{The class with the lowest training score is B}, with a score of 0.6667.
 
@@ -328,13 +347,19 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
           \vskip 0.3cm
           \lstinputlisting[language=Python]{./assets/code_1.py}
 
-          \vskip -0.7cm
+          As you can see in the graph ahead, the highest discriminative power variable is \textit{degree\_spondilolysthesis} and 
+          the lowest discriminative power variable is \textit{pelvic\_radius}.
+
+          \vskip -0.57cm
+
           \begin{figure}[H]
               \centering
               \includesvg[width=15cm]{./assets/class_conditional_probability.svg}
               \caption{Class-conditional probability density functions of the highest and lowest discriminative power variables.}
               \label{fig:PartII-ex1-plot}
           \end{figure}
+
+          
 
     \item \textbf{Using a stratified 70-30 training-testing split with a fixed seed (\texttt{random\_state=0}), assess in a
           single plot both the training and testing accuracies of a decision tree with depth limits in
