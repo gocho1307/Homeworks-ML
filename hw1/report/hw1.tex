@@ -204,7 +204,40 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     \item \textbf{Draw the training confusion matrix for the learnt decision tree.}
 
     \vskip 0.3cm
-    %\textbf{ACHO Q ESTE TBM TEMOS QUE TIRAR FOTO E COLOCAR AQUI TODO}
+    Following the learnt decision tree above, we can predict the values for each observation.
+    For each observation, we look at the value for the first variable ($y_1$) and follow the branch that corresponds with its value.
+    From the node we arrive at, we do the same thing for the next variable, and we keep doing this until we reach a leaf.
+    The class present in this leaf will be the predicted value, while the real value is the value of $y_{out}$ for that observation.
+    Below we present the real values along with the predicted ones:
+
+    \begin{center}
+        \begin{tabular}{cccccccccccccc}
+            \multicolumn{2}{c}{}           & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ & $x_6$ & $x_7$ & $x_8$ & $x_9$ & $x_{10}$ & $x_{11}$ & $x_{12}$ \\
+            \multirow{1}{*}{real}      & = & [A   & B   & B   & C   & C   & A   & A   & A   & B   & B   & C   & C] \\
+            \multirow{1}{*}{predicted} & = & [A   & B   & C   & C   & C   & A   & A   & A   & A   & B   & C   & C]
+        \end{tabular}
+    \end{center}
+
+    \textbf{Finally}, we can show the count of each pair of real and predicted values in a confusion matrix (e.g. 4 pairs of AA from observations $x_1$, $x_6$, $x_7$, $x_8$):
+
+    \vspace{0.5em}
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|}
+            \cline{3-5}
+            \multicolumn{2}{c}{}                & \multicolumn{3}{|c|}{\textbf{Real}} & \multicolumn{1}{c}{} \\
+            \cline{3-5}
+            \multicolumn{2}{c|}{}               & \textbf{A} & \textbf{B} & \textbf{C} & \multicolumn{1}{c}{} \\
+            \hline
+                                                & \textbf{A} & 4 & 1 & 0 & 5 \\
+            \cline{2-6}
+            \multirow{1}{*}{\textbf{Predicted}} & \textbf{B} & 0 & 2 & 0 & 2 \\
+            \cline{2-6}
+                                                & \textbf{C} & 0 & 1 & 4 & 5 \\
+            \hline
+            \multicolumn{2}{c|}{}               & 4 & 4 & 4 & 12 \\
+            \cline{3-6}
+        \end{tabular}
+    \end{center}
 
     \item \textbf{Identify which class has the lowest training F1 score.}
 
@@ -242,7 +275,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
     \[
         \begin{aligned}
-            Precision_C = \frac{4}{4+1} = \frac{4}{5} 
+            Precision_C = \frac{4}{4+1} = \frac{4}{5}
         \end{aligned}
     \]
 
@@ -268,7 +301,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     \]
 
     \textbf{Finally, let's calculate the $F1_{score}$}, using the equation \eqref{ex3-f1}:
-    
+
     \[
         \begin{aligned}
             F1_{score} A = 2 \cdot \frac{{ \frac{4}{5} \cdot 1 }}{{ \frac{4}{5} + 1 }} = 0.8889
@@ -309,7 +342,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     \begin{align*}
         ordered\_y_{1} & = [0.04, 0.06, 0.24, 0.32, 0.36, 0.44, 0.46, 0.52, 0.62, 0.68, 0.76, 0.9]\\
         ranks\_y_{1}   & = [1,2,3,4,5,6,7,8,9,10,11,12]\\
-        y'_{1}         & = [3,2,1,5,4,10,12,11,,7,9,6,8]\\
+        y'_{1}         & = [3,2,1,5,4,10,12,11,7,9,6,8]\\
         ordered\_y_{2} & = [0,0,0,0,0,0,1,1,1,2,2,2]\\
         ranks\_y_{2}   & = [3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 8, 8, 8, 11, 11, 11]\\
         y'_{2}         & = [8, 11, 3.5, 3.5, 3.5, 11, 3.5, 11, 8, 3.5, 8, 3.5]
@@ -347,7 +380,7 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
           \vskip 0.3cm
           \lstinputlisting[language=Python]{./assets/code_1.py}
 
-          As you can see in the graph ahead, the highest discriminative power variable is \textit{degree\_spondilolysthesis} and 
+          As you can see in the graph ahead, the highest discriminative power variable is \textit{degree\_spondilolysthesis} and
           the lowest discriminative power variable is \textit{pelvic\_radius}.
 
           \vskip -0.57cm
@@ -358,8 +391,6 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
               \caption{Class-conditional probability density functions of the highest and lowest discriminative power variables.}
               \label{fig:PartII-ex1-plot}
           \end{figure}
-
-          
 
     \item \textbf{Using a stratified 70-30 training-testing split with a fixed seed (\texttt{random\_state=0}), assess in a
           single plot both the training and testing accuracies of a decision tree with depth limits in
@@ -395,7 +426,7 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
           \vskip -0.7cm
           \begin{figure}[H]
               \centering
-              \includesvg[width=18cm]{./assets/decision_tree.svg}
+              \includesvg[width=\linewidth]{./assets/decision_tree.svg}
               \caption{Decision Tree}
               \label{fig:PartII-ex4a-plot}
           \end{figure}
