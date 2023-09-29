@@ -61,7 +61,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     ii) decisions by ascending alphabetic order should be placed in case of ties.}
 
     \vskip 0.3cm
-    The entropy of \(y_{out}\) is given by:
+    For this exercise we define $\log_2\left(0\right)$ to be 0. The entropy of \(y_{out}\) is given by:
 
     \begin{equation}
         \begin{split}
@@ -72,7 +72,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
         \end{split}
     \end{equation}
 
-    We can calculate $E(y_{out})$:
+    We can now calculate $E(y_{out} |y_1 > 0.4)$:
 
     \[
         \begin{aligned}
@@ -86,9 +86,9 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     \begin{equation}\label{exI1-e-yout-y2}
         \begin{split}
             E(y_{out} |y_1 > 0.4 , y_x) =
-            & - P(y_x = 0) E(y_{out} | y_1 > 0.4 , y_x = 0) \\
-            & - P(y_x = 1) E(y_{out} | y_1 > 0.4 , y_x = 1) \\
-            & - p(y_x = 2) E(y_{out} | y_1 > 0.4 , y_x = 2)
+            & - P(y_x = 0, y_1 > 0.4) E(y_{out} | y_1 > 0.4 , y_x = 0) \\
+            & - P(y_x = 1, y_1 > 0.4) E(y_{out} | y_1 > 0.4 , y_x = 1) \\
+            & - P(y_x = 2, y_1 > 0.4) E(y_{out} | y_1 > 0.4 , y_x = 2)
         \end{split}
     \end{equation}
 
@@ -375,7 +375,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
     \vskip 0.3cm
 
-    To calculate the Spearman coefficient when there's rank, we have to use the following equation:
+    To calculate the Spearman coefficient when there are non integer ranks, we have to use the following equation:
 
     \begin{equation}\label{ex4-sp}
         \begin{split}
@@ -384,7 +384,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
         \end{split}
     \end{equation}
 
-    Firstly, \textbf{let's order $y_1$ and $y_2$} so we can calulate the ranks and $y'_1$ and $y'_2$:
+    Firstly, \textbf{let's order $y_1$ and $y_2$} so we can calculate the ranks and $y'_1$ and $y'_2$:
 
     \begin{align*}
         ordered\_y_{1} & = [0.04, 0.06, 0.24, 0.32, 0.36, 0.44, 0.46, 0.52, 0.62, 0.68, 0.76, 0.9]\\
@@ -487,11 +487,11 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
           % Generalization Capacity
           The testing accuracy initially improves as the depth limit increases, indicating improved generalization. However, beyond a certain
           depth limit (around 4 or 5 in this case), the testing accuracy starts to decline. Therefore, we conclude there is a loss in generalization capacity,
-          which causes overfitting, implying that, in this case, overly complex decision trees can fit noise in the training data, performing poorly on new, unseen data.
+          which is caused by overfitting, implying that, in this case, overly complex decision trees can fit noise in the training data, performing poorly on new, unseen data.
 
           % Optimal Depth Limit
           The optimal depth limit appears to be around 4 or 5, which seems to be the point where the accuracy is maximized for the testing data, striking a balance
-          between model complexity and generalization to new data, this way we can avoid both underfitting (too simple) and overfitting (too complex).
+          between model complexity and generalization to new data, this way we can avoid both underfitting (model is too simple) and overfitting (model is too complex).
           \vskip 0.3cm
 
     \item \textbf{To deploy the predictor, a healthcare team opted to learn a single decision tree
