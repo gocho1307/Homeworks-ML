@@ -65,7 +65,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
     \begin{equation}
         \begin{split}
-            E(y_{out} |y_1 > 0.4) = \quad
+            E(y_{out} |y_1 > 0.4) =
             & - P(y_{out} = \text{A}, y_1 > 0.4) \log_2 \left(P(y_{out} = \text{A}, y_1 > 0.4)\right) \\
             & - P(y_{out} = \text{B}, y_1 > 0.4) \log_2 \left(P(y_{out} = \text{B}, y_1 > 0.4)\right)      \\
             & - P(y_{out} = \text{C}, y_1 > 0.4) \log_2 \left(P(y_{out} = \text{C}, y_1 > 0.4)\right)      \\
@@ -85,7 +85,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
     \begin{equation}\label{exI1-e-yout-y2}
         \begin{split}
-            E(y_{out} |y_1 > 0.4 , y_x) = \quad
+            E(y_{out} |y_1 > 0.4 , y_x) =
             & - P(y_x = 0) E(y_{out} | y_1 > 0.4 , y_x = 0) \\
             & - P(y_x = 1) E(y_{out} | y_1 > 0.4 , y_x = 1) \\
             & - p(y_x = 2) E(y_{out} | y_1 > 0.4 , y_x = 2)
@@ -95,7 +95,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     And the information gain of variable $y_x$ is given by
 
     \begin{equation}\label{ex1-ig}
-        IG(y_x) = E(y_{out} |y_1 > 0.4) - E(y_{out} |y_1 > 0.4, y_x)
+        IG(y_{out} |y_1 > 0.4, y_x) = E(y_{out} |y_1 > 0.4) - E(y_{out} |y_1 > 0.4, y_x)
     \end{equation}
 
     \textbf{Let's start with x = 2}:
@@ -125,7 +125,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     Finally, we can calculate the information gain, as per \eqref{ex1-ig},
 
     \[
-        IG(y_{2}) = 1.5567 - 0.965 = 0.5917
+        IG(y_{out} |y_1 > 0.4, y_{2}) = 1.5567 - 0.965 = 0.5917
     \]
 
     \textbf{Now, let's calculate for x = 3}:
@@ -155,7 +155,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     Finally, we can calculate the information gain, as per \eqref{ex1-ig},
 
     \[
-        IG(y_{3}) = 1.5567 - 0.8571 = 0.6996
+        IG(y_{out} | y_1 > 0.4, y_{3}) = 1.5567 - 0.8571 = \textbf{0.6996}
     \]
 
     \textbf{Finally, let's calculate for x = 4}:
@@ -185,11 +185,63 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     Finally, we can calculate the information gain, as per \eqref{ex1-ig},
 
     \[
-        IG(y_{4}) = 1.5567 - 0.965 = 0.5917
+        IG(y_{out} | y_1 > 0.4, y_{4}) = 1.5567 - 0.965 = 0.5917
     \]
 
     \textbf{Upon computing the information gains for each attribute,} it is evident that $y_3$ yields the highest value of 0.6996. Consequently,
-        it is selected as the next node, resulting in the construction of the following decision tree:
+        it is selected as the next node, and since there are at least 4 observations with $y_1 > 0.4$, we split the new node.
+
+    If we fix $y_1 > 0.4$ with $y_3 = 0$ or $y_3 = 1$, we get 1 and 2 observations, respectively. This means we get two new leafs for those branches, with
+    the $y_3 = 0$ leaf equal to class \text{B} and the $y_3 = 1$ leaf equal to \text{A}, because those are the classes that have the highest frequency for
+    their respective conditions on the dataset. For the $y_3 = 1$ leaf there is a tie, which we just use the ascending alphabetic order to get the class.
+    For the $y_3 = 2$ branch with the $y_1 > 0.4$ condition, we get exactly 4 observations, and so there is a split.
+
+    \textbf{Below} we do the required calculations to finish the decision tree:
+
+    \[
+        \begin{aligned}
+            E(y_{out} | y_1 > 0.4 , y_3 = 2 , y_2 = 0) & = - \left(\frac{0}{1} \log_2\left(\frac{0}{1}\right) + \frac{0}{1} \log_2\left(\frac{0}{1}\right)
+                + \frac{1}{1} \log_2\left(\frac{1}{1}\right)\right) = 0                                                                          \\
+            E(y_{out} | y_1 > 0.4 , y_3 = 2 , y_2 = 1) & = - \left(\frac{0}{1} \log_2\left(\frac{0}{1}\right) + \frac{0}{1} \log_2\left(\frac{0}{1}\right)
+                + \frac{1}{1} \log_2\left(\frac{1}{1}\right)\right) = 0                                                                          \\
+            E(y_{out} | y_1 > 0.4 , y_3 = 2 , y_2 = 2) & = - \left(\frac{2}{2} \log_2\left(\frac{2}{2}\right) + \frac{0}{2} \log_2\left(\frac{0}{2}\right)
+                + \frac{0}{2} \log_2\left(\frac{0}{2}\right)\right) = 0                                                                          \\
+            E(y_{out} | y_1 > 0.4 , y_3 = 2 , y_4 = 0) & = - \left(\frac{1}{2} \log_2\left(\frac{1}{2}\right) + \frac{0}{2} \log_2\left(\frac{0}{2}\right)
+                + \frac{1}{2} \log_2\left(\frac{1}{2}\right)\right) = 1                                                                          \\
+            E(y_{out} | y_1 > 0.4 , y_3 = 2 , y_4 = 1) & = - \left(\frac{1}{1} \log_2\left(\frac{1}{1}\right) + \frac{0}{1} \log_2\left(\frac{0}{1}\right)
+                + \frac{0}{1} \log_2\left(\frac{0}{1}\right)\right) = 0                                                                          \\
+            E(y_{out} | y_1 > 0.4 , y_3 = 2 , y_4 = 2) & = - \left(\frac{0}{1} \log_2\left(\frac{0}{1}\right) + \frac{0}{1} \log_2\left(\frac{0}{1}\right)
+                + \frac{1}{1} \log_2\left(\frac{1}{1}\right)\right) = 0
+        \end{aligned}
+    \]
+
+    From other calculations above, we know that:
+
+    \[
+        E(y_{out} | y_1 > 0.4 , y_3 = 2) = 1
+    \]
+
+    Therefore, replacing the above values on equation \eqref{exI1-e-yout-y2}, gives us:
+
+    \[
+        \begin{aligned}
+            E(y_{out} | y_1>0.4, y_3 = 2, y_2) & = \frac{1}{4} \times 0 + \frac{1}{4} \times 0 + \frac{2}{4} \times 0 & = 0 \\
+            E(y_{out} | y_1>0.4, y_3 = 2, y_4) & = \frac{2}{4} \times 1 + \frac{1}{4} \times 0 + \frac{1}{4} \times 0 & = 0.5
+        \end{aligned}
+    \]
+
+    Finally, we can calculate the information gain, as per \eqref{ex1-ig},
+
+    \[
+        \begin{aligned}
+            IG(y_{out} |y_1 > 0.4, y_3 = 2, y_{2}) & = 1 - 0 = \textbf{1} \\
+            IG(y_{out} |y_1 > 0.4, y_3 = 2, y_{4}) & = 1 - 0.5 = 0.5
+        \end{aligned}
+    \]
+
+    \textbf{After the computation}, it is evident that $y_2$ yields the highest value of 1, and so it is chosen. With the conditions of $y_1 > 0.4$ and $y_3 = 2$, we
+    can check that the conditions $y_2 = 0$, $y_2 = 1$ and $y_2 = 2$ all have less than 4 observations each. Therefore, we take the class with the highest frequency
+    for each respective conditions on the dataset. \textbf{Finally}, we can construct the following decision tree:
 
     \begin{figure}[H]
         \centering
@@ -469,8 +521,5 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
           \end{enumerate}
           \end{enumerate}
 \end{enumerate}
-
-\vskip 1cm
-\center\textbf{END}
 
 \end{document}
