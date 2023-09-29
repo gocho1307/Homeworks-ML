@@ -4,9 +4,9 @@
 \usepackage{newtxtext, newtxmath}
 \usepackage{enumitem}
 \usepackage{titling}
+\usepackage{subfig,graphicx}
 \usepackage[colorlinks=true]{hyperref}
 \usepackage{multirow}
-\usepackage{svg}
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{float}
@@ -218,7 +218,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
         \end{tabular}
     \end{center}
 
-    \textbf{Finally}, we can show the count of each pair of real and predicted values in a confusion matrix (e.g. 4 pairs of AA from observations $x_1$, $x_6$, $x_7$, $x_8$):
+    \textbf{Finally}, we can show the count of each pair of real and predicted values in a confusion matrix (e.g. 4 pairs of AA from observations $x_1$, $x_6$, $x_7$ and $x_8$):
 
     \vspace{0.5em}
     \begin{center}
@@ -322,8 +322,6 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
     \textbf{The class with the lowest training score is B}, with a score of 0.6667.
 
-    %\textbf{VERIFICAR ISTO EM CASA (pdf e resultado). TODO}
-
     \item \textbf{Considering $y_2$ to be ordinal, assess if $y_1$ and $y_2$ are correlated using the Spearman coefficient.}
 
     \vskip 0.3cm
@@ -354,20 +352,36 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
         Spearman(y_{1}, y_{2}) = 0.07966
     \]
 
-    %\textbf{VALOR A CONFIRMAR EM CASA (pdf e resultado). TODO}
-
     \item \textbf{Draw the class-conditional relative histograms of $y_1$ using 5 equally spaced bins in $[0,1]$.
     Find the root split using the discriminant rules from these empirical distributions.}
 
     \vskip 0.3cm
     Blah
 
+    The following histograms were created by observing the values of $y_1$ and fixing the class in $y_{out}$. Since there are three classes $A$, $B$ and $C$,
+    we get three histograms. In each histogram we have 5 equally spaced bins in $[0,1]$, meaning that each bin has a length of $0.2$. For each class, when a value
+    of $y_1$ falls into a bin, we increase the value of that bin by one.
+
+    \begin{figure}[H]
+        \centering
+        \subfloat[]{\includegraphics[width=.5\linewidth]{./assets/class_conditional_a.png}}\hfill
+        \subfloat[]{\includegraphics[width=.5\linewidth]{./assets/class_conditional_b.png}}\par
+        \subfloat[]{\includegraphics[width=.5\linewidth]{./assets/class_conditional_c.png}}
+        \caption{Class-conditional relative histograms of $y_1$ with 5 equally spaced bins in $[0,1]$}
+        \label{fig:class-conditional-y1}
+    \end{figure}
+
+    In order to find the root split using the discriminant rules from the empirical distributions, we made a decision tree with only a root split on $y_1$.
+    Each branch will have the values of one bin, meaning there will be 5 branches (e.g. the first branch is for values of $y_1$ that belong to $[0,0.2[$).
+    The leaf for each branch corresponds to the class that has the highest value for that specific bin in its histogram.
+
     \begin{figure}[H]
         \centering
         \includegraphics[width=14cm]{./assets/decision_tree_ex5_PartI.png}
-        \caption{Decision Tree for exercise I.5}
-        \label{fig:decision_tree}
+        \caption{Decision Tree using the discriminant rules from the empirical distributions}
+        \label{fig:decision-tree-root-split}
     \end{figure}
+
 \end{enumerate}
 
 \vskip 0.5cm
