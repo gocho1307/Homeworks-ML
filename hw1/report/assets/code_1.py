@@ -41,5 +41,4 @@ plt.ylabel("Density")
 
 plt.legend()
 plt.grid(True)
-plt.savefig("./report/class_conditional_probability.svg")
 plt.show()

@@ -1,7 +1,7 @@
 \documentclass[12pt]{article}
 \usepackage[paper=letterpaper,margin=2cm]{geometry}
 \usepackage{amsmath,amssymb,amsfonts}
-\usepackage{newtxtext, newtxmath}
+\usepackage{newtxtext,newtxmath}
 \usepackage{enumitem}
 \usepackage{titling}
 \usepackage{subfig,graphicx}
@@ -10,8 +10,6 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{float}
-
-\setlength{\droptitle}{-6em}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -54,7 +52,6 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 \begin{figure}[H]
     \centering
     \includegraphics[width=15cm]{./assets/partial_tree_dataset_d}
-    \caption{Partially Learnt Decision Tree and Dataset $D$ from Part I}
     \label{fig:PartI-partial-decision-tree-dataset-d}
 \end{figure}
 
@@ -69,9 +66,9 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     \begin{equation}
         \begin{split}
             E(y_{out} |y_1 > 0.4) = \quad
-            & \quad  p(\text{A}, y_1 > 0.4) \log_2 \left(p(\text{A}, y_1 > 0.4)\right)  \\
-            & + p(\text{B}, y_1 > 0.4) \log_2 \left(p(\text{B}, y_1 > 0.4)\right) \\
-            & + p(\text{C}, y_1 > 0.4) \log_2 \left(p(\text{C}, y_1 > 0.4)\right) \\
+            & \quad  p(\text{A}, y_1 > 0.4) \log_2 \left(p(\text{A}, y_1 > 0.4)\right) \\
+            & + p(\text{B}, y_1 > 0.4) \log_2 \left(p(\text{B}, y_1 > 0.4)\right)      \\
+            & + p(\text{C}, y_1 > 0.4) \log_2 \left(p(\text{C}, y_1 > 0.4)\right)      \\
         \end{split}
     \end{equation}
 
@@ -80,7 +77,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     \[
         \begin{aligned}
             E(y_{out}) & = - \left(\frac{3}{7} \log_2\left(\frac{3}{7}\right) + \frac{2}{7} \log_2\left(\frac{2}{7}\right)
-                            + \frac{2}{7} \log_2\left(\frac{2}{7}\right)\right) = 1.5567
+                            + \frac{2}{7} \log_2\left(\frac{2}{7}\right)\right) \approx 1.5567
         \end{aligned}
     \]
 
@@ -105,13 +102,13 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
     \[
         \begin{aligned}
-            p(y_2 = 0, y_1 > 0.4)          & = \frac{3}{7}                                                                                               \\
-            p(y_2 = 1, y_1 > 0.4)          & = \frac{2}{7}                                                                                              \\
-            p(y_2 = 1, y_1 > 0.4)          & = \frac{2}{7}                                                                                              \\
+            p(y_2 = 0, y_1 > 0.4)          & = \frac{3}{7}                                                                                       \\
+            p(y_2 = 1, y_1 > 0.4)          & = \frac{2}{7}                                                                                       \\
+            p(y_2 = 1, y_1 > 0.4)          & = \frac{2}{7}                                                                                       \\
             E(y_{out} | y_x > 0.4 , y_2 = 0) & = - \left(\frac{1}{3} \log_2\left(\frac{1}{3}\right) + \frac{1}{3} \log_2\left(\frac{1}{3}\right)
-                + \frac{1}{3} \log_2\left(\frac{1}{3}\right)\right) = 1.5849                                                                   \\
+                + \frac{1}{3} \log_2\left(\frac{1}{3}\right)\right) \approx 1.5849                                                               \\
             E(y_{out} | y_x > 0.4 , y_2 = 1) & = - \left(\frac{0}{2} \log_2\left(\frac{0}{2}\right) + \frac{1}{2} \log_2\left(\frac{1}{2}\right)
-                + \frac{1}{2} \log_2\left(\frac{1}{2}\right)\right) = 1                                                                        \\
+                + \frac{1}{2} \log_2\left(\frac{1}{2}\right)\right) = 1                                                                          \\
             E(y_{out} | y_x > 0.4 , y_2 = 2) & = - \left(\frac{2}{2} \log_2\left(\frac{2}{2}\right) + \frac{0}{2} \log_2\left(\frac{0}{2}\right)
                 + \frac{0}{2} \log_2\left(\frac{0}{2}\right)\right) = 0
         \end{aligned}
@@ -121,7 +118,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
     \[
         \begin{aligned}
-            E(y_{out} | y_1>0.4, y_2) & = \frac{3}{7} \times 1.5849 + \frac{2}{7} \times 1 +  \frac{2}{7} \times 0 & = 0.965.
+            E(y_{out} | y_1>0.4, y_2) & = \frac{3}{7} \times 1.5849 + \frac{2}{7} \times 1 +  \frac{2}{7} \times 0 & \approx 0.965.
         \end{aligned}
     \]
 
@@ -135,13 +132,13 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
     \[
         \begin{aligned}
-            p(y_3 = 0, y_1 > 0.4)          & = \frac{1}{7}                                                                                    \\
-            p(y_3 = 1, y_1 > 0.4)          & = \frac{2}{7}                                                                                    \\
-            p(y_3 = 2, y_1 > 0.4)          & = \frac{4}{7}                                                                                    \\
+            p(y_3 = 0, y_1 > 0.4)          & = \frac{1}{7}                                                                                       \\
+            p(y_3 = 1, y_1 > 0.4)          & = \frac{2}{7}                                                                                       \\
+            p(y_3 = 2, y_1 > 0.4)          & = \frac{4}{7}                                                                                       \\
             E(y_{out} | y_x > 0.4 , y_3 = 0) & = - \left(\frac{0}{1} \log_2\left(\frac{0}{1}\right) + \frac{1}{1} \log_2\left(\frac{1}{1}\right)
-                + \frac{0}{1} \log_2\left(\frac{0}{1}\right)\right) = 0                                                                       \\
+                + \frac{0}{1} \log_2\left(\frac{0}{1}\right)\right) = 0                                                                          \\
             E(y_{out} | y_x > 0.4 , y_3 = 1) & = - \left(\frac{1}{2} \log_2\left(\frac{1}{2}\right) + \frac{1}{2} \log_2\left(\frac{1}{2}\right)
-                + \frac{0}{2} \log_2\left(\frac{0}{2}\right)\right) = 1                                                                       \\
+                + \frac{0}{2} \log_2\left(\frac{0}{2}\right)\right) = 1                                                                          \\
             E(y_{out} | y_x > 0.4 , y_3 = 2) & = - \left(\frac{2}{4} \log_2\left(\frac{2}{4}\right) + \frac{0}{4} \log_2\left(\frac{0}{4}\right)
                 + \frac{2}{4} \log_2\left(\frac{2}{4}\right)\right) = 1
         \end{aligned}
@@ -151,7 +148,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
     \[
         \begin{aligned}
-            E(y_{out} | y_1>0.4, y_3) & = \frac{1}{7} \times 0 + \frac{2}{7} \times 1 +  \frac{4}{7} \times 1 & = 0.8571.
+            E(y_{out} | y_1>0.4, y_3) & = \frac{1}{7} \times 0 + \frac{2}{7} \times 1 +  \frac{4}{7} \times 1 & \approx 0.8571.
         \end{aligned}
     \]
 
@@ -165,13 +162,13 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
     \[
         \begin{aligned}
-            p(y_4 = 0, y_1 > 0.4)          & = \frac{2}{7}                                                                                     \\
-            p(y_4 = 1, y_1 > 0.4)          & = \frac{3}{7}                                                                                     \\
-            p(y_4 = 1, y_1 > 0.4)          & = \frac{2}{7}                                                                                     \\
+            p(y_4 = 0, y_1 > 0.4)          & = \frac{2}{7}                                                                                       \\
+            p(y_4 = 1, y_1 > 0.4)          & = \frac{3}{7}                                                                                       \\
+            p(y_4 = 1, y_1 > 0.4)          & = \frac{2}{7}                                                                                       \\
             E(y_{out} | y_x > 0.4 , y_4 = 0) & = - \left(\frac{1}{2} \log_2\left(\frac{1}{2}\right) + \frac{0}{2} \log_2\left(\frac{0}{2}\right)
-                + \frac{1}{2} \log_2\left(\frac{1}{3}\right)\right) = 1                                                                   \\
+                + \frac{1}{2} \log_2\left(\frac{1}{3}\right)\right) = 1                                                                          \\
             E(y_{out} | y_x > 0.4 , y_4 = 1) & = - \left(\frac{1}{3} \log_2\left(\frac{1}{3}\right) + \frac{2}{3} \log_2\left(\frac{2}{3}\right)
-                + \frac{0}{3} \log_2\left(\frac{0}{3}\right)\right) = 0.9183                                                                       \\
+                + \frac{0}{3} \log_2\left(\frac{0}{3}\right)\right) \approx 0.9183                                                               \\
             E(y_{out} | y_x > 0.4 , y_4 = 2) & = - \left(\frac{1}{2} \log_2\left(\frac{1}{2}\right) + \frac{0}{2} \log_2\left(\frac{0}{2}\right)
                 + \frac{1}{2} \log_2\left(\frac{1}{2}\right)\right) = 1
         \end{aligned}
@@ -181,7 +178,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
     \[
         \begin{aligned}
-            E(y_{out} | y_1>0.4, y_4) & = \frac{2}{7} \times 1.5849 + \frac{3}{7} \times 1 +  \frac{2}{7} \times 0 = 0.965.
+            E(y_{out} | y_1>0.4, y_4) & = \frac{2}{7} \times 1.5849 + \frac{3}{7} \times 1 +  \frac{2}{7} \times 0 \approx 0.965.
         \end{aligned}
     \]
 
@@ -196,7 +193,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=14cm]{./assets/decision_tree_ex1_PartI.png}
+        \includegraphics[width=12cm]{./assets/decision_tree_ex1_PartI.png}
         \caption{Decision Tree for exercise I.1}
         \label{fig:decision_tree}
     \end{figure}
@@ -213,7 +210,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     \begin{center}
         \begin{tabular}{cccccccccccccc}
             \multicolumn{2}{c}{}           & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ & $x_6$ & $x_7$ & $x_8$ & $x_9$ & $x_{10}$ & $x_{11}$ & $x_{12}$ \\
-            \multirow{1}{*}{real}      & = & [A   & B   & B   & C   & C   & A   & A   & A   & B   & B   & C   & C] \\
+            \multirow{1}{*}{real}      & = & [A   & B   & B   & C   & C   & A   & A   & A   & B   & B   & C   & C]                                  \\
             \multirow{1}{*}{predicted} & = & [A   & B   & C   & C   & C   & A   & A   & A   & A   & B   & C   & C]
         \end{tabular}
     \end{center}
@@ -224,17 +221,17 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|}
             \cline{3-5}
-            \multicolumn{2}{c}{}                & \multicolumn{3}{|c|}{\textbf{Real}} & \multicolumn{1}{c}{} \\
+            \multicolumn{2}{c}{}                & \multicolumn{3}{|c|}{\textbf{Real}} & \multicolumn{1}{c}{}  \\
             \cline{3-5}
             \multicolumn{2}{c|}{}               & \textbf{A} & \textbf{B} & \textbf{C} & \multicolumn{1}{c}{} \\
             \hline
-                                                & \textbf{A} & 4 & 1 & 0 & 5 \\
+                                                & \textbf{A} & 4 & 1 & 0 & 5                                  \\
             \cline{2-6}
-            \multirow{1}{*}{\textbf{Predicted}} & \textbf{B} & 0 & 2 & 0 & 2 \\
+            \multirow{1}{*}{\textbf{Predicted}} & \textbf{B} & 0 & 2 & 0 & 2                                  \\
             \cline{2-6}
-                                                & \textbf{C} & 0 & 1 & 4 & 5 \\
+                                                & \textbf{C} & 0 & 1 & 4 & 5                                  \\
             \hline
-            \multicolumn{2}{c|}{}               & 4 & 4 & 4 & 12 \\
+            \multicolumn{2}{c|}{}               & 4 & 4 & 4 & 12                                              \\
             \cline{3-6}
         \end{tabular}
     \end{center}
@@ -304,19 +301,19 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
     \[
         \begin{aligned}
-            F1_{score} A = 2 \cdot \frac{{ \frac{4}{5} \cdot 1 }}{{ \frac{4}{5} + 1 }} = 0.8889
+            F1_{score} A = 2 \cdot \frac{{ \frac{4}{5} \cdot 1 }}{{ \frac{4}{5} + 1 }} \approx 0.8889
         \end{aligned}
     \]
 
     \[
         \begin{aligned}
-            F1_{score} B = 2 \cdot \frac{{ \frac{1}{2} \cdot 1 }}{{ \frac{1}{2} + 1 }} = 0.6667
+            F1_{score} B = 2 \cdot \frac{{ \frac{1}{2} \cdot 1 }}{{ \frac{1}{2} + 1 }} \approx 0.6667
         \end{aligned}
     \]
 
     \[
         \begin{aligned}
-            F1_{score} C = 2 \cdot \frac{{ 1 \cdot \frac{4}{5} }}{{ 1 + \frac{4}{5} }} = 0,8889
+            F1_{score} C = 2 \cdot \frac{{ \frac{4}{5} \cdot 1 }}{{ 1 + \frac{4}{5} }} \approx 0,8889
         \end{aligned}
     \]
 
@@ -330,8 +327,8 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
     \begin{equation}\label{ex4-sp}
         \begin{split}
-            \text{Spearman}(y_x, y_y) = \frac{\text{cov}(y_x, y_y)}{\sigma_{y_x} \sigma_{y_y}}
-            = \frac{\sum_{i=1}^{n} (x_i - \bar{y_x})(y_i - \bar{y_y})}{\sqrt{\sum_{i=1}^{n} (x_i- \bar{y_x})^2}\sqrt{\sum_{i=1}^{n} (y_i- \bar{y_y})^2}}
+            \text{Spearman}(y_x, y_y) = \text{Pearson}(y_x', y_y') = \frac{\text{cov}(y_x', y_y')}{\sigma_{y_x'} \sigma_{y_y'}}
+            = \frac{\sum_{i=1}^{n} (y_{x_i}' - \bar{y_x'})(y_{y_i}' - \bar{y_y'})}{\sqrt{\sum_{i=1}^{n} (y_{x_i}' - \bar{y_x'})^2}\sqrt{\sum_{i=1}^{n} (y_{y_i}' - \bar{y_y'})^2}}
         \end{split}
     \end{equation}
 
@@ -349,15 +346,15 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
     Now, we have all we need to calculate \textbf{the Spearman coefficient} using the expression at \eqref{ex4-sp}. Here is the result:
 
     \[
-        Spearman(y_{1}, y_{2}) = 0.07966
+        Spearman(y_{1}, y_{2}) = Pearson(y_{1}', y_{2}') \approx 0.07966
     \]
+
+    Since the rank correlation (under Spearman coefficient) obtained a value close to 0, we can conclude that the variables $y_1$ and $y_2$ are almost non correlated.
 
     \item \textbf{Draw the class-conditional relative histograms of $y_1$ using 5 equally spaced bins in $[0,1]$.
     Find the root split using the discriminant rules from these empirical distributions.}
 
     \vskip 0.3cm
-    Blah
-
     The following histograms were created by observing the values of $y_1$ and fixing the class in $y_{out}$. Since there are three classes $A$, $B$ and $C$,
     we get three histograms. In each histogram we have 5 equally spaced bins in $[0,1]$, meaning that each bin has a length of $0.2$. For each class, when a value
     of $y_1$ falls into a bin, we increase the value of that bin by one.
@@ -377,7 +374,7 @@ one numeric with values in $[0,1]$ and 3 categorical – and a target variable w
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=14cm]{./assets/decision_tree_ex5_PartI.png}
+        \includegraphics[width=12cm]{./assets/decision_tree_ex5_PartI.png}
         \caption{Decision Tree using the discriminant rules from the empirical distributions}
         \label{fig:decision-tree-root-split}
     \end{figure}
@@ -404,11 +401,9 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
           As you can see in the graph ahead, the highest discriminative power variable is \textit{degree\_spondilolysthesis} and
           the lowest discriminative power variable is \textit{pelvic\_radius}.
 
-          \vskip -0.57cm
-
           \begin{figure}[H]
               \centering
-              \includegraphics[width=14cm]{./assets/class_conditional_probability.png}
+              \includegraphics[width=12cm]{./assets/class_conditional_probability.png}
               \caption{Class-conditional probability density functions of the highest and lowest discriminative power variables.}
               \label{fig:PartII-ex1-plot}
           \end{figure}
@@ -422,10 +417,9 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
           \vskip 0.3cm
           \lstinputlisting[language=Python]{./assets/code_2.py}
 
-          \vskip -0.7cm
           \begin{figure}[H]
               \centering
-              \includegraphics[width=14cm]{./assets/training_testing_accuracies.png}
+              \includegraphics[width=12cm]{./assets/training_testing_accuracies.png}
               \caption{Accuracy of the trained decision tree, applied to both a test and training sets, for varying depth limits.}
               \label{fig:PartII-ex2-plot}
           \end{figure}
@@ -434,20 +428,18 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
 
           \vskip 0.3cm
           % Depth Limit and Training Accuracy
-          The graphic illustrates that as the depth limit of the decision tree increases, the training accuracy steadily rises.
-          This observation suggests that deeper trees can better fit the training data, capturing intricate patterns and achieving higher accuracy when evaluated
-          on the same dataset. However, it's crucial to keep in mind that higher training accuracy doesn't necessarily translate to better predictive
-          performance on unseen data.
+          The graphic shows that as the depth limit of the decision tree increases, the training accuracy rises steadily until reaching 100\%.
+          This observation suggests that deeper trees can better fit the training data, capturing complex patterns and achieving higher accuracy when evaluated
+          on the dataset.
 
           % Generalization Capacity
-          The testing accuracy follows a distinct pattern. Initially, it improves as the depth limit
-          increases, indicating improved generalization. However, beyond a certain depth limit (around 4 or 5 in this case), the testing accuracy starts to
-          decline. This signifies a loss in generalization capacity, a phenomenon known as overfitting. It implies that overly complex decision trees can fit
-          noise in the training data and perform poorly on new, unseen data.
+          The testing accuracy initially improves as the depth limit increases, indicating improved generalization. However, beyond a certain
+          depth limit (around 4 or 5 in this case), the testing accuracy starts to decline. Therefore, we conclude there is a loss in generalization capacity,
+          which causes overfitting, implying that, in this case, overly complex decision trees can fit noise in the training data, performing poorly on new, unseen data.
 
           % Optimal Depth Limit
-          The optimal depth limit appears to be around 4 or 5, striking a balance between model complexity and generalization to new data.
-          It's crucial to avoid both underfitting (too simple) and overfitting (too complex) by selecting a depth limit that maximizes testing accuracy.
+          The optimal depth limit appears to be around 4 or 5, which seems to be the point where the accuracy is maximized for the testing data, striking a balance
+          between model complexity and generalization to new data, this way we can avoid both underfitting (too simple) and overfitting (too complex).
           \vskip 0.3cm
 
     \item \textbf{To deploy the predictor, a healthcare team opted to learn a single decision tree
@@ -459,7 +451,6 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
           \vskip 0.3cm
           \lstinputlisting[language=Python]{./assets/code_4_a.py}
 
-          \vskip -0.7cm
           \begin{figure}[H]
               \centering
               \includegraphics[width=\linewidth]{./assets/decision_tree_ex4a_PartII.png}
@@ -473,8 +464,8 @@ features to classify 310 orthopaedic patients into 3 classes (\texttt{normal}, \
 
           The hernia condition can be characterized by:
           \begin{enumerate}
-            \item Spondilolysthesis degree $\leq 16.079$, sacral slope $\leq 28.136$
-            \item Spondilolysthesis degree $\leq 16.079$, sacral slope $\leq 28.136$, and pelvic radius $\leq 117.36$
+            \item degree\_spondilolysthesis $\leq 16.079$ and sacral\_slope $\leq 28.136$
+            \item degree\_spondilolysthesis $\leq 16.079$, sacral\_slope $> 28.136$, pelvic\_radius $\leq 117.36$ and sacral\_slope $\leq 40.149$
           \end{enumerate}
           \end{enumerate}
 \end{enumerate}

@@ -35,18 +35,12 @@ for depth_limit in DEPTH_LIMIT:
     test_accuracy.append(test_acc)
 
 plt.plot(
-    DEPTH_LIMIT,
-    training_accuracy,
-    label="Training Accuracy",
-    marker="+",
-    color="#f8766d",
+    DEPTH_LIMIT, training_accuracy,
+    label="Training Accuracy", marker="+", color="#f8766d"
 )
 plt.plot(
-    DEPTH_LIMIT,
-    test_accuracy,
-    label="Test Accuracy",
-    marker=".",
-    color="#00bfc4",
+    DEPTH_LIMIT, test_accuracy,
+    label="Test Accuracy", marker=".", color="#00bfc4"
 )
 
 plt.xlabel("Depth Limit")
@@ -54,5 +48,4 @@ plt.ylabel("Accuracy")
 
 plt.legend()
 plt.grid(True)
-plt.savefig("./report/training_testing_accuracies.svg")
 plt.show()
