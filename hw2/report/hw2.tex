@@ -123,15 +123,22 @@ cross-validation with shuffling (\texttt{random\_state=0}) for the assessment of
           \item \textbf{Plot two boxplots with the fold accuracies for each classifier.}
 
           \vskip 0.3cm
-          Blah
-          Raquel
+          \lstinputlisting[language=Python]{./assets/code_1a.py}
+
+          \begin{figure}[H]
+            \centering
+            \includegraphics[width=13cm]{./assets/II-1-graph.png}
+            \caption{10-Fold Cross-Validation Results for kNN and Naive Bayes on Column Diagnosis Dataset}
+            \label{fig:PartII-ex1}
+        \end{figure}
 
           \item \textbf{Using \texttt{scipy}, test the hypothesis "kNN is statistically superior to Naïve Bayes regarding
                 accuracy", asserting whether is true.}
 
           \vskip 0.3cm
-          Blah
-          Raquel
+          \lstinputlisting[language=Python]{./assets/code_1b.py}
+
+          \textbf{Answer:} Fail to reject null hypothesis: No significant difference in accuracy between kNN and Naive Bayes
           \end{enumerate}
 
     \item \textbf{Consider two kNN predictors with k = 1 and k = 5 (uniform weights, Euclidean distance,
