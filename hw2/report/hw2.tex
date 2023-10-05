@@ -48,7 +48,7 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
 \large{\textbf{Part I}: Pen and Paper}\normalsize
 \end{center}
 
-\noindent Consider the following dataset:
+\noindent Consider the following dataset ($y_3$ - $y_5$ are all categorical variables and the domain of $y_2$ is $[0,1]$):
 
 \begin{figure}[H]
     \centering
@@ -66,12 +66,12 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
                 parameters (distributions and priors for subsequent testing).}
 
           \vskip 0.3cm
-          Blah
+          Gonçalo
 
           \item \textbf{Under a MAP assumption, classify each testing observation showing all your calculus.}
 
           \vskip 0.3cm
-          Blah
+          Gonçalo
 
           \item \textbf{Consider that the default decision threshold of $\theta = 0.5$ can be adjusted according to}
 
@@ -86,7 +86,7 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
                 \textbf{Under a maximum likelihood assumption, what thresholds optimize testing accuracy?}
 
           \vskip 0.3cm
-          Blah
+          Raquel
           \end{enumerate}
 
     \item \textbf{Let $y_1$ be the target numeric variable, $y_2$ - $y_6$ be the input variables where $y_2$ is binarized under an
@@ -96,14 +96,14 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
           \item \textbf{Identify the observations and features per data fold after the binarization procedure.}
 
           \vskip 0.3cm
-          Blah
+          Raquel
 
     \item \textbf{Consider a distance-weighted kNN with k = 3, Hamming distance (\textit{d}), and 1 / \textit{d} weighting.
           Compute the MAE of this kNN regressor for the $1^{st}$ iteration of the cross-validation (i.e. train
           observations have the lower indices).}
 
           \vskip 0.3cm
-          Blah
+          Raquel
           \end{enumerate}
 \end{enumerate}
 
@@ -117,19 +117,21 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
 cross-validation with shuffling (\texttt{random\_state=0}) for the assessment of predictive models along this section.
 
 \begin{enumerate}[leftmargin=\labelsep]
-    \item \textbf{Compare the performance of kNN with k = 5 and naïve Bayes with Gaussian assumption
+    \item \textbf{Compare the performance of kNN with k = 5 and Naïve Bayes with Gaussian assumption
           (consider all remaining parameters for each classifier as \texttt{sklearn}'s default):}
           \begin{enumerate}
           \item \textbf{Plot two boxplots with the fold accuracies for each classifier.}
 
           \vskip 0.3cm
           Blah
+          Raquel
 
-          \item \textbf{Using \texttt{scipy}, test the hypothesis "kNN is statistically superior to naïve Bayes regarding
+          \item \textbf{Using \texttt{scipy}, test the hypothesis "kNN is statistically superior to Naïve Bayes regarding
                 accuracy", asserting whether is true.}
 
           \vskip 0.3cm
           Blah
+          Raquel
           \end{enumerate}
 
     \item \textbf{Consider two kNN predictors with k = 1 and k = 5 (uniform weights, Euclidean distance,
@@ -137,13 +139,22 @@ cross-validation with shuffling (\texttt{random\_state=0}) for the assessment of
           matrices of the predictors. Comment.}
 
           \vskip 0.3cm
-          Blah
+          \lstinputlisting[language=Python]{./assets/code_2.py}
+
+          \begin{figure}[H]
+              \centering
+              \includegraphics[width=13cm]{./assets/cummulative_heatmap_ex2_PartII.png}
+              \caption{Confusion Matrix Differences Between k=1 and k=5 k-Nearest Neighbors (kNN) Classifiers}
+              \label{fig:PartII-ex2}
+          \end{figure}
+
+          Blah % TODO: Need to comment the plot
 
     \item \textbf{Considering the unique properties of \texttt{column\_diagnosis}, identify three possible difficulties
           of naïve Bayes when learning from the given dataset.}
 
           \vskip 0.3cm
-          Blah
+          Gonçalo
 \end{enumerate}
 
 \end{document}
