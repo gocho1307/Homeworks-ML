@@ -1,8 +1,5 @@
-# Perform paired t-test
-t_statistic, p_value = ttest_rel(knn_accuracies, naive_bayes_accuracies)
+from scipy.stats import ttest_rel
 
-# Check the p-value
-if p_value < 0.05:
-    print("Reject null hypothesis: kNN is statistically superior to Naive Bayes in terms of accuracy")
-else:
-    print("Fail to reject null hypothesis: No significant difference in accuracy between kNN and Naive Bayes")
+# Is knn better than naive bayes?
+res = ttest_rel(knn_accs, nb_accs, alternative="greater")
+print("Is knn > naive bayes? pval =", res.pvalue)

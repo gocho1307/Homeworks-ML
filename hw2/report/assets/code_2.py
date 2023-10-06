@@ -14,12 +14,8 @@ X, y = df.drop("class", axis=1), df["class"]
 folds = StratifiedKFold(n_splits=10, shuffle=True, random_state=0)
 
 # Create kNN classifiers with k=1 and k=5
-knn_1 = KNeighborsClassifier(
-    n_neighbors=1, weights="uniform", metric="euclidean"
-)
-knn_5 = KNeighborsClassifier(
-    n_neighbors=5, weights="uniform", metric="euclidean"
-)
+knn_1 = KNeighborsClassifier(n_neighbors=1)
+knn_5 = KNeighborsClassifier(n_neighbors=5)
 
 labels = ["Hernia", "Normal", "Spondylolisthesis"]
 cm_1, cm_5 = np.zeros((3, 3)), np.zeros((3, 3))
@@ -44,5 +40,5 @@ sns.heatmap(
     cm_diff_df, cmap="Purples", annot=True, annot_kws={"fontsize": 14}, fmt="g"
 )
 plt.xlabel("Predicted")
-plt.ylabel("Actual")
+plt.ylabel("Real")
 plt.show()

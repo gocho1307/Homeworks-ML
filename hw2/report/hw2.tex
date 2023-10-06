@@ -98,8 +98,8 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
           \vskip 0.3cm
           Raquel
 
-    \item \textbf{Consider a distance-weighted kNN with k = 3, Hamming distance (\textit{d}), and 1 / \textit{d} weighting.
-          Compute the MAE of this kNN regressor for the $1^{st}$ iteration of the cross-validation (i.e. train
+    \item \textbf{Consider a distance-weighted \textit{k}NN with k = 3, Hamming distance (\textit{d}), and 1 / \textit{d} weighting.
+          Compute the MAE of this \textit{k}NN regressor for the $1^{st}$ iteration of the cross-validation (i.e. train
           observations have the lower indices).}
 
           \vskip 0.3cm
@@ -117,7 +117,7 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
 cross-validation with shuffling (\texttt{random\_state=0}) for the assessment of predictive models along this section.
 
 \begin{enumerate}[leftmargin=\labelsep]
-    \item \textbf{Compare the performance of kNN with k = 5 and Naïve Bayes with Gaussian assumption
+    \item \textbf{Compare the performance of \textit{k}NN with k = 5 and Naïve Bayes with Gaussian assumption
           (consider all remaining parameters for each classifier as \texttt{sklearn}'s default):}
           \begin{enumerate}
           \item \textbf{Plot two boxplots with the fold accuracies for each classifier.}
@@ -127,21 +127,36 @@ cross-validation with shuffling (\texttt{random\_state=0}) for the assessment of
 
           \begin{figure}[H]
             \centering
-            \includegraphics[width=13cm]{./assets/II-1-graph.png}
-            \caption{10-Fold Cross-Validation Results for kNN and Naive Bayes on Column Diagnosis Dataset}
-            \label{fig:PartII-ex1}
-        \end{figure}
+            \includegraphics[width=13cm]{./assets/boxplot_ex1_PartII.png}
+            \caption{Boxplots with the fold accuracies of \textit{k}NN (k = 5) and Naïve Bayes}
+            \label{fig:PartII-ex1a}
+          \end{figure}
 
-          \item \textbf{Using \texttt{scipy}, test the hypothesis "kNN is statistically superior to Naïve Bayes regarding
+          \item \textbf{Using \texttt{scipy}, test the hypothesis "\textit{k}NN is statistically superior to Naïve Bayes regarding
                 accuracy", asserting whether is true.}
 
           \vskip 0.3cm
+          We'll consider the null hypothesis and alternate hypothesis below and perform a single-tailed test using the accuracies
+          obtained in the previous answer,
+
+          $$
+              \begin{aligned}
+                  H_0: & \quad\text{accuracy}_{k\text{NN}} = \text{accuracy}_{\text{Naïve Bayes}} \\
+                  H_1: & \quad\text{accuracy}_{k\text{NN}} > \text{accuracy}_{\text{Naïve Bayes}}
+              \end{aligned}
+          $$
+
           \lstinputlisting[language=Python]{./assets/code_1b.py}
 
-          \textbf{Answer:} Fail to reject null hypothesis: No significant difference in accuracy between kNN and Naive Bayes
+          Using \texttt{scipy} we get a p-value of, approximately, 0.190428 = 19.0428 \%.
+
+          This means we cannot reject the hypothesis $H_0$ at common significance levels (1\%, 5\% and 10\%).
+
+          \textbf{Therefore,} we cannot assert that \textit{k}NN is statistically superior to Naïve Bayes. We also cannot
+          state that the hypothesis on the statement is outright false without checking other statistical tests.
           \end{enumerate}
 
-    \item \textbf{Consider two kNN predictors with k = 1 and k = 5 (uniform weights, Euclidean distance,
+    \item \textbf{Consider two \textit{k}NN predictors with k = 1 and k = 5 (uniform weights, Euclidean distance,
           all remaining parameters as default). Plot the differences between the two cumulative confusion
           matrices of the predictors. Comment.}
 
@@ -151,17 +166,24 @@ cross-validation with shuffling (\texttt{random\_state=0}) for the assessment of
           \begin{figure}[H]
               \centering
               \includegraphics[width=13cm]{./assets/cummulative_heatmap_ex2_PartII.png}
-              \caption{Confusion Matrix Differences Between k=1 and k=5 k-Nearest Neighbors (kNN) Classifiers}
+              \caption{Confusion Matrix Differences Between k=1 and k=5 k-Nearest Neighbors (\textit{k}NN) Classifiers}
               \label{fig:PartII-ex2}
           \end{figure}
 
           Blah % TODO: Need to comment the plot
 
     \item \textbf{Considering the unique properties of \texttt{column\_diagnosis}, identify three possible difficulties
-          of naïve Bayes when learning from the given dataset.}
+          of Naïve Bayes when learning from the given dataset.}
 
           \vskip 0.3cm
-          Gonçalo
+          Here are three possible difficulties of Naïve Bayes when learning from the given dataset,
+          in no particular order:
+
+          \begin{itemize}
+              \item Variable dependencies (inadequacy of independence assumption).
+              \item Variables not normally distributed (inadequacy of Gaussian assumption). Probability estimates from a limited number of observations (e.g., inadequate estimates, null probabilities).
+              \item Imbalanced class creating biases in MAP estimates via priors.
+          \end{itemize}
 \end{enumerate}
 
 \end{document}
