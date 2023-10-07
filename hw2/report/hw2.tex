@@ -97,37 +97,23 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
 
           \vskip 0.3cm
           
-          To do the \textbf{binarization procedure} with an \textbf{equal-width discretization}, we need to find the range of values
-            for $y_2$ and then divide it into two intervals. Bellow are the calculations of the intervals:
-
-
-          \begin{center}
-            $y_2$ ranges from 0.11 to 0.72 
-          \end{center}
-
-          \textbf{Therefore}, the width shall be:
+          To do the \textbf{binarization procedure} with an \textbf{equal-width discretization}, we need to divide $y_2$ into two intervals. Which are:
 
           \begin{equation*}
-            width = \frac{0.72 - 0.11}{2} = 0.305
-          \end{equation*}
-
-          \textbf{Now,} we can finally separate $y_2$ into two intervals:
-
-          \begin{equation*}
-            interval_1 = [0.11, 0.11 + 0.305] = [0.11, 0.415]
+            interval_1 = [0, 0.5]
           \end{equation*}
 
           \begin{equation*}
-            interval_2 = [0.72 - 0.305, 0.72] = [0.415, 0.72]
+            interval_2 = [0.5, 1]
           \end{equation*}
 
-          \textbf{Here is the binazation of $y_2$} based on those intervals:
+          \textbf{Here is the binarization of $y_2$} based on those intervals:
           \begin{center}
             \begin{tabular}{c|cccccc}
                 \(D\) & \(y_1\) & \(y_2\) & \(y_3\) & \(y_4\) & \(y_5\) & \(y_6\)\\
                 \hline
                 \(x_1\) & 0.24 & 0 & 1 & 1 & 0 & A  \\
-                \(x_2\) & 0.16 & 1 & 1 & 0 & 1 & A  \\
+                \(x_2\) & 0.16 & 0 & 1 & 0 & 1 & A  \\
                 \(x_3\) & 0.32 & 1 & 0 & 1 & 2 & A  \\
                 \(x_4\) & 0.54 & 0 & 0 & 0 & 1 & B  \\
                 \(x_5\) & 0.66 & 0 & 0 & 0 & 0 & B  \\
@@ -153,7 +139,7 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
                 \(D\) & \(y_1\) & \(y_2\) & \(y_3\) & \(y_4\) & \(y_5\) & \(y_6\)\\
                 \hline
                 \(x_1\) & 0.24 & 0 & 1 & 1 & 0 & A  \\
-                \(x_2\) & 0.16 & 1 & 1 & 0 & 1 & A  \\
+                \(x_2\) & 0.16 & 0 & 1 & 0 & 1 & A  \\
                 \(x_3\) & 0.32 & 1 & 0 & 1 & 2 & A  \\
             \end{tabular}
           \end{center}
@@ -186,14 +172,14 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
 
           \vskip 0.3cm
 
-          The formula for \textbf{weighted average} is the following:
+          The formula for \textbf{weighted average}, considering that k=3, is the following:
 
           \begin{equation}\label{exI2-a-WA}
             \text{Weighted Average} = \frac{{\frac{1}{{d_1}} \cdot y_1 + \frac{1}{{d_2}} \cdot y_2 + \frac{1}{{d_3}} \cdot y_3}}{{\frac{1}{{d_1}} + \frac{1}{{d_2}} + \frac{1}{{d_3}}}}
           \end{equation}
 
           
-          The formula for the \textbf{mean absolute error} is given by:
+          And the equation for the \textbf{mean absolute error} is given by:
 
           \begin{equation}\label{exI2-a-MAE}
               MAE = \frac{1}{n} \sum_{i=1}^{n} \left| y_i - \hat{y}_i \right|     
@@ -206,7 +192,7 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
             \begin{tabular}{c|cccccc}
                 \(H(x_7,x_j)\)& \(x_1\) & \(x_2\) & \(x_3\) & \(x_4\) & \(x_5\) &\(x_6\) \\
                 \hline
-                               & 4 & 3 & 2 & 2 & 3 & 4 \\
+                               & 4 & 4 & 2 & 2 & 3 & 4 \\
             \end{tabular}
           \end{center}
           
@@ -217,7 +203,7 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
             \begin{tabular}{c|cccccc}
                 \(H(x_8,x_j)\)& \(x_1\) & \(x_2\) & \(x_3\) & \(x_4\) & \(x_5\) &\(x_6\) \\
                 \hline
-                               & 2 & 3 & 1 & 4 & 3 & 5 \\
+                               & 2 & 4 & 1 & 4 & 3 & 5 \\
             \end{tabular}
           \end{center}
 
@@ -227,32 +213,32 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
             \begin{tabular}{c|cccccc}
                 \(H(x_9,x_j)\)& \(x_1\) & \(x_2\) & \(x_3\) & \(x_4\) & \(x_5\) &\(x_6\) \\
                 \hline
-                               & 4 & 3 & 2 & 2 & 3 & 4 \\
+                               & 4 & 4 & 2 & 2 & 3 & 4 \\
             \end{tabular}
           \end{center}
 
           Now let's determine the \textbf{three closest neighbors} to each test observation:
           
           \begin{itemize}
-            \item For $x_7$ it is $x_2$, $x_3$ and $x_4$
-            \item For $x_8$ it is $x_1$, $x_2$ and $x_3$
-            \item For $x_9$ it is $x_2$, $x_3$ and $x_4$
+            \item For $x_7$ it is $x_3$, $x_4$ and $x_5$
+            \item For $x_8$ it is $x_1$, $x_3$ and $x_5$
+            \item For $x_9$ it is $x_3$, $x_4$ and $x_5$
           \end{itemize}
 
-          The next step is calculating their \textbf{weighted average}, replacing by the
+          The next step is calculating their \textbf{weighted average}. By replacing the
            formula on \eqref{exI2-a-WA}, we get the following values:
             
           \begin{center}
-            Weighted average for $x_7$ = 0.37375 \\
-            Weighted average for $x_8$ $\approx$ 0.26909 \\
-            Weighted average for $x_9$ = 0.37375 \\
+            Weighted average for $x_7$ = 0.4875 \\
+            Weighted average for $x_8$ = 0.36   \\
+            Weighted average for $x_9$ = 0.4875 \\
           \end{center}
           
           \textbf{Finally,} let's compute the mean absolute error by using the equation 
            on \eqref{exI2-a-MAE}:
 
            \begin{equation*}
-            MAE = 0.06447
+            MAE = 0.055
            \end{equation*}
 
           \end{enumerate}
