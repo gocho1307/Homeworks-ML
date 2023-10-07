@@ -96,7 +96,89 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
           \item \textbf{Identify the observations and features per data fold after the binarization procedure.}
 
           \vskip 0.3cm
-          Raquel
+          
+          To do the \textbf{binarization procedure} with an \textbf{equal-width discretization}, we need to find the range of values
+            for $y_2$ and then divide it into two intervals. Bellow are the calculations of the intervals:
+
+
+          \begin{center}
+            $y_2$ ranges from 0.11 to 0.72 
+          \end{center}
+
+          \textbf{Therefore}, the width shall be:
+
+          \begin{equation*}
+            width = \frac{0.72 - 0.11}{2} = 0.305
+          \end{equation*}
+
+          \textbf{Now,} we can finally separate $y_2$ into two intervals:
+
+          \begin{equation*}
+            interval_1 = [0.11, 0.11 + 0.305] = [0.11, 0.415]
+          \end{equation*}
+
+          \begin{equation*}
+            interval_2 = [0.72 - 0.305, 0.72] = [0.415, 0.72]
+          \end{equation*}
+
+          \textbf{Here is the binazation of $y_2$} based on those intervals:
+          \begin{center}
+            \begin{tabular}{c|cccccc}
+                \(D\) & \(y_1\) & \(y_2\) & \(y_3\) & \(y_4\) & \(y_5\) & \(y_6\)\\
+                \hline
+                \(x_1\) & 0.24 & 0 & 1 & 1 & 0 & A  \\
+                \(x_2\) & 0.16 & 1 & 1 & 0 & 1 & A  \\
+                \(x_3\) & 0.32 & 1 & 0 & 1 & 2 & A  \\
+                \(x_4\) & 0.54 & 0 & 0 & 0 & 1 & B  \\
+                \(x_5\) & 0.66 & 0 & 0 & 0 & 0 & B  \\
+                \(x_6\) & 0.76 & 0 & 1 & 0 & 2 & B  \\
+                \(x_7\) & 0.41 & 1 & 0 & 1 & 1 & B  \\
+                \(x_8\) & 0.38 & 1 & 0 & 1 & 0 & A  \\
+                \(x_9\) & 0.42 & 1 & 0 & 1 & 1 & B  \\
+            \end{tabular}
+          \end{center}
+
+          \textbf{The next step} is identifying our folds, which will be:
+          \begin{center}
+            Fold 1 = $x_1$ $x_2$ $x_3$  \\
+            Fold 2 = $x_4$ $x_5$ $x_6$ \\
+            Fold 3 = $x_7$ $x_8$ $x_9$ \\
+          \end{center}
+
+          \textbf{So} our datasets will be:
+
+          \begin{center}
+            \textbf{Fold 1} \\
+            \begin{tabular}{c|cccccc}
+                \(D\) & \(y_1\) & \(y_2\) & \(y_3\) & \(y_4\) & \(y_5\) & \(y_6\)\\
+                \hline
+                \(x_1\) & 0.24 & 0 & 1 & 1 & 0 & A  \\
+                \(x_2\) & 0.16 & 1 & 1 & 0 & 1 & A  \\
+                \(x_3\) & 0.32 & 1 & 0 & 1 & 2 & A  \\
+            \end{tabular}
+          \end{center}
+
+          \begin{center}
+            \textbf{Fold 2} \\
+            \begin{tabular}{c|cccccc}
+                \(D\) & \(y_1\) & \(y_2\) & \(y_3\) & \(y_4\) & \(y_5\) & \(y_6\)\\
+                \hline
+                \(x_4\) & 0.54 & 0 & 0 & 0 & 1 & B  \\
+                \(x_5\) & 0.66 & 0 & 0 & 0 & 0 & B  \\
+                \(x_6\) & 0.76 & 0 & 1 & 0 & 2 & B  \\
+            \end{tabular}
+          \end{center}
+
+          \begin{center}
+            \textbf{Fold 3} \\
+            \begin{tabular}{c|cccccc}
+                \(D\) & \(y_1\) & \(y_2\) & \(y_3\) & \(y_4\) & \(y_5\) & \(y_6\)\\
+                \hline
+                \(x_7\) & 0.41 & 1 & 0 & 1 & 1 & B  \\
+                \(x_8\) & 0.38 & 1 & 0 & 1 & 0 & A  \\
+                \(x_9\) & 0.42 & 1 & 0 & 1 & 1 & B  \\
+            \end{tabular}
+          \end{center}
 
     \item \textbf{Consider a distance-weighted \textit{k}NN with k = 3, Hamming distance (\textit{d}), and 1 / \textit{d} weighting.
           Compute the MAE of this \textit{k}NN regressor for the $1^{st}$ iteration of the cross-validation (i.e. train
