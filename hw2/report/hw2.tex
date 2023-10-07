@@ -185,7 +185,76 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
           observations have the lower indices).}
 
           \vskip 0.3cm
-          Raquel
+
+          The formula for \textbf{weighted average} is the following:
+
+          \begin{equation}\label{exI2-a-WA}
+            \text{Weighted Average} = \frac{{\frac{1}{{d_1}} \cdot y_1 + \frac{1}{{d_2}} \cdot y_2 + \frac{1}{{d_3}} \cdot y_3}}{{\frac{1}{{d_1}} + \frac{1}{{d_2}} + \frac{1}{{d_3}}}}
+          \end{equation}
+
+          
+          The formula for the \textbf{mean absolute error} is given by:
+
+          \begin{equation}\label{exI2-a-MAE}
+              MAE = \frac{1}{n} \sum_{i=1}^{n} \left| y_i - \hat{y}_i \right|     
+          \end{equation}
+
+          As stated in the prompt, we will use Folds 1 and 2 for training, reserving Fold 3 for testing. Let's start by computing
+           the \textbf{Hamming distances}, for $x_7$ first:
+
+           \begin{center}
+            \begin{tabular}{c|cccccc}
+                \(H(x_7,x_j)\)& \(x_1\) & \(x_2\) & \(x_3\) & \(x_4\) & \(x_5\) &\(x_6\) \\
+                \hline
+                               & 4 & 3 & 2 & 2 & 3 & 4 \\
+            \end{tabular}
+          \end{center}
+          
+
+          \textbf{Now,} for $x_8$:
+
+          \begin{center}
+            \begin{tabular}{c|cccccc}
+                \(H(x_8,x_j)\)& \(x_1\) & \(x_2\) & \(x_3\) & \(x_4\) & \(x_5\) &\(x_6\) \\
+                \hline
+                               & 2 & 3 & 1 & 4 & 3 & 5 \\
+            \end{tabular}
+          \end{center}
+
+          \textbf{Finally,} for $x_9$:
+
+          \begin{center}
+            \begin{tabular}{c|cccccc}
+                \(H(x_9,x_j)\)& \(x_1\) & \(x_2\) & \(x_3\) & \(x_4\) & \(x_5\) &\(x_6\) \\
+                \hline
+                               & 4 & 3 & 2 & 2 & 3 & 4 \\
+            \end{tabular}
+          \end{center}
+
+          Now let's determine the \textbf{three closest neighbors} to each test observation:
+          
+          \begin{itemize}
+            \item For $x_7$ it is $x_2$, $x_3$ and $x_4$
+            \item For $x_8$ it is $x_1$, $x_2$ and $x_3$
+            \item For $x_9$ it is $x_2$, $x_3$ and $x_4$
+          \end{itemize}
+
+          The next step is calculating their \textbf{weighted average}, replacing by the
+           formula on \eqref{exI2-a-WA}, we get the following values:
+            
+          \begin{center}
+            Weighted average for $x_7$ = 0.37375 \\
+            Weighted average for $x_8$ $\approx$ 0.26909 \\
+            Weighted average for $x_9$ = 0.37375 \\
+          \end{center}
+          
+          \textbf{Finally,} let's compute the mean absolute error by using the equation 
+           on \eqref{exI2-a-MAE}:
+
+           \begin{equation*}
+            MAE = 0.06447
+           \end{equation*}
+
           \end{enumerate}
 \end{enumerate}
 
