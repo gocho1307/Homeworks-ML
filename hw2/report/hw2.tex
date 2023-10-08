@@ -664,13 +664,17 @@ cross-validation with shuffling (\texttt{random\_state=0}) for the assessment of
           of Naïve Bayes when learning from the given dataset.}
 
           \vskip 0.3cm
-          Here are three possible difficulties of Naïve Bayes when learning from the given dataset,
-          in no particular order:
+          Here are three possible difficulties of Naïve Bayes when learning from the given dataset, in no particular order:
 
-          \begin{itemize} % TODO: Finish these comments
-              \item Variable dependencies (inadequacy of independence assumption).
-              \item Variables not normally distributed (inadequacy of Gaussian assumption). Probability estimates from a limited number of observations (e.g., inadequate estimates, null probabilities).
-              \item Imbalanced class creating biases in MAP estimates via priors.
+          \begin{itemize}
+              \item To apply Naïve Bayes, we assumed that all variables were independent of one another, which might not be case, thus explaining a
+                    potential problem that would hinder its accuracy.
+              \item There may be an inadequacy of Gaussian assumption, because the data used (\texttt{column\_diagnosis.arff}) isn't very big
+                    (around 300 observations, with only some being used for training), and so there isn't much data for probability density
+                    function/probability mass function approximations.
+              \item Probabilities are estimated based on the number of occurences on the given training data, and so there might be imbalanced
+                    number of occurences for some given class. This might affect the value of the prior, creating biases in a Maximum a Priori
+                    assumption.
           \end{itemize}
 \end{enumerate}
 

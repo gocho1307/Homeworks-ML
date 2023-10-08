@@ -1,5 +1,5 @@
 from scipy.stats import ttest_rel
 
-# Is knn better than naive bayes?
+# Is kNN better than Naive Bayes?
 res = ttest_rel(knn_accs, nb_accs, alternative="greater")
-print("Is knn > naive bayes? pval =", res.pvalue)
+print("Is kNN > Naive Bayes? pval =", res.pvalue)
