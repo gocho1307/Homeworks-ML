@@ -66,12 +66,273 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
                 parameters (distributions and priors for subsequent testing).}
 
           \vskip 0.3cm
-          Gonçalo
+          As stated by the question prompt, variable sets \(\left\{y_1, y_2\right\}\), \(\left\{y_3, y_4\right\}\) and \(\left\{y_5\right\}\) are independent.
+          Since we have seven training observations, we'll use those to train a Bayesian classifier.
 
-          \item \textbf{Under a MAP assumption, classify each testing observation showing all your calculus.}
+          We'll refer to the outcome, which can be A or B, as class.
+
+          To estimate $P(\text{class} | y_1, y_2, y_3, y_4, y_5)$, we can use Bayes' theorem:
+
+          \begin{equation}\label{ex1-bayes1}
+              P(\text{class}| y_1, y_2, y_3, y_4, y_5) = \frac{P(y_1, y_2, y_3, y_4, y_5 | \text{class}) \times P(\text{class})}{P(y_1, y_2, y_3, y_4, y_5)}
+          \end{equation}
+
+          Since we know $\left\{y_1, y_2\right\}$, $\left\{y_3, y_4\right\}$ and $\left\{y_5\right\}$ are independent,
+          we can rewrite $P(y_1, y_2, y_3, y_4, y_5)$ as $P(y_1, y_2) \cdot P(y_3, y_4) \cdot P(y_5)$.
+          Rewriting \eqref{ex1-bayes1} with this, results in:
+
+          \begin{equation}\label{ex1-bayes2}
+              P(\text{class}| y_1, y_2, y_3, y_4, y_5) = \frac{P(y_1, y_2 | \text{class}) P(y_3, y_4 | \text{class}) P(y_5 | \text{class}) \times P(\text{class})}{P(y_1, y_2)P(y_3, y_4)P(y_5)}
+          \end{equation}
+
+          Given a new observation $O$, we are able to classify it by calculating $P(\text{class}|O)$ for all classes and selecting the class with the
+          highest probability as our prediction.
+
+          \begin{equation}\label{ex1-map}
+              \begin{aligned}
+                  \hat{z} & = \underset{c \in \{A, B\}}{\text{arg max}} \medspace \left\{P(\text{c} | O)\right\}  \\
+                          & = \underset{c \in \{A, B\}}{\text{arg max}} \medspace \left\{\frac{P(y_1, y_2 | c) P(y_3, y_4 | c) P(y_5 | c) \times P(c)}{P(y_1, y_2) P(y_3, y_4) P(y_5)}\right\} \\
+                          & = \underset{c \in \{A, B\}}{\text{arg max}} \medspace \left\{P(y_1, y_2 | c) P(y_3, y_4 | c) P(y_5 | c) \times P(c)\right\}
+                          & \parbox{15em}{(we can remove parameters that don't depend on $c$)}
+              \end{aligned}
+          \end{equation}
+
+          We can therefore start calculating all these parameters.
+
+          \textbf{Note:} Even though $P(y_1, y_2)$, $P(y_3, y_4)$ and $P(y_5)$ are not necessary
+          to apply the model, we'll still calculate them for the sake of showing
+          all parameters.
+
+          Calculating $P(\text{A})$, $P(\text{B})$ and all parameters involving $y_1$ through
+          $y_5$ is straightforward, since they can be infered from the table.
+
+          We have 3 observations of A and 4 observations of B, out of a total of 7 training observations.
+          Therefore,
+
+          \[
+              \begin{array}{cc}
+                  P(\text{A}) = \frac{3}{7} &
+                  P(\text{B}) = \frac{4}{7}
+              \end{array}
+          \]
+
+          In a similiar manner we can obtain the probabilities for $y_5$,
+
+          \[
+              \begin{array}{ccc}
+                  P(y_5 = 0) = \frac{2}{7} &
+                  P(y_5 = 1) = \frac{3}{7} &
+                  P(y_5 = 2) = \frac{2}{7}
+              \end{array}
+          \]
+
+          Now for the conditional probabilities of $y_5$,
+
+          \[
+              \begin{array}{ccc}
+                  P(y_5 = 0 \ | \text{A}) = \frac{1}{3}, &
+                  P(y_5 = 1 \ | \text{A}) = \frac{1}{3}, &
+                  P(y_5 = 2 \ | \text{A}) = \frac{1}{3}    \\[\medskipamount]
+                  P(y_5 = 0 \ | \text{B}) = \frac{1}{4}, &
+                  P(y_5 = 1 \ | \text{B}) = \frac{2}{4}, &
+                  P(y_5 = 2 \ | \text{B}) = \frac{1}{4}
+              \end{array}
+          \]
+
+          For the four possible combinations of $y_3$ and $y_4$ we can follow
+          the same logic as above,
+
+          \[
+              \begin{array}{cc}
+                  P(y_3 = 0, \ y_4 = 0) = \frac{2}{7}, &
+                  P(y_3 = 0, \ y_4 = 1) = \frac{2}{7}    \\[\medskipamount]
+                  P(y_3 = 1, \ y_4 = 0) = \frac{2}{7}, &
+                  P(y_3 = 1, \ y_4 = 1) = \frac{1}{7}
+              \end{array}
+          \]
+
+          Finally, considering each class and the four possible combinations
+          of $y_3$ and $y_4$, we can use the table to calculate the following:
+
+          \[
+              \begin{array}{cc}
+                  P(y_3 = 0, \ y_4 = 0 \ | \text{A}) = \frac{0}{3}, &
+                  P(y_3 = 0, \ y_4 = 1 \ | \text{A}) = \frac{1}{3}    \\[\medskipamount]
+                  P(y_3 = 1, \ y_4 = 0 \ | \text{A}) = \frac{1}{3}, &
+                  P(y_3 = 1, \ y_4 = 1 \ | \text{A}) = \frac{1}{3}
+              \end{array}
+          \]
+
+          \[
+              \begin{array}{cc}
+                  P(y_3 = 0, \ y_4 = 0 \ | \text{B}) = \frac{2}{4}, &
+                  P(y_3 = 0, \ y_4 = 1 \ | \text{B}) = \frac{1}{4}    \\[\medskipamount]
+                  P(y_3 = 1, \ y_4 = 0 \ | \text{B}) = \frac{1}{4}, &
+                  P(y_3 = 1, \ y_4 = 1 \ | \text{B}) = \frac{0}{4}
+              \end{array}
+          \]
+
+          Calculating now the parameters related to the variable set $\left\{y_1, y_2\right\}$. We know that $(y_1, y_2)$ follows a Multivariate Gaussian Distribution.
+          Therefore,
+
+          \begin{equation}\label{ex1-normal}
+              P\left((y_1, y_2) | \boldsymbol{\mu}, \Sigma\right)
+              = \mathcal{N}\left((y_1, y_2) | \boldsymbol{\mu}, \Sigma\right)
+          \end{equation}
+
+          We can use the observations we have to approximate a value for the
+          2-dimensional mean vector ($\boldsymbol{\mu}$) and the covariance matrix ($\Sigma$).
+
+          $$
+              \begin{aligned}
+                  \boldsymbol{\mu} = \frac{1}{7} \sum^{7}_{i=1} \begin{bmatrix}y_{1,i} \\y_{2,i} \\\end{bmatrix} & =
+                      \frac{1}{7}
+                      \left(\begin{bmatrix}0.24 \\0.36 \\\end{bmatrix} +
+                      \begin{bmatrix}0.16 \\0.48 \\\end{bmatrix} +
+                      \begin{bmatrix}0.32 \\0.72 \\\end{bmatrix} +
+                      \begin{bmatrix}0.54 \\0.11 \\\end{bmatrix} +
+                      \begin{bmatrix}0.66 \\0.39 \\\end{bmatrix} +
+                      \begin{bmatrix}0.76 \\0.28 \\\end{bmatrix} +
+                      \begin{bmatrix}0.41 \\0.53 \\\end{bmatrix}\right) \\
+                      & = \begin{bmatrix}0.4414 \\0.41 \\\end{bmatrix}
+              \end{aligned}
+          $$
+          $$
+              \begin{aligned}
+                  \Sigma_{00} & = \frac{1}{N-1} \sum^{N}_{i=1} (y_{1,i} - \mu_{1})^2 = \frac{1}{7-1} \left[(0.24-0.4414)^2 + \dots + (0.41-0.4414)^2\right] \approx 0.0491 \\
+                  \Sigma_{11} & = \frac{1}{N-1} \sum^{N}_{i=1} (y_{2,i} - \mu_{2})^2 = \frac{1}{7-1} \left[(0.36-0.41)^2 + \dots + (0.53-0.41)^2\right] \approx 0.0375 \\
+                  \Sigma_{01} & = \Sigma_{10} = \frac{1}{N-1} \sum^{N}_{i=1} (y_{1,i} - \mu_{1})(y_{2,i} - \mu_{2}) \\
+                              & = \frac{1}{7-1} \left[(0.24-0.4414)(0.36-0.41) + \dots + (0.41-0.4414)(0.53-0.41)\right] \\
+                              & \approx -0.0211
+              \end{aligned}
+          $$
+          $$
+              \begin{aligned}
+                  \Sigma & = \begin{bmatrix}\Sigma_{00} & \Sigma_{10}\\ \Sigma_{01} & \Sigma_{11}\end{bmatrix} = \begin{bmatrix}0.0491 & -0.0211 \\-0.0211 & 0.0375 \\\end{bmatrix}
+              \end{aligned}
+          $$
+
+          Therefore, $P(y_1, y_2) \sim \mathcal{N}\left((y_1, y_2) | \boldsymbol{\mu} = \begin{bmatrix}0.4414 \\0.41 \\\end{bmatrix},
+              \Sigma = \begin{bmatrix}0.0491 & -0.0211 \\-0.0211 & 0.0375 \\\end{bmatrix}\right)$.
+
+          We can repeat the process for both classes (A and B).\\
+          Starting with A:
+
+          $$
+              \begin{aligned}
+                  \boldsymbol{\mu} = \frac{1}{3} \sum^{3}_{i=1} \begin{bmatrix}y_{1,i} | \text{A} \\y_{2,i} | \text{A} \\\end{bmatrix} & =
+                      \frac{1}{3}
+                      \left(\begin{bmatrix}0.24 \\0.36 \\\end{bmatrix} +
+                      \begin{bmatrix}0.16 \\0.48 \\\end{bmatrix} +
+                      \begin{bmatrix}0.32 \\0.72 \\\end{bmatrix}\right)
+                      = \begin{bmatrix}0.24 \\0.52 \\\end{bmatrix}
+              \end{aligned}
+          $$
+          $$
+              \begin{aligned}
+                  \Sigma_{00} & = \frac{1}{N-1} \sum^{N}_{i=1} (y_{1,i} | \text{A} - \mu_{1})^2 = \frac{1}{3-1} \left[(0.24-0.24)^2 + \dots + (0.32-0.24)^2\right] \approx 0.0064 \\
+                  \Sigma_{11} & = \frac{1}{N-1} \sum^{N}_{i=1} (y_{2,i} | \text{A} - \mu_{2})^2 = \frac{1}{3-1} \left[(0.36-0.52)^2 + \dots + (0.72-0.52)^2\right] \approx 0.0336 \\
+                  \Sigma_{01} & = \Sigma_{10} = \frac{1}{N-1} \sum^{N}_{i=1} (y_{1,i} | \text{A} - \mu_{1})(y_{2,i} | \text{A} - \mu_{2}) \\
+                              & = \frac{1}{3-1} \left[(0.24-0.24)(0.36-0.52) + \dots + (0.32-0.24)(0.72-0.52)\right] \approx 0.0096
+              \end{aligned}
+          $$
+          $$
+              \begin{aligned}
+                  \Sigma & = \begin{bmatrix}\Sigma_{00} & \Sigma_{10}\\ \Sigma_{01} & \Sigma_{11}\end{bmatrix} = \begin{bmatrix}0.0064 & 0.0096 \\0.0096 & 0.0336 \\\end{bmatrix}
+              \end{aligned}
+          $$
+
+          Therefore, $P(y_1, y_2|\text{A}) \sim \mathcal{N}\left((y_1, y_2) | \boldsymbol{\mu} = \begin{bmatrix}0.24 \\0.52 \\\end{bmatrix},
+              \Sigma = \begin{bmatrix}0.0064 & 0.0096 \\0.0096 & 0.0336 \\\end{bmatrix}\right)$.
+
+          And now the B:
+
+          $$
+              \begin{aligned}
+                  \boldsymbol{\mu} = \frac{1}{4} \sum^{4}_{i=1} \begin{bmatrix}y_{1,i} | \text{B} \\y_{2,i} | \text{B} \\\end{bmatrix} & =
+                      \frac{1}{4}
+                      \left(\begin{bmatrix}0.54 \\0.11 \\\end{bmatrix} +
+                      \begin{bmatrix}0.66 \\0.39 \\\end{bmatrix} +
+                      \begin{bmatrix}0.76 \\0.28 \\\end{bmatrix} +
+                      \begin{bmatrix}0.41 \\0.53 \\\end{bmatrix}\right)
+                      = \begin{bmatrix}0.5925 \\0.3275 \\\end{bmatrix}
+              \end{aligned}
+          $$
+          $$
+              \begin{aligned}
+                  \Sigma_{00} & = \frac{1}{N-1} \sum^{N}_{i=1} (y_{1,i} | \text{B} - \mu_{1})^2 = \frac{1}{4-1} \left[(0.54-0.5925)^2 + \dots + (0.41-0.5925)^2\right] \approx 0.0229 \\
+                  \Sigma_{11} & = \frac{1}{N-1} \sum^{N}_{i=1} (y_{2,i} | \text{B} - \mu_{2})^2 = \frac{1}{4-1} \left[(0.11-0.3275)^2 + \dots + (0.53-0.3275)^2\right] \approx 0.0315 \\
+                  \Sigma_{01} & = \Sigma_{10} = \frac{1}{N-1} \sum^{N}_{i=1} (y_{1,i} | \text{B} - \mu_{1})(y_{2,i} | \text{B} - \mu_{2}) \\
+                              & = \frac{1}{4-1} \left[(0.54-0.5925)(0.11-0.3275) + \dots + (0.41-0.5925)(0.53-0.3275)\right] \approx -0.0098
+              \end{aligned}
+          $$
+          $$
+              \begin{aligned}
+                  \Sigma & = \begin{bmatrix}\Sigma_{00} & \Sigma_{10}\\ \Sigma_{01} & \Sigma_{11}\end{bmatrix} = \begin{bmatrix}0.0229 & -0.0098 \\-0.0098 & 0.0315 \\\end{bmatrix}
+              \end{aligned}
+          $$
+
+          Therefore, $P(y_1, y_2|\text{B}) \sim \mathcal{N}\left((y_1, y_2) | \boldsymbol{\mu} = \begin{bmatrix}0.5925 \\0.3275 \\\end{bmatrix},
+              \Sigma = \begin{bmatrix}0.0229 & -0.0098 \\-0.0098 & 0.0315 \\\end{bmatrix}\right)$.
+
+          We now have all the parameters necessary to apply the Bayesian classifier to new observations.
+
+          \item \textbf{Under a MAP assumption, classify each testing observation showing all of your calculus.}
 
           \vskip 0.3cm
-          Gonçalo
+          Since we will need the ($y_1$, $y_2$) pdf values for the following exercises, let's calculate them using \texttt{scipy.multivariate\_normal}, just like it was suggested in the hint:
+
+          \lstinputlisting[language=Python]{./assets/code_multivariate_normal.py}
+
+          From the code above we get the following:
+          \[
+              \begin{array}{cc}
+                  P(y_1 = 0.38, y_2 = 0.52) \approx 3.6225, &
+                  P(y_1 = 0.42, y_2 = 0.59) \approx 2.5387
+              \end{array}
+          \]
+          \[
+              \begin{array}{cc}
+                  P(y_1 = 0.38, y_2 = 0.52 | A) \approx 0.9847, &
+                  P(y_1 = 0.38, y_2 = 0.52 | B) \approx 1.9623     \\[\medskipamount]
+                  P(y_1 = 0.42, y_2 = 0.59 | A) \approx 0.4031, &
+                  P(y_1 = 0.42, y_2 = 0.59 | B) \approx 1.7285
+              \end{array}
+          \]
+
+          Since we are under a Maximum a Posteriori assumption, we can just use the expression at \eqref{ex1-map}
+          and replace the values for each of the testing observations ($x_8$ and $x_9$).\\
+          Starting with $x_8$:
+          $$
+              \begin{aligned}
+                  P(y_1 = 0.38, y_2 = 0.52 | A) P(y_3 = 0, y_4 = 1 | A) P(y_5 = 0 | A) \times P(A) & = 0.9847 \times \frac{1}{3} \times \frac{1}{3} \times \frac{3}{7} \approx 0.04689 \\
+                  P(y_1 = 0.38, y_2 = 0.52 | B) P(y_3 = 0, y_4 = 1 | B) P(y_5 = 0 | B) \times P(B) & = 1.9623 \times \frac{1}{4} \times \frac{1}{4} \times \frac{4}{7} \approx 0.07008
+              \end{aligned}
+          $$
+          $$
+              \begin{aligned}
+                  \hat{z}_{x_8} & = \underset{c \in \{A, B\}}{\text{arg max}} \medspace \left\{P(y_1 = 0.38, y_2 = 0.52 | c) P(y_3 = 0, y_4 = 1 | c) P(y_5 = 0 | c) \times P(c)\right\}  \\
+                          & = \text{arg max} \medspace \left\{P(y_1, y_2 | A) P(y_3, y_4 | A) P(y_5 | A) \times P(A); P(y_1, y_2 | B) P(y_3, y_4 | B) P(y_5 | B) \times P(B)\right\} \\
+                          & = B
+              \end{aligned}
+          $$
+
+          And now with $x_9$:
+          $$
+              \begin{aligned}
+                  P(y_1 = 0.42, y_2 = 0.59 | A) P(y_3 = 0, y_4 = 1 | A) P(y_5 = 1 | A) \times P(A) & = 0.4031 \times \frac{1}{3} \times \frac{1}{3} \times \frac{3}{7} \approx 0.0192 \\
+                  P(y_1 = 0.42, y_2 = 0.59 | B) P(y_3 = 0, y_4 = 1 | B) P(y_5 = 1 | B) \times P(B) & = 1.7285 \times \frac{1}{4} \times \frac{2}{4} \times \frac{4}{7} \approx 0.1235
+              \end{aligned}
+          $$
+          $$
+              \begin{aligned}
+                  \hat{z}_{x_9} & = \underset{c \in \{A, B\}}{\text{arg max}} \medspace \left\{P(y_1 = 0.42, y_2 = 0.59 | c) P(y_3 = 0, y_4 = 1 | c) P(y_5 = 1 | c) \times P(c)\right\}  \\
+                          & = \text{arg max} \medspace \left\{P(y_1, y_2 | A) P(y_3, y_4 | A) P(y_5 | A) \times P(A); P(y_1, y_2 | B) P(y_3, y_4 | B) P(y_5 | B) \times P(B)\right\} \\
+                          & = B
+              \end{aligned}
+          $$
+
+          \textbf{Therefore}, we conclude that under a MAP assumption, observations $x_8$ and $x_9$ will be classified with B and B, respectively.
 
           \item \textbf{Consider that the default decision threshold of $\theta = 0.5$ can be adjusted according to}
 
@@ -86,7 +347,7 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
                 \textbf{Under a maximum likelihood assumption, what thresholds optimize testing accuracy?}
 
           \vskip 0.3cm
-          Raquel
+          Blah % TODO: Need to check why the probabilites give such weird values
           \end{enumerate}
 
     \item \textbf{Let $y_1$ be the target numeric variable, $y_2$ - $y_6$ be the input variables where $y_2$ is binarized under an
@@ -96,15 +357,14 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
           \item \textbf{Identify the observations and features per data fold after the binarization procedure.}
 
           \vskip 0.3cm
-          
           To do the \textbf{binarization procedure} with an \textbf{equal-width discretization}, we need to divide $y_2$ into two intervals. Which are:
 
           \begin{equation*}
-            interval_1 = [0, 0.5]
+              \text{interval}_1 = [0, 0.5]
           \end{equation*}
 
           \begin{equation*}
-            interval_2 = [0.5, 1]
+              \text{interval}_2 = [0.5, 1]
           \end{equation*}
 
           \textbf{Here is the binarization of $y_2$} based on those intervals:
@@ -178,11 +438,10 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
             \text{Weighted Average} = \frac{{\frac{1}{{d_1}} \cdot y_1 + \frac{1}{{d_2}} \cdot y_2 + \frac{1}{{d_3}} \cdot y_3}}{{\frac{1}{{d_1}} + \frac{1}{{d_2}} + \frac{1}{{d_3}}}}
           \end{equation}
 
-          
           And the equation for the \textbf{mean absolute error} is given by:
 
           \begin{equation}\label{exI2-a-MAE}
-              MAE = \frac{1}{n} \sum_{i=1}^{n} \left| y_i - \hat{y}_i \right|     
+              MAE = \frac{1}{n} \sum_{i=1}^{n} \left| y_i - \hat{y}_i \right|
           \end{equation}
 
           As stated in the prompt, we will use Folds 1 and 2 for training, reserving Fold 3 for testing. Let's start by computing
@@ -190,20 +449,19 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
 
            \begin{center}
             \begin{tabular}{c|cccccc}
-                \(H(x_7,x_j)\)& \(x_1\) & \(x_2\) & \(x_3\) & \(x_4\) & \(x_5\) &\(x_6\) \\
+                               & \(x_1\) & \(x_2\) & \(x_3\) & \(x_4\) & \(x_5\) &\(x_6\) \\
                 \hline
-                               & 4 & 4 & 2 & 2 & 3 & 4 \\
+                \(H(x_7,x_j)\) & 4 & 4 & 2 & 2 & 3 & 4 \\
             \end{tabular}
           \end{center}
-          
 
           \textbf{Now,} for $x_8$:
 
           \begin{center}
             \begin{tabular}{c|cccccc}
-                \(H(x_8,x_j)\)& \(x_1\) & \(x_2\) & \(x_3\) & \(x_4\) & \(x_5\) &\(x_6\) \\
+                               & \(x_1\) & \(x_2\) & \(x_3\) & \(x_4\) & \(x_5\) &\(x_6\) \\
                 \hline
-                               & 2 & 4 & 1 & 4 & 3 & 5 \\
+                \(H(x_8,x_j)\) & 2 & 4 & 1 & 4 & 3 & 5 \\
             \end{tabular}
           \end{center}
 
@@ -211,14 +469,14 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
 
           \begin{center}
             \begin{tabular}{c|cccccc}
-                \(H(x_9,x_j)\)& \(x_1\) & \(x_2\) & \(x_3\) & \(x_4\) & \(x_5\) &\(x_6\) \\
+                               & \(x_1\) & \(x_2\) & \(x_3\) & \(x_4\) & \(x_5\) &\(x_6\) \\
                 \hline
-                               & 4 & 4 & 2 & 2 & 3 & 4 \\
+                \(H(x_9,x_j)\) & 4 & 4 & 2 & 2 & 3 & 4 \\
             \end{tabular}
           \end{center}
 
           Now let's determine the \textbf{three closest neighbors} to each test observation:
-          
+
           \begin{itemize}
             \item For $x_7$ it is $x_3$, $x_4$ and $x_5$
             \item For $x_8$ it is $x_1$, $x_3$ and $x_5$
@@ -227,14 +485,14 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
 
           The next step is calculating their \textbf{weighted average}. By replacing the
            formula on \eqref{exI2-a-WA}, we get the following values:
-            
+
           \begin{center}
             Weighted average for $x_7$ = 0.4875 \\
             Weighted average for $x_8$ = 0.36   \\
             Weighted average for $x_9$ = 0.4875 \\
           \end{center}
-          
-          \textbf{Finally,} let's compute the mean absolute error by using the equation 
+
+          \textbf{Finally,} let's compute the mean absolute error by using the equation
            on \eqref{exI2-a-MAE}:
 
            \begin{equation*}
@@ -316,7 +574,7 @@ cross-validation with shuffling (\texttt{random\_state=0}) for the assessment of
           Here are three possible difficulties of Naïve Bayes when learning from the given dataset,
           in no particular order:
 
-          \begin{itemize}
+          \begin{itemize} % TODO: Finish these comments
               \item Variable dependencies (inadequacy of independence assumption).
               \item Variables not normally distributed (inadequacy of Gaussian assumption). Probability estimates from a limited number of observations (e.g., inadequate estimates, null probabilities).
               \item Imbalanced class creating biases in MAP estimates via priors.
