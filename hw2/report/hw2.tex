@@ -8,7 +8,7 @@
 \usepackage[colorlinks=true]{hyperref}
 \usepackage{multirow}
 \usepackage{listings}
-\usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{float}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -277,7 +277,7 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
 
           We now have all the parameters necessary to apply the Bayesian classifier to new observations.
 
-          \item \textbf{Under a MAP assumption, classify each testing observation showing all of your calculus.}
+          \item \textbf{Under a MAP assumption, classify each testing observation showing all of your calculus.} \label{ex:1b}
 
           \vskip 0.3cm
           Since we will need the ($y_1$, $y_2$) pdf values for the following exercises, let's calculate them using \texttt{scipy.multivariate\_normal}, just like it was suggested in the hint:
@@ -302,7 +302,7 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
 
           Since we are under a Maximum a Posteriori assumption, we can just use the expression at \eqref{ex1-map}
           and replace the values for each of the testing observations ($x_8$ and $x_9$).\\
-          Starting with $x_8$:
+          \textbf{Starting} with $x_8$:
           $$
               \begin{aligned}
                   P(y_1 = 0.38, y_2 = 0.52 | A) P(y_3 = 0, y_4 = 1 | A) P(y_5 = 0 | A) \times P(A) & = 0.9847 \times \frac{1}{3} \times \frac{1}{3} \times \frac{3}{7} \approx 0.04689 \\
@@ -317,7 +317,7 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
               \end{aligned}
           $$
 
-          And now with $x_9$:
+          And \textbf{now} with $x_9$:
           $$
               \begin{aligned}
                   P(y_1 = 0.42, y_2 = 0.59 | A) P(y_3 = 0, y_4 = 1 | A) P(y_5 = 1 | A) \times P(A) & = 0.4031 \times \frac{1}{3} \times \frac{1}{3} \times \frac{3}{7} \approx 0.0192 \\
@@ -347,71 +347,78 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
                 \textbf{Under a maximum likelihood assumption, what thresholds optimize testing accuracy?}
 
           \vskip 0.3cm
-          
-          \text{On question 1.b) we calculated the following values:}
+          Since we know that $P(A|y_1, y_2, y_3, y_4, y_5) + P(A|y_1, y_2, y_3, y_4, y_5)$ must be equal to 1, we need to normalize the values.
+          Therefore, we get these new updated values for the posteriors:
 
-          \begin{equation*}
-            P(A) = \frac{3}{7}
-          \end{equation*}
-        
-          \begin{equation*}
-            P(B) = \frac{4}{7}
-          \end{equation*}
+          \begin{equation}\label{exI1-c-N}
+              \begin{aligned}
+                  P(A|y_1, y_2, y_3, y_4, y_5) & = \frac{P(A|y_1, y_2, y_3, y_4, y_5)}{P(A|y_1, y_2, y_3, y_4, y_5) \ + \ P(B|y_1, y_2, y_3, y_4, y_5)} \\
+                  P(B|y_1, y_2, y_3, y_4, y_5) & = \frac{P(B|y_1, y_2, y_3, y_4, y_5)}{P(B|y_1, y_2, y_3, y_4, y_5) \ + \ P(A|y_1, y_2, y_3, y_4, y_5)}
+              \end{aligned}
+          \end{equation}
 
+          \textbf{Note:} To make the equations easier to read, we simplified "$y_1 = 0.38, \ y_2 = 0.52, \ y_3 = 0, \ y_4 = 1, \ y_5 = 0$" by only writing "$x_8$"
+          and "$y_1 = 0.42, \ y_2 = 0.59, \ y_3 = 0, \ y_4 = 1, \ y_5 = 1$" by only writing "$x_9$", given that those variable values characterize each observation.
+
+          \text{On question \hyperref[ex:1b]{1.b)} we calculated the following values:}
           \[
-            P(x_8|A)*P(A) \approx 0.04689 \\
+              \begin{array}{cc}
+                  P(A) = \frac{3}{7}, &
+                  P(B) = \frac{4}{7}
+              \end{array}
+          \]
+          \[
+              \begin{array}{cc}
+                  P(x_8 | A) \times P(A) \approx 0.04689, &
+                  P(x_8 | B) \times P(B) \approx 0.07008  \\[\medskipamount]
+                  P(x_9 | A) \times P(A) \approx 0.0192,  &
+                  P(x_9 | B) \times P(B) \approx 0.1235
+              \end{array}
           \]
 
+          \textbf{Note:} According to the \textit{FAQ}, we can use the \textbf{likelihood} as a \textbf{rough proxy for posteriors}.
+          Therefore, from now on we take $P(A | x) = P(x | A)$, assuming the posteriors to be approximated by the likelihood.
+
+          This way we need to calculate the likelihoods:
+          $$
+              \begin{array}{cc}
+                  P(x_8 | A) = 0.10941, &
+                  P(x_8 | B) = 0.12264  \\[\medskipamount]
+                  P(x_9 | A) = 0.0448,  &
+                  P(x_9 | B) = 0.216125
+              \end{array}
+          $$
+
+          Now to obtain the posteriori values, we can just replace these previous values on the formula at \eqref{exI1-c-N} to normalize the values,
+          assuming $P(A | x) = P(x | A)$ and $P(B | x) = P(x | B)$:
+          $$
+              \begin{array}{cc}
+                  P(A | x_8) = \frac{0.10941}{0.10941 + 0.12264} \approx 0.4715 &
+                  P(B | x_8) = \frac{0.12264}{0.12264 + 0.10941} \approx 0.5285 \\[\medskipamount]
+                  P(A | x_9) = \frac{0.0448}{0.0448 + 0.216125} \approx 0.1717  &
+                  P(B | x_9) = \frac{0.216125}{0.216125 + 0.0448} \approx 0.8283
+              \end{array}
+          $$
+
+          As we can see, now $P(A | x_8) + P(B | x_8) = 1$ and $P(A | x_9) + P(B | x_9) = 1$, which means we have normalized values.
+
+          We want to get the optimal testing accuracy, therefore we want it to be 100\%. We know that the formula for the accuracy is given by,
+          $$
+            \text{accuracy} = \frac{\text{TP} + \text{TN}}{\text{TP} + \text{FP} + \text{TN} + \text{FN}}
+          $$
+
+          , and so we only want to see true positives and true negatives for the fraction to be 1, meaning we need observations $x_8$ and $x_9$ to be classified as A and B, respectively.
+          This leads to the conclusion that the following inequalities, when solved will yield us the interval of values that the threshold ($\theta$) can take so that the accuracy is 100\%.
           \[
-            P(x_8|B)*P(B) \approx 0.07008 \\
+              \begin{aligned}
+                  P(A|x_8) & > \theta \Rightarrow x_8 \ \text{gets classified as A}\\
+                  P(A|x_9) & \leq \theta \Rightarrow x_9 \ \text{gets classified as B}
+              \end{aligned}
           \]
+          \begin{equation}
+              P(A | x_9) \leq \theta < P(A | x_8) \Rightarrow 0.1717 \leq \theta < 0.4715 \Rightarrow \theta \in [0.1717, 0.4715[
+          \end{equation}
 
-          \[
-            P(x_9|A)*P(A) \approx 0.0192 \\
-          \]
-
-          \[
-            P(x_9|B)*P(B) \approx 0.1235 \\
-          \]
-
-          \textbf{So,} to discover the maximum likelihood ($P(x_x|class)$), we have to split them by $P(class)$. Here are the results:
-
-          \begin{equation*}
-            P(x_8|A) = 0.10941
-          \end{equation*}
-
-          \begin{equation*}
-            P(x_8|B) = 0.12264
-          \end{equation*}
-
-          \begin{equation*}
-            P(x_9|A) = 0.0448
-          \end{equation*}
-
-          \begin{equation*}
-            P(x_9|B) \approx 0.2161
-          \end{equation*}
-        
-          According to the \textit{FAQ}, we can use the values we calculated as a \textbf{rough proxy for posteriors}. 
-          The next step is \textbf{normalizing} them so we can ensure their sum is 1 and get the maximum a posteriori:
-
-          \begin{equation*}
-            P(A|x_8) = \frac{0.10941}{0.10941+0.12264} \approx 0.4715
-          \end{equation*}
-
-          \begin{equation*}
-            P(B|x_8) = \frac{0.12264}{0.10941+0.12264} \approx 0.5285
-          \end{equation*}
-
-          \begin{equation*}
-            P(A|x_9) = \frac{0.0448}{0.0448+0.2161} \approx 0.1717
-          \end{equation*}
-
-          \begin{equation*}
-            P(B|x_9) = \frac{0.216125}{0.0448+0.2161} \approx 0.8283
-          \end{equation*}
-
-          \textbf{Therefore,} we can conclude that the threshold of values for $\theta$ is $[0.1717, 0.4715]$. 
           \end{enumerate}
 
     \item \textbf{Let $y_1$ be the target numeric variable, $y_2$ - $y_6$ be the input variables where $y_2$ is binarized under an
@@ -423,13 +430,12 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
           \vskip 0.3cm
           To do the \textbf{binarization procedure} with an \textbf{equal-width discretization}, we need to divide $y_2$ into two intervals. Which are:
 
-          \begin{equation*}
-              \text{interval}_1 = [0, 0.5]
-          \end{equation*}
-
-          \begin{equation*}
-              \text{interval}_2 = [0.5, 1]
-          \end{equation*}
+          \[
+              \begin{array}{cc}
+                  \text{interval}_1 = [0, 0.5] &\quad
+                  \text{interval}_2 = [0.5, 1]
+              \end{array}
+          \]
 
           \textbf{Here is the binarization of $y_2$} based on those intervals:
           \begin{center}
@@ -448,47 +454,57 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
             \end{tabular}
           \end{center}
 
-          \textbf{The next step} is identifying our folds, which will be:
-          \begin{center}
-            Fold 1 = $x_1$ $x_2$ $x_3$  \\
-            Fold 2 = $x_4$ $x_5$ $x_6$ \\
-            Fold 3 = $x_7$ $x_8$ $x_9$ \\
-          \end{center}
+          \textbf{The next step} is identifying our folds, which will be three (each with three observations) because we are considering a 3-fold cross-validation without shuffling approach:
+          \[
+              \begin{array}{ccc}
+                  \text{Fold}_1 = x_1 \medspace x_2 \medspace x_3 &\quad
+                  \text{Fold}_2 = x_4 \medspace x_5 \medspace x_6 &\quad
+                  \text{Fold}_3 = x_7 \medspace x_8 \medspace x_9
+              \end{array}
+          \]
 
           \textbf{So} our datasets will be:
 
-          \begin{center}
-            \textbf{Fold 1} \\
-            \begin{tabular}{c|cccccc}
-                \(D\) & \(y_1\) & \(y_2\) & \(y_3\) & \(y_4\) & \(y_5\) & \(y_6\)\\
-                \hline
-                \(x_1\) & 0.24 & 0 & 1 & 1 & 0 & A  \\
-                \(x_2\) & 0.16 & 0 & 1 & 0 & 1 & A  \\
-                \(x_3\) & 0.32 & 1 & 0 & 1 & 2 & A  \\
-            \end{tabular}
-          \end{center}
+          \begin{table}[H]
+            \centering
 
-          \begin{center}
-            \textbf{Fold 2} \\
-            \begin{tabular}{c|cccccc}
-                \(D\) & \(y_1\) & \(y_2\) & \(y_3\) & \(y_4\) & \(y_5\) & \(y_6\)\\
-                \hline
-                \(x_4\) & 0.54 & 0 & 0 & 0 & 1 & B  \\
-                \(x_5\) & 0.66 & 0 & 0 & 0 & 0 & B  \\
-                \(x_6\) & 0.76 & 0 & 1 & 0 & 2 & B  \\
-            \end{tabular}
-          \end{center}
+            \begin{minipage}{.4\linewidth}
+                \centering
+                {\bfseries\strut Fold 1}
+                \begin{tabular}{c|cccccc}
+                    \(D\) & \(y_1\) & \(y_2\) & \(y_3\) & \(y_4\) & \(y_5\) & \(y_6\)\\
+                    \hline
+                    \(x_1\) & 0.24 & 0 & 1 & 1 & 0 & A  \\
+                    \(x_2\) & 0.16 & 0 & 1 & 0 & 1 & A  \\
+                    \(x_3\) & 0.32 & 1 & 0 & 1 & 2 & A  \\
+                \end{tabular}
+            \end{minipage}
+            \quad
+            \begin{minipage}{.4\linewidth}
+                \centering
+                {\bfseries\strut Fold 2}
+                \begin{tabular}{c|cccccc}
+                    \(D\) & \(y_1\) & \(y_2\) & \(y_3\) & \(y_4\) & \(y_5\) & \(y_6\)\\
+                    \hline
+                    \(x_4\) & 0.54 & 0 & 0 & 0 & 1 & B  \\
+                    \(x_5\) & 0.66 & 0 & 0 & 0 & 0 & B  \\
+                    \(x_6\) & 0.76 & 0 & 1 & 0 & 2 & B  \\
+                \end{tabular}
+            \end{minipage}
 
-          \begin{center}
-            \textbf{Fold 3} \\
-            \begin{tabular}{c|cccccc}
-                \(D\) & \(y_1\) & \(y_2\) & \(y_3\) & \(y_4\) & \(y_5\) & \(y_6\)\\
-                \hline
-                \(x_7\) & 0.41 & 1 & 0 & 1 & 1 & B  \\
-                \(x_8\) & 0.38 & 1 & 0 & 1 & 0 & A  \\
-                \(x_9\) & 0.42 & 1 & 0 & 1 & 1 & B  \\
-            \end{tabular}
-          \end{center}
+            \vskip 0.3cm
+            \begin{minipage}{.4\linewidth}
+                \centering
+                {\bfseries\strut Fold 3}
+                \begin{tabular}{c|cccccc}
+                    \(D\) & \(y_1\) & \(y_2\) & \(y_3\) & \(y_4\) & \(y_5\) & \(y_6\)\\
+                    \hline
+                    \(x_7\) & 0.41 & 1 & 0 & 1 & 1 & B  \\
+                    \(x_8\) & 0.38 & 1 & 0 & 1 & 0 & A  \\
+                    \(x_9\) & 0.42 & 1 & 0 & 1 & 1 & B  \\
+                \end{tabular}
+            \end{minipage}
+          \end{table}
 
     \item \textbf{Consider a distance-weighted \textit{k}NN with k = 3, Hamming distance (\textit{d}), and 1 / \textit{d} weighting.
           Compute the MAE of this \textit{k}NN regressor for the $1^{st}$ iteration of the cross-validation (i.e. train
@@ -496,50 +512,42 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
 
           \vskip 0.3cm
 
-          The formula for \textbf{weighted average}, considering that k=3, is the following:
+          The formula for the \textbf{weight} ($w_i$) and the \textbf{weighted average} ($f$), considering that k=3, are the following:
 
           \begin{equation}\label{exI2-a-WA}
-            \text{Weighted Average} = \frac{{\frac{1}{{d_1}} \cdot y_1 + \frac{1}{{d_2}} \cdot y_2 + \frac{1}{{d_3}} \cdot y_3}}{{\frac{1}{{d_1}} + \frac{1}{{d_2}} + \frac{1}{{d_3}}}}
+              \begin{array}{c|c}
+                  \centering
+                  w_i(x_{new})=
+                  \begin{cases}
+                      \frac{1}{d(x_{new},\; x_i)},& x_{new} \neq x_i\\
+                      1,& \text{otherwise}
+                  \end{cases}
+                  \quad &
+                  \quad
+                  \hat{z}_{x_{new}} = f(x_{new}) = \frac{\sum_{i=1}^{n} w_i(x_{new}) f(x_i)}{\sum_{i=1}^{n} w_i(x_{new})}
+              \end{array}
           \end{equation}
 
-          And the equation for the \textbf{mean absolute error} is given by:
+          And the formula for the \textbf{mean absolute error} is given by:
 
           \begin{equation}\label{exI2-a-MAE}
-              MAE = \frac{1}{n} \sum_{i=1}^{n} \left| y_i - \hat{y}_i \right|
+              MAE(\hat{z}, z) = \frac{1}{n} \sum_{i=1}^{n} \left| z_i - \hat{z}_i \right|
           \end{equation}
 
           As stated in the prompt, we will use Folds 1 and 2 for training, reserving Fold 3 for testing. Let's start by computing
-           the \textbf{Hamming distances}, for $x_7$ first:
+          the \textbf{Hamming distances}, for $x_7$, $x_8$ and $x_9$:
 
            \begin{center}
             \begin{tabular}{c|cccccc}
                                & \(x_1\) & \(x_2\) & \(x_3\) & \(x_4\) & \(x_5\) &\(x_6\) \\
                 \hline
-                \(H(x_7,x_j)\) & 4 & 4 & 2 & 2 & 3 & 4 \\
+                \(H(x_7,x_j)\) & 4 & 4 & \textcolor{Maroon}{\textbf{2}} & \textcolor{Maroon}{\textbf{2}} & \textcolor{Maroon}{\textbf{3}} & 4 \\
+                \(H(x_8,x_j)\) & \textcolor{Maroon}{\textbf{2}} & 4 & \textcolor{Maroon}{\textbf{1}} & 4 & \textcolor{Maroon}{\textbf{3}} & 5 \\
+                \(H(x_9,x_j)\) & 4 & 4 & \textcolor{Maroon}{\textbf{2}} & \textcolor{Maroon}{\textbf{2}} & \textcolor{Maroon}{\textbf{3}} & 4 \\
             \end{tabular}
           \end{center}
 
-          \textbf{Now,} for $x_8$:
-
-          \begin{center}
-            \begin{tabular}{c|cccccc}
-                               & \(x_1\) & \(x_2\) & \(x_3\) & \(x_4\) & \(x_5\) &\(x_6\) \\
-                \hline
-                \(H(x_8,x_j)\) & 2 & 4 & 1 & 4 & 3 & 5 \\
-            \end{tabular}
-          \end{center}
-
-          \textbf{Finally,} for $x_9$:
-
-          \begin{center}
-            \begin{tabular}{c|cccccc}
-                               & \(x_1\) & \(x_2\) & \(x_3\) & \(x_4\) & \(x_5\) &\(x_6\) \\
-                \hline
-                \(H(x_9,x_j)\) & 4 & 4 & 2 & 2 & 3 & 4 \\
-            \end{tabular}
-          \end{center}
-
-          Now let's determine the \textbf{three closest neighbors} to each test observation:
+          Now let's determine the \textbf{three closest neighbors} (lowest Hamming distance values) for each test observation:
 
           \begin{itemize}
             \item For $x_7$ it is $x_3$, $x_4$ and $x_5$
@@ -548,20 +556,30 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
           \end{itemize}
 
           The next step is calculating their \textbf{weighted average}. By replacing the
-           formula on \eqref{exI2-a-WA}, we get the following values:
+          formula on \eqref{exI2-a-WA}, we get the following values:
 
-          \begin{center}
-            Weighted average for $x_7$ = 0.4875 \\
-            Weighted average for $x_8$ = 0.36   \\
-            Weighted average for $x_9$ = 0.4875 \\
-          \end{center}
+          $$
+              \begin{aligned}
+                  \hat{z}_{x_7} & = f(x_7) = \frac{\frac{1}{2} \cdot 0.32 + \frac{1}{2} \cdot 0.54 + \frac{1}{3} \cdot 0.66}{\frac{1}{2} + \frac{1}{2} + \frac{1}{3}} = 0.4875 \\
+                  \hat{z}_{x_8} & = f(x_8) = \frac{\frac{1}{2} \cdot 0.24 + \frac{1}{1} \cdot 0.32 + \frac{1}{3} \cdot 0.66}{\frac{1}{2} + \frac{1}{1} + \frac{1}{3}} = 0.36 \\
+                  \hat{z}_{x_9} & = f(x_9) = \frac{\frac{1}{2} \cdot 0.32 + \frac{1}{2} \cdot 0.54 + \frac{1}{3} \cdot 0.66}{\frac{1}{2} + \frac{1}{2} + \frac{1}{3}} = 0.4875
+              \end{aligned}
+          $$
 
-          \textbf{Finally,} let's compute the mean absolute error by using the equation
-           on \eqref{exI2-a-MAE}:
+          Now we have the estimates for the testing observations along with their real values:
 
-           \begin{equation*}
-            MAE = 0.055
-           \end{equation*}
+          $$
+              \begin{aligned}
+                  \hat{z} & = \left(\hat{z}_{x_7}, \hat{z}_{x_8}, \hat{z}_{x_9}\right) = \left(0.4875, 0.36, 0.4875\right) \\
+                  z & = \left(0.41, 0.38, 0.42\right)
+              \end{aligned}
+          $$
+
+          \textbf{Finally,} let's compute the mean absolute error by using the formula on \eqref{exI2-a-MAE}:
+
+          \begin{equation*}
+              MAE(\hat{z}, z) = \frac{1}{3} \left( \left|0.41 - 0.4875\right| + \left|0.38 - 0.36\right| + \left|0.42 - 0.4875\right| \right) = 0.055
+          \end{equation*}
 
           \end{enumerate}
 \end{enumerate}
@@ -595,13 +613,13 @@ cross-validation with shuffling (\texttt{random\_state=0}) for the assessment of
                 accuracy", asserting whether is true.}
 
           \vskip 0.3cm
-          We'll consider the null hypothesis and alternate hypothesis below and perform a single-tailed test using the accuracies
+          We'll consider the null hypothesis and alternate hypothesis below and perform a right-tailed test using the accuracies
           obtained in the previous answer,
 
           $$
               \begin{aligned}
-                  H_0: & \quad\text{accuracy}_{k\text{NN}} = \text{accuracy}_{\text{Naïve Bayes}} \\
-                  H_1: & \quad\text{accuracy}_{k\text{NN}} > \text{accuracy}_{\text{Naïve Bayes}}
+                  H_0: &\;\; \text{accuracy}_{k\text{NN}} = \text{accuracy}_{\text{Naïve Bayes}} \\
+                  H_1: &\;\; \text{accuracy}_{k\text{NN}} > \text{accuracy}_{\text{Naïve Bayes}}
               \end{aligned}
           $$
 
@@ -624,23 +642,23 @@ cross-validation with shuffling (\texttt{random\_state=0}) for the assessment of
 
           \begin{figure}[H]
               \centering
-              \includegraphics[width=13cm]{./assets/cummulative_heatmap_ex2_PartII.png}
+              \includegraphics[width=13cm]{./assets/cumulative_heatmap_ex2_PartII.png}
               \caption{Confusion Matrix Differences Between k=1 and k=5 k-Nearest Neighbors (\textit{k}NN) Classifiers}
               \label{fig:PartII-ex2}
           \end{figure}
 
-          Upon examination of the difference matrix derived from the confusion matrices, it is evident that the kNN model 
-          with \(k=5\) surpasses the performance of \(k=1\).
+          Upon examination of the difference matrix derived from the cumulative confusion matrices, it is evident that the \textit{k}NN model
+          with k=5 surpasses the performance of k=1.
 
-          For each cell in this matrix, we can determine which model (k=1 or k=5) had the most observations by noting if 
-          the cell value is negative or positive. A positive value indicates that \(k=1\) had the most observations, while 
-          a negative value indicates the opposite for \(k=5\).
+          For each cell in this matrix, we can determine which model (k=1 or k=5) had the most observations by noting if
+          the cell value is negative or positive. A positive value indicates that k=1 had the most observations, while
+          a negative value indicates that k=5 was the one with more observations.
 
-          This superiority of the \(k=5\) model is shown by the negative sum of diagonal elements, signifying higher accuracy. 
-          Additionally, the fact that the sum of incorrect predictions is positive suggests that \(k=5\) has fewer miss classifications.
+          This superiority of the k=5 model is shown by the negative sum of the main diagonal elements, signifying higher accuracy.
+          Additionally, the fact that the sum of incorrect predictions (false positives and false negatives) is positive suggests that
+          k=5 has fewer miss classifications.
 
-          \textbf{Therefore}, utilizing \(k=5\) appears to be the preferable choice over \(k=1\) for this task.
-
+          \textbf{Therefore}, utilizing k=5 appears to be the preferable choice over k=1 for this task.
 
     \item \textbf{Considering the unique properties of \texttt{column\_diagnosis}, identify three possible difficulties
           of Naïve Bayes when learning from the given dataset.}
