@@ -629,7 +629,18 @@ cross-validation with shuffling (\texttt{random\_state=0}) for the assessment of
               \label{fig:PartII-ex2}
           \end{figure}
 
-          Blah % TODO: Need to comment the plot
+          Upon examination of the difference matrix derived from the confusion matrices, it is evident that the kNN model 
+          with \(k=5\) surpasses the performance of \(k=1\).
+
+          For each cell in this matrix, we can determine which model (k=1 or k=5) had the most observations by noting if 
+          the cell value is negative or positive. A positive value indicates that \(k=1\) had the most observations, while 
+          a negative value indicates the opposite for \(k=5\).
+
+          This superiority of the \(k=5\) model is shown by the negative sum of diagonal elements, signifying higher accuracy. 
+          Additionally, the fact that the sum of incorrect predictions is positive suggests that \(k=5\) has fewer miss classifications.
+
+          \textbf{Therefore}, utilizing \(k=5\) appears to be the preferable choice over \(k=1\) for this task.
+
 
     \item \textbf{Considering the unique properties of \texttt{column\_diagnosis}, identify three possible difficulties
           of Naïve Bayes when learning from the given dataset.}
