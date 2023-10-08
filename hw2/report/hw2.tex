@@ -347,7 +347,70 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
                 \textbf{Under a maximum likelihood assumption, what thresholds optimize testing accuracy?}
 
           \vskip 0.3cm
-          Blah % TODO: Need to check why the probabilites give such weird values
+          
+          \text{On question 1.b) we calculated the following values:}
+
+          \begin{equation*}
+            P(A) = \frac{3}{7}
+          \end{equation*}
+        
+          \begin{equation*}
+            P(B) = \frac{4}{7}
+          \end{equation*}
+
+          \[
+            P(x_8|A)*P(A) \approx 0.04689 \\
+          \]
+
+          \[
+            P(x_8|B)*P(B) \approx 0.07008 \\
+          \]
+
+          \[
+            P(x_9|A)*P(A) \approx 0.0192 \\
+          \]
+
+          \[
+            P(x_9|B)*P(B) \approx 0.1235 \\
+          \]
+
+          \textbf{So,} to discover the maximum likelihood ($P(x_x|class)$), we have to split them by $P(class)$. Here are the results:
+
+          \begin{equation*}
+            P(x_8|A) = 0.10941
+          \end{equation*}
+
+          \begin{equation*}
+            P(x_8|B) = 0.12264
+          \end{equation*}
+
+          \begin{equation*}
+            P(x_9|A) = 0.0448
+          \end{equation*}
+
+          \begin{equation*}
+            P(x_9|B) \approx 0.2161
+          \end{equation*}
+        
+          Now, let's \textbf{normalize} the values to get the maximum a posteriori:
+
+          \begin{equation*}
+            P(A|x_8) = \frac{0.10941}{0.10941+0.12264} \approx 0.4715
+          \end{equation*}
+
+          \begin{equation*}
+            P(B|x_8) = \frac{0.12264}{0.10941+0.12264} \approx 0.5285
+          \end{equation*}
+
+          \begin{equation*}
+            P(A|x_9) = \frac{0.0448}{0.0448+0.2161} \approx 0.1717
+          \end{equation*}
+
+          \begin{equation*}
+            P(B|x_9) = \frac{0.216125}{0.0448+0.2161} \approx 0.8283
+          \end{equation*}
+
+          % TODO: Need to write conclusion. Am still a bit confused about this
           \end{enumerate}
 
     \item \textbf{Let $y_1$ be the target numeric variable, $y_2$ - $y_6$ be the input variables where $y_2$ is binarized under an
