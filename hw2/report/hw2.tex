@@ -67,9 +67,9 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
 
           \vskip 0.3cm
           As stated by the question prompt, variable sets \(\left\{y_1, y_2\right\}\), \(\left\{y_3, y_4\right\}\) and \(\left\{y_5\right\}\) are independent.
-          Since we have seven training observations, we'll use those to train a Bayesian classifier.
+          Since we have seven training observations, we will use those to train a Bayesian classifier.
 
-          We'll refer to the outcome, which can be A or B, as class.
+          We will refer to the outcome, which can be A or B, as class.
 
           To estimate $P(\text{class} | y_1, y_2, y_3, y_4, y_5)$, we can use Bayes' theorem:
 
@@ -93,14 +93,14 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
                   \hat{z} & = \underset{c \in \{A, B\}}{\text{arg max}} \medspace \left\{P(\text{c} | O)\right\}  \\
                           & = \underset{c \in \{A, B\}}{\text{arg max}} \medspace \left\{\frac{P(y_1, y_2 | c) P(y_3, y_4 | c) P(y_5 | c) \times P(c)}{P(y_1, y_2) P(y_3, y_4) P(y_5)}\right\} \\
                           & = \underset{c \in \{A, B\}}{\text{arg max}} \medspace \left\{P(y_1, y_2 | c) P(y_3, y_4 | c) P(y_5 | c) \times P(c)\right\}
-                          & \parbox{15em}{(we can remove parameters that don't depend on $c$)}
+                          & \parbox{15em}{(we can remove parameters that do not depend on $c$)}
               \end{aligned}
           \end{equation}
 
-          We can therefore start calculating all these parameters.
+          We can now begin to compute these parameters.
 
           \textbf{Note:} Even though $P(y_1, y_2)$, $P(y_3, y_4)$ and $P(y_5)$ are not necessary
-          to apply the model, we'll still calculate them for the sake of showing
+          to apply the model, we will still calculate them for the sake of showing
           all parameters.
 
           Calculating $P(\text{A})$, $P(\text{B})$ and all parameters involving $y_1$ through
@@ -377,9 +377,9 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
           \]
 
           \textbf{Note:} According to the \textit{FAQ}, we can use the \textbf{likelihood} as a \textbf{rough proxy for posteriors}.
-          Therefore, from now on we take $P(A | x) = P(x | A)$, assuming the posteriors to be approximated by the likelihood.
+          Therefore, we will proceed with the assumption that $P(A | x)$ is roughly equivalent to $P(x | A)$, implying that the likelihood will serve as an approximation for the posteriors
 
-          This way we need to calculate the likelihoods:
+          Hence why, we need to calculate the likelihoods:
           $$
               \begin{array}{cc}
                   P(x_8 | A) = 0.10941, &
@@ -389,8 +389,8 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
               \end{array}
           $$
 
-          Now to obtain the posteriori values, we can just replace these previous values on the formula at \eqref{exI1-c-N} to normalize the values,
-          assuming $P(A | x) = P(x | A)$ and $P(B | x) = P(x | B)$:
+          To obtain the posteriori values, we simply substitute the previously calculated values into the formula at equation  \eqref{exI1-c-N} to normalize them.
+          As stated before, we are assuming $P(A | x) = P(x | A)$ and $P(B | x) = P(x | B)$:
           $$
               \begin{array}{cc}
                   P(A | x_8) = \frac{0.10941}{0.10941 + 0.12264} \approx 0.4715 &
@@ -400,14 +400,15 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
               \end{array}
           $$
 
-          As we can see, now $P(A | x_8) + P(B | x_8) = 1$ and $P(A | x_9) + P(B | x_9) = 1$, which means we have normalized values.
+          As observed, we now have $P(A | x_8) + P(B | x_8) = 1$ and $P(A | x_9) + P(B | x_9) = 1$, indicating that we have obtained normalized probabilities.
 
-          We want to get the optimal testing accuracy, therefore we want it to be 100\%. We know that the formula for the accuracy is given by,
+          Our goal is to get optimal testing accuracy of 100\%. To accomplish this, we have to look into the accuracy formula, given by:
           $$
             \text{accuracy} = \frac{\text{TP} + \text{TN}}{\text{TP} + \text{FP} + \text{TN} + \text{FN}}
           $$
 
-          , and so we only want to see true positives and true negatives for the fraction to be 1, meaning we need observations $x_8$ and $x_9$ to be classified as A and B, respectively.
+          
+          For the fraction to be of value 1, our observations need to be only true positives and true negatives. Therefore, we  requise observations $x_8$ and $x_9$ to be classified as A and B, respectively.
           This leads to the conclusion that the following inequalities, when solved will yield us the interval of values that the threshold ($\theta$) can take so that the accuracy is 100\%.
           \[
               \begin{aligned}
@@ -454,7 +455,8 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
             \end{tabular}
           \end{center}
 
-          \textbf{The next step} is identifying our folds, which will be three (each with three observations) because we are considering a 3-fold cross-validation without shuffling approach:
+          \textbf{Subsequently}, we proceed to determine our folds. In this case, we will have three folds, each containing three observations. 
+          This choice aligns with the prompt instructions of using a 3-fold cross-validation approach.
           \[
               \begin{array}{ccc}
                   \text{Fold}_1 = x_1 \medspace x_2 \medspace x_3 &\quad
@@ -613,7 +615,7 @@ cross-validation with shuffling (\texttt{random\_state=0}) for the assessment of
                 accuracy", asserting whether is true.}
 
           \vskip 0.3cm
-          We'll consider the null hypothesis and alternate hypothesis below and perform a right-tailed test using the accuracies
+          We will consider the null hypothesis and alternate hypothesis below and perform a right-tailed test using the accuracies
           obtained in the previous answer,
 
           $$
@@ -667,10 +669,10 @@ cross-validation with shuffling (\texttt{random\_state=0}) for the assessment of
           Here are three possible difficulties of Naïve Bayes when learning from the given dataset, in no particular order:
 
           \begin{itemize}
-              \item To apply Naïve Bayes, we assumed that all variables were independent of one another, which might not be case, thus explaining a
+              \item To apply Naïve Bayes, we assume that all variables were independent of one another, which might not be case, thus explaining a
                     potential problem that would hinder its accuracy.
-              \item There may be an inadequacy of Gaussian assumption, because the data used (\texttt{column\_diagnosis.arff}) isn't very big
-                    (around 300 observations, with only some being used for training), and so there isn't much data for probability density
+              \item There may be an inadequacy of Gaussian assumption, because the data used (\texttt{column\_diagnosis.arff}) is not very big
+                    (around 300 observations, with only some being used for training), and so there is not much data for probability density
                     function/probability mass function approximations.
               \item Probabilities are estimated based on the number of occurences on the given training data, and so there might be imbalanced
                     number of occurences for some given class. This might affect the value of the prior, creating biases in a Maximum a Priori
