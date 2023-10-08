@@ -392,7 +392,7 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
             P(x_9|B) \approx 0.2161
           \end{equation*}
         
-          Now, let's \textbf{normalize} the values to get the maximum a posteriori:
+          According to the \textit{FAQ}, we can use the values we calculated as a \textbf{rough proxy for posteriors}. The next step is \textbf{normalize} them so we can get the maximum a posteriori:
 
           \begin{equation*}
             P(A|x_8) = \frac{0.10941}{0.10941+0.12264} \approx 0.4715
@@ -410,7 +410,7 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
             P(B|x_9) = \frac{0.216125}{0.0448+0.2161} \approx 0.8283
           \end{equation*}
 
-          % TODO: Need to write conclusion. Am still a bit confused about this
+          \textbf{Therefore,} we can conclude that the threshold of values for $\theta$ is $[0.1717, 0.4715]$. 
           \end{enumerate}
 
     \item \textbf{Let $y_1$ be the target numeric variable, $y_2$ - $y_6$ be the input variables where $y_2$ is binarized under an
