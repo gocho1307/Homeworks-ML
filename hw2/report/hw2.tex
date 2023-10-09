@@ -69,7 +69,7 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
           As stated by the question prompt, variable sets \(\left\{y_1, y_2\right\}\), \(\left\{y_3, y_4\right\}\) and \(\left\{y_5\right\}\) are independent.
           Since we have seven training observations, we will use those to train a Bayesian classifier.
 
-          We will refer to the outcome, which can be A or B, as class.
+          We will refer to the outcome, which can be A or B, as class, or simply as c.
 
           To estimate $P(\text{class} | y_1, y_2, y_3, y_4, y_5)$, we can use Bayes' theorem:
 
@@ -377,7 +377,8 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
           \]
 
           \textbf{Note:} According to the \textit{FAQ}, we can use the \textbf{likelihood} as a \textbf{rough proxy for posteriors}.
-          Therefore, we will proceed with the assumption that $P(A | x)$ is roughly equivalent to $P(x | A)$, implying that the likelihood will serve as an approximation for the posteriors
+          Therefore, we will proceed with the assumption that $P(x | A)$ roughly estimates $P(A | x)$, implying that the likelihood
+          will serve as an approximation for the posteriors used to calibrate the threshold.
 
           Hence why, we need to calculate the likelihoods:
           $$
@@ -389,8 +390,8 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
               \end{array}
           $$
 
-          To obtain the posteriori values, we simply substitute the previously calculated values into the formula at equation  \eqref{exI1-c-N} to normalize them.
-          As stated before, we are assuming $P(A | x) = P(x | A)$ and $P(B | x) = P(x | B)$:
+          To obtain the posterior values, we simply substitute the previously calculated values into the formula at equation \eqref{exI1-c-N} to normalize them.
+          As stated before, we are assuming $P(A | x) \approx P(x | A)$ and $P(B | x) \approx P(x | B)$:
           $$
               \begin{array}{cc}
                   P(A | x_8) = \frac{0.10941}{0.10941 + 0.12264} \approx 0.4715 &
@@ -407,13 +408,12 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
             \text{accuracy} = \frac{\text{TP} + \text{TN}}{\text{TP} + \text{FP} + \text{TN} + \text{FN}}
           $$
 
-          
-          For the fraction to be of value 1, our observations need to be only true positives and true negatives. Therefore, we  requise observations $x_8$ and $x_9$ to be classified as A and B, respectively.
+          For the fraction to be of value 1, our observations need to be only true positives and true negatives. Therefore, we need observations $x_8$ and $x_9$ to be classified as A and B, respectively.
           This leads to the conclusion that the following inequalities, when solved will yield us the interval of values that the threshold ($\theta$) can take so that the accuracy is 100\%.
           \[
               \begin{aligned}
-                  P(A|x_8) & > \theta \Rightarrow x_8 \ \text{gets classified as A}\\
-                  P(A|x_9) & \leq \theta \Rightarrow x_9 \ \text{gets classified as B}
+                  P(A | x_8) & > \theta \Rightarrow x_8 \ \text{gets classified as A} \\
+                  P(A | x_9) & \leq \theta \Rightarrow x_9 \ \text{gets classified as B}
               \end{aligned}
           \]
           \begin{equation}
@@ -455,7 +455,7 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
             \end{tabular}
           \end{center}
 
-          \textbf{Subsequently}, we proceed to determine our folds. In this case, we will have three folds, each containing three observations. 
+          \textbf{Subsequently}, we proceed to determine our folds. In this case, we will have three folds, each containing three observations.
           This choice aligns with the prompt instructions of using a 3-fold cross-validation approach.
           \[
               \begin{array}{ccc}
@@ -670,9 +670,10 @@ cross-validation with shuffling (\texttt{random\_state=0}) for the assessment of
 
           \begin{itemize}
               \item To apply Naïve Bayes, we assume that all variables were independent of one another, which might not be case, thus explaining a
-                    potential problem that would hinder its accuracy.
+                    potential problem that would hinder its accuracy. In medical datasets, like this one, it is common for attributes to have complex
+                    dependencies, which Naïve Bayes cannot account for.
               \item There may be an inadequacy of Gaussian assumption, because the data used (\texttt{column\_diagnosis.arff}) is not very big
-                    (around 300 observations, with only some being used for training), and so there is not much data for probability density
+                    (around 300 observations, with only some being used for training), and so there might not be enough data for probability density
                     function/probability mass function approximations.
               \item Probabilities are estimated based on the number of occurences on the given training data, and so there might be imbalanced
                     number of occurences for some given class. This might affect the value of the prior, creating biases in a Maximum a Priori
