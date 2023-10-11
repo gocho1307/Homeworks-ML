@@ -16,8 +16,6 @@
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
-\newcommand{\ind}{\perp\!\!\!\perp}
-
 \lstdefinestyle{mystyle}{
     commentstyle=\color{codegreen},
     keywordstyle=\color{magenta},
@@ -38,105 +36,95 @@
 \lstset{style=mystyle}
 
 \begin{document}
+\begin{center}
+\large{Aprendizagem 2023}\\
+Homework III -- Group 28\\
+\vskip 0.3cm
+Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
 
-  \begin{center}
-  \large{Aprendizagem 2023}\\
-  Homework III -- Group 28\\
-  \vskip 0.3cm
-  Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
+\large{\textbf{Part I}: Pen and Paper}\normalsize
+\end{center}
 
-  \large{\textbf{Part I}: Pen and Paper}\normalsize
-  \end{center}
+\begin{enumerate}[leftmargin=\labelsep]
+    \item \textbf{Consider the problem of learning a regression model from 4 bivariate observations} \\
 
+          \vskip -0.2cm
+          \textbf{$\left\{\begin{pmatrix} 0.7 \\ -0.3 \end{pmatrix}, \begin{pmatrix} 0.4 \\ 0.5 \end{pmatrix}, \begin{pmatrix} -0.2 \\ 0.8 \end{pmatrix},
+          \begin{pmatrix} -0.4 \\ 0.3 \end{pmatrix}\right\}$ with targets (0.8, 0.6, 0.3, 0.3)}.
 
-  \begin{enumerate}[leftmargin=\labelsep]
-      \item \textbf{Consider the problem of learning a regression model from 4 bivariate observations \\
-       \{$\begin{pmatrix} 0.7 \\ -0.3 \end{pmatrix}$, $\begin{pmatrix} 0.4 \\ 0.5 \end{pmatrix}$, $\begin{pmatrix} -0.2 \\ 0.8 \end{pmatrix}$, 
-        $\begin{pmatrix} -0.4 \\ 0.3 \end{pmatrix}$\}} with targets (0.8, 0.6, 0.3, 0.3).
-
-      \begin{enumerate}
-        \item \textbf{Given the radial basis function, $\varphi_j(x) = exp ({ \frac{-\| \mathbf{x} - \mathbf{c}_j \|^2}{2} })$ that transforms
-                 the original space onto a new space characterized by the similarity of the original observastions to the following data points
-                 $\{ c_1 = \begin{pmatrix} 0 \\ 0 \end{pmatrix}, c_2 = \begin{pmatrix} 1 \\ -1 \end{pmatrix}, c_3 = \begin{pmatrix} -1 \\ 1 \end{pmatrix}\}$. \\
-                 Learn the Ridge regression ($l_2$ regularization) using the closed solution with $\lambda$ = 0.1.}
+    \begin{enumerate}
+        \item \textbf{Given the radial basis function, $\varphi_j(x) = \text{exp}({ \frac{-\| \mathbf{x} - \mathbf{c}_j \|^2}{2} })$ that transforms
+              the original space onto a new space characterized by the similarity of the original observastions to the following data points
+              $\left\{ c_1 = \begin{pmatrix} 0 \\ 0 \end{pmatrix}, c_2 = \begin{pmatrix} 1 \\ -1 \end{pmatrix}, c_3 = \begin{pmatrix} -1 \\ 1 \end{pmatrix}\right\}$. \\
+              Learn the Ridge regression ($l_2$ regularization) using the closed solution with $\lambda$ = 0.1.}
 
               \vskip 0.3cm
-
               Gonçalo
 
         \item \textbf{Compute the training RMSE for the learnt regression.}
-        
+
               \vskip 0.3cm
-
               Gonçalo
+    \end{enumerate}
 
-      \end{enumerate}
-           
-      \item \textbf{Consider a MLP classifier of three outcomes - A, B and C - characterized by the weights, \\
-      $W^{[1]} = \begin{pmatrix} 1 1 1 1 \\ 1 1 2 1 \\ 1 1 1 1\end{pmatrix}, b^{[1]} = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}, 
-      W^{[2]} = \begin{pmatrix} 1 4 1 \\ 1 1 1 \end{pmatrix}, b^{[2]} = \begin{pmatrix} 1 \\ 1 \end{pmatrix},
-      W^{[3]} = \begin{pmatrix} 1 1 \\ 3 1 \\ 1 1\end{pmatrix}, b^{[3]} = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$ \\
-      the activation $f(x) = \frac{{e^{0.5x - 2} - e^{-0.5x + 2}}}{{e^{0.5x - 2} + e^{-0.5x + 2}}} = \tanh(0.5x - 2)$ for every unit, and squared error
-      loss $\frac{1}{2} \|\mathbf{z} - \hat{\mathbf{z}}\|^{2}_{2}$. Perform one back gradient descent update (with learning rate $\eta = 0.1$) for training
-      obvervations $x_1 = \begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \end{pmatrix}$ and $x_2 = \begin{pmatrix} 1 \\ 0 \\ 0 \\ -1 \end{pmatrix}$ with targets B and A, 
-      respectively.}
+    \item \textbf{Consider a MLP classifier of three outcomes - A, B and C - characterized by the weights,} \\
 
-      \vskip 0.3cm
+          \vskip -0.2cm
+          $W^{[1]} = \begin{pmatrix} 1 1 1 1 \\ 1 1 2 1 \\ 1 1 1 1\end{pmatrix}, b^{[1]} = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix},
+          W^{[2]} = \begin{pmatrix} 1 4 1 \\ 1 1 1 \end{pmatrix}, b^{[2]} = \begin{pmatrix} 1 \\ 1 \end{pmatrix},
+          W^{[3]} = \begin{pmatrix} 1 1 \\ 3 1 \\ 1 1\end{pmatrix}, b^{[3]} = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$ \\
 
-      Raquel
-           
-  \end{enumerate}
+          \textbf{the activation \[ f(x) = \frac{{e^{0.5x - 2} - e^{-0.5x + 2}}}{{e^{0.5x - 2} + e^{-0.5x + 2}}} = \tanh(0.5x - 2) \] for every unit, and squared error
+          loss $\frac{1}{2} \|\mathbf{z} - \hat{\mathbf{z}}\|^{2}_{2}$. Perform one back gradient descent update (with learning rate $\eta = 0.1$) for training
+          obvervations $x_1 = \begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \end{pmatrix}$ and $x_2 = \begin{pmatrix} 1 \\ 0 \\ 0 \\ -1 \end{pmatrix}$ with targets B and A,
+          respectively.}
 
-  \vskip 0.5cm
+          \vskip 0.3cm
+          Raquel
+\end{enumerate}
 
-  \newpage
-  
-  \begin{center}
-  \large{\textbf{Part II}: Programming and critical analysis}\normalsize
-  \end{center}
+\vskip 0.5cm
 
-  \noindent Considering the \texttt{winequality-red.csv} dataset (available at the webpage) where the goal is  to estimate the quality (sensory appreciation)
-  of a wine based on physicochemical inputs.
-  
-  \vskip 0.3cm
+\begin{center}
+\large{\textbf{Part II}: Programming and critical analysis}\normalsize
+\end{center}
 
-  \noindent Using a 80-20 training-test split with a fixed seed (\texttt{random\_state = 0}), you are asked to learn MLP
-  regressors to answer the following questions.
+\noindent Considering the \texttt{winequality-red.csv} dataset (available at the webpage) where the goal is  to estimate the quality (sensory appreciation)
+of a wine based on physicochemical inputs.
 
-  \noindent Given their stochastic behavior, average the performance of each MLP from 10 runs (for reproducibility consider seeding the MLPs with 
-   \texttt{random\_state $\in$ \{1..10\}}).
+\vskip 0.3cm
 
-  \begin{enumerate}[leftmargin=\labelsep]
-      \item \textbf{Learn a MLP regressor with 2 hidden layers of size 10, rectifier linear unit activation
-      on all nodes, and early stopping with 20\% of training data set aside for validation. All
-      remaining parameters (e.g., loss, batch size, regularization term, solver) should be set as
-      default. Plot the distribution of the residues (in absolute value) using a histogram.}
+\noindent Using a 80-20 training-test split with a fixed seed (\texttt{random\_state = 0}), you are asked to learn MLP
+regressors to answer the following questions.
 
-        \vskip 0.3cm
-             
-        Blah
+\noindent Given their stochastic behavior, average the performance of each MLP from 10 runs (for reproducibility consider seeding the MLPs with
+\texttt{random\_state $\in$ \{1..10\}}).
 
-      \item \textbf{Since we are in the presence of a integer regression task, a recommended trick is to
-      round and bound estimates. Assess the impact of these operations on the MAE of the MLP learnt in previous question.}
+\begin{enumerate}[leftmargin=\labelsep]
+    \item \textbf{Learn a MLP regressor with 2 hidden layers of size 10, rectifier linear unit activation
+          on all nodes, and early stopping with 20\% of training data set aside for validation. All
+          remaining parameters (e.g., loss, batch size, regularization term, solver) should be set as
+          default. Plot the distribution of the residues (in absolute value) using a histogram.}
 
-        \vskip 0.3cm
+          \vskip 0.3cm
+          Blah
 
-        Blah    
+    \item \textbf{Since we are in the presence of a integer regression task, a recommended trick is to
+          round and bound estimates. Assess the impact of these operations on the MAE of the MLP learnt in previous question.}
 
-      \item \textbf{Similarly assess the impact on RMSE from replacing early stopping by a well-defined
-      number of iterations in \{20,50,100,200\} (where one iteration corresponds to a batch).}
+          \vskip 0.3cm
+          Blah
 
-        \vskip 0.3cm
+    \item \textbf{Similarly assess the impact on RMSE from replacing early stopping by a well-defined
+          number of iterations in \{20,50,100,200\} (where one iteration corresponds to a batch).}
 
-        Blah
-      
-      \item \textbf{Critically comment the results obtained in previous question, hypothesizing at least
-      one reason why early stopping favors and/or worsens performance}
+           \vskip 0.3cm
+           Blah
 
-        \vskip 0.3cm
+    \item \textbf{Critically comment the results obtained in previous question, hypothesizing at least
+          one reason why early stopping favors and/or worsens performance}
 
-        Blah
-
-  \end{enumerate}
-
+          \vskip 0.3cm
+          Blah
+\end{enumerate}
 \end{document}
