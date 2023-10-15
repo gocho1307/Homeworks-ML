@@ -80,10 +80,201 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
           respectively.}
 
           \vskip 0.3cm
-          Raquel
+
+          To help with the calculations and as suggested in the prompt, we used NumPy to facilitate the calculus of this question. You can find the code in the Jupyter notebook \texttt{hw3.ipynb}.
+          
+          To begin, we initiate the process with the \textbf{forward pass}. Below are the key equations for this step:
+
+            \begin{equation}\label{ex2-z}
+                \mathbf{z}^{[n]} = \mathbf{W}^{[n]} \cdot \mathbf{X}^{{n-1}} + \mathbf{b}^{[n]} 
+            \end{equation}
+
+            \begin{equation}\label{ex2-x}
+                \mathbf{x}^{[n]} = f(\mathbf{z}^{[n]})
+            \end{equation}
+
+          We will commence with $x_1$:
+
+            \begin{align*}
+                z^{[1]}_1 &= {W}^{[1]} \cdot {X}^{0}_1 + {b}^{[1]} = \begin{pmatrix} 1 1 1 1 \\ 1 1 2 1 \\ 1 1 1 1\end{pmatrix} \cdot  \begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \end{pmatrix} +
+                 \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} = \begin{pmatrix} 5 \\ 6 \\ 5\end{pmatrix} \\
+                {x}^{[1]}_1 &= f({z}^{[1]}_1) \approx \begin{pmatrix} 0.46212 \\ 0.76159 \\ 0.46212\end{pmatrix} \\
+            \end{align*}
+
+            \begin{align*}
+              z^{[2]}_1 &= {W}^{[2]} \cdot {X}^{1}_1 + {b}^{[2]} = \begin{pmatrix} 1 4 1 \\ 1 1 1\end{pmatrix} \cdot  \begin{pmatrix} 0.46212 \\ 0.76159 \\ 0.46212 \end{pmatrix} +
+               \begin{pmatrix} 1 \\ 1\end{pmatrix} \approx \begin{pmatrix} 4.97061 \\ 2.68583\end{pmatrix} \\
+              {x}^{[2]}_1 &= f({z}^{[2]}_1) \approx \begin{pmatrix} 0.45048 \\ -0.57642\end{pmatrix} \\
+            \end{align*}
+
+            \begin{align*}
+              z^{[3]}_1 &= {W}^{[3]} \cdot {X}^{2}_1 + {b}^{[3]} = \begin{pmatrix} 1 1 \\ 3 1 \\ 1 1\end{pmatrix} \cdot  \begin{pmatrix} 0.45048 \\ -0.57642\end{pmatrix} +
+               \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} \approx \begin{pmatrix} 0.87406 \\ 1.77503 \\ 0.87406\end{pmatrix} \\
+              {x}^{[3]}_1 &= f({z}^{[3]}_1) \approx \begin{pmatrix} -0.9159 \\ -0.80494 \\ -0.9159\end{pmatrix} \\
+            \end{align*}
+
+
+          Next in line is $x_2$:
+
+          \begin{align*}
+            z^{[1]}_2 &= {W}^{[1]} \cdot {X}^{0}_2 + {b}^{[1]} = \begin{pmatrix} 1 1 1 1 \\ 1 1 2 1 \\ 1 1 1 1\end{pmatrix} \cdot  \begin{pmatrix} 1 \\ 0 \\ 0 \\ -1 \end{pmatrix} +
+             \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} = \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} \\
+            {x}^{[1]}_2 &= f({z}^{[1]}_2) \approx \begin{pmatrix} -0.90515 \\ -0.90515 \\ -0.90515\end{pmatrix} \\
+          \end{align*}
+
+          \begin{align*}
+            z^{[2]}_2 &= {W}^{[2]} \cdot {X}^{1}_2 + {b}^{[2]} = \begin{pmatrix} 1 4 1 \\ 1 1 1\end{pmatrix} \cdot  \begin{pmatrix} -0.90515 \\ -0.90515 \\ -0.90515 \end{pmatrix} +
+            \begin{pmatrix} 1 \\ 1\end{pmatrix} \approx \begin{pmatrix} -4.43089 \\ -1.71544\end{pmatrix} \\
+            {x}^{[2]}_2 &= f({z}^{[2]}_2) \approx \begin{pmatrix} -0.99956 \\ -0.99343\end{pmatrix} \\
+          \end{align*}
+
+          \begin{align*}
+            z^{[3]}_2 &= {W}^{[3]} \cdot {X}^{2}_2 + {b}^{[3]} = \begin{pmatrix} 1 1 \\ 3 1 \\ 1 1\end{pmatrix} \cdot  \begin{pmatrix} -0.99956 \\ -0.99343\end{pmatrix} +
+            \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} \approx \begin{pmatrix} -0.993 \\ -2.99212 \\ -0.993\end{pmatrix} \\
+            {x}^{[3]}_2 &= f({z}^{[3]}_2) \approx \begin{pmatrix} -0.98652 \\ -0.99816 \\ -0.98652\end{pmatrix} \\
+          \end{align*}
+
+          Let's initiate the \textbf{backpropagation} process. To do this, we first need to take into account the loss function, which, as per the prompt, is defined as follows:
+
+          \begin{equation}\label{ex2-loss}
+            \mathcal{L} = \frac{1}{2} \|\mathbf{z} - \hat{\mathbf{z}}\|^{2}_{2} = \frac{1}{2} (\mathbf{t} - {\mathbf{o}})^{2}
+          \end{equation}
+
+          The next step involves computing its derivative:
+
+          \begin{equation}
+            \frac{d\mathcal{L}}{dW^{[p]}} = \sum_{i=1}^{2} (\frac{d\mathcal{L}}{dx^{[p]}_i} \circ \frac{dx^{[p]}_i}{dz^{[p]}_i} \cdot \frac{dz^{[p]}_i}{dW^{[p]}} )
+          \end{equation}
+
+          This can be broken down into:
+
+          \begin{equation*}
+            \frac{d\mathcal{L}}{dx^{[p]}_i} \circ \frac{dx^{[p]}_i}{dz^{[p]}_i} = \delta^{[p]}_i 
+          \end{equation*}
+
+          \begin{equation*}
+            \frac{dz^{[p]}_i}{dW^{[p]}} = (x^{[p-1]}_i)^{T} 
+          \end{equation*}
+          
+          After computing \(\delta\), we can split it into two separate cases: if it is in the last layer \eqref{ex2-deltalastlayer}, or in non-external layers \eqref{ex2-deltanotlastlayer}:
+
+          \begin{equation}\label{ex2-deltalastlayer}
+            \delta^{[p]}_i = (x^{[p]}_i - z_i) \circ  sech^{2}(0.5*z^{[p]}_i - 2) * 0.5
+          \end{equation}
+
+          \begin{equation}\label{ex2-deltanotlastlayer}
+            \delta^{[p]}_i = (W^{[p+1]^{T}} \cdot \delta^{[p+1]}_i) \circ  sech^{2}(0.5*z^{[p]}_i - 2) * 0.5
+          \end{equation}
+
+          \textbf{Therefore,} the derivitave of the loss fuction is given by:
+
+          \begin{equation}\label{ex2-derivate-loss-smiplified}
+            \frac{d\mathcal{L}}{dW^{[p]}} = \sum_{i=1}^{2} (\delta^{[p]}_i \cdot (x^{[p-1]}_i)^{T} )
+          \end{equation}
+
+          \textbf{Since,} the $tanh$ function variates from -1 to 1 and since the targets for $x_1$ and $x_2$ are B and A, respectively, we can conclude that:
+
+          \begin{align*}
+            z_1 = \begin{pmatrix} -1 \\ 1 \\ -1\end{pmatrix}, z_2 = \begin{pmatrix} 1 \\ -1 \\ -1\end{pmatrix} 
+          \end{align*}
+          
+          \textbf{Now,} we have all we need to compute the values for the deltas, $\delta$, by replacing the equation on \ref{ex2-deltalastlayer} for $p=3$, and \ref{ex2-deltanotlastlayer} for any $p \neq 3$:
+
+          \begin{align*}
+            \delta^{[3]}_1 &= (x^{[3]}_1 - z_1) \circ  sech^{2}(0.5*z^{[3]}_1 - 2) * 0.5 =  \\
+            &=  (\begin{pmatrix} -0.9159 \\ -0.80494 \\ -0.9159\end{pmatrix} - \begin{pmatrix} -1 \\ 1 \\ -1 \end{pmatrix}) \circ sech^{2}(0.5* \begin{pmatrix} 0.87406 \\ 1.77503 \\ 0.87406\end{pmatrix} * 0.5) = \\
+            &= \begin{pmatrix} 0.00678 \\ -0.31773 \\ 0.00678 \end{pmatrix} 
+          \end{align*}
+
+          \begin{align*}
+            \delta^{[3]}_2 &= (x^{[3]}_2 - z_2) \circ  sech^{2}(0.5*z^{[3]}_2 - 2) * 0.5 =  \\
+            &=  (\begin{pmatrix} -0.98652 \\ -0.99816 \\ -0.98652\end{pmatrix} - \begin{pmatrix} 1 \\ -1 \\ -1\end{pmatrix}) \circ sech^{2}(0.5* \begin{pmatrix} -0.993 \\ -2.99212 \\ -0.993\end{pmatrix} * 0.5) = \\
+            &= \begin{pmatrix} -0.0266 \\ 0 \\ 0.00018 \end{pmatrix}
+          \end{align*}
+
+          \begin{align*}
+            \delta^{[2]}_1 &= (W^{[3]^{T}} \cdot \delta^{[3]}_1) \circ  sech^{2}(0.5*z^{[2]}_1 - 2) * 0.5 = \\
+             &= (\begin{pmatrix} 1 1 \\ 3 1 \\ 1 1\end{pmatrix}^{T} \cdot \begin{pmatrix} 0.00678 \\ -0.31773 \\ 0.00678 \end{pmatrix}) \circ sech^{2}(0.5*\begin{pmatrix} 4.97061 \\ 2.68583\end{pmatrix} - 2) * 0.5 = \\
+             &= \begin{pmatrix} -0.37448 \\ -0.10156 \end{pmatrix}
+          \end{align*}
+
+          \begin{align*}
+            \delta^{[2]}_2 &= (W^{[3]^{T}} \cdot \delta^{[3]}_2) \circ  sech^{2}(0.5*z^{[2]}_2 - 2) * 0.5 = \\
+             &= (\begin{pmatrix} 1 1 \\ 3 1 \\ 1 1\end{pmatrix}^{T} \cdot \begin{pmatrix} -0.0266 \\ 0 \\ -0.00018 \end{pmatrix}) \circ sech^{2}(0.5*\begin{pmatrix} 4.97061 \\ 2.68583\end{pmatrix} - 2) * 0.5 = \\
+             &= \begin{pmatrix} -1 * 10^{-5} \\ -1.7 * 10^{-4} \end{pmatrix}
+          \end{align*}
+
+          \begin{align*}
+            \delta^{[1]}_1 &= (W^{[2]^{T}} \cdot \delta^{[2]}_1) \circ  sech^{2}(0.5*z^{[1]}_1 - 2) * 0.5 = \\
+             &= (\begin{pmatrix} 1 4 1 \\ 1 1 1 \end{pmatrix}^{T} \cdot \begin{pmatrix} -0.37448 \\ -0.10156 \end{pmatrix}) \circ sech^{2}(0.5*\begin{pmatrix}  5 \\ 6 \\ 5 \end{pmatrix} - 2) * 0.5 = \\
+             &= \begin{pmatrix} -0.18719 \\ -0.33587 \\ -0.18719\end{pmatrix}
+          \end{align*}
+
+          \begin{align*}
+            \delta^{[1]}_2 &= (W^{[2]^{T}} \cdot \delta^{[2]}_2) \circ  sech^{2}(0.5*z^{[1]}_2 - 2) * 0.5 = \\
+             &= (\begin{pmatrix} 1 4 1 \\ 1 1 1 \end{pmatrix}^{T} \cdot \begin{pmatrix} -1 * 10^{-5} \\ -1.7 * 10^{-4} \end{pmatrix}) \circ sech^{2}(0.5*\begin{pmatrix}  1 \\ 1 \\ 1 \end{pmatrix} - 2) * 0.5 = \\
+             &= \begin{pmatrix} -2 * 10^{-5} \\ -2 * 10^{-5} \\ -2 * 10^{-5}\end{pmatrix}
+          \end{align*}
+
+          \textbf{Next,} we will compute the derivatives of the loss function, employing the equation in \ref{ex2-derivate-loss-smiplified}:
+
+          \begin{align*}
+            \frac{d\mathcal{L}}{dW^{[3]}} &= \sum_{i=1}^{2} (\delta^{[3]}_i \cdot (x^{[2]}_i)^{T}) = \\
+             &= (\delta^{[3]}_1 \cdot (x^{[2]}_1)^{T}) + (\delta^{[3]}_2 \cdot (x^{[2]}_2)^{T}) = \\
+             &= (\begin{pmatrix} 0.00678 \\ -0.31773 \\ 0.00678 \end{pmatrix} \cdot \begin{pmatrix} 0.45048 \\ -0.57642\end{pmatrix}^{T}) + 
+                 (\begin{pmatrix} -0.0266 \\ 0 \\ 0.00018 \end{pmatrix} \cdot \begin{pmatrix} -0.99956 \\ -0.99343\end{pmatrix}^{T}) = \\
+             &= \begin{pmatrix} 0.02964 & 0.02252 \\ -0.14314 & 0.18315 \\ 0.00287 & -0.00408 \end{pmatrix}
+          \end{align*}
+
+          \begin{align*}
+            \frac{d\mathcal{L}}{dW^{[2]}} &= \sum_{i=1}^{2} (\delta^{[2]}_i \cdot (x^{[1]}_i)^{T}) = \\
+             &= (\delta^{[2]}_1 \cdot (x^{[1]}_1)^{T}) + (\delta^{[2]}_2 \cdot (x^{[1]}_2)^{T}) = \\
+             &= (\begin{pmatrix} -0.37448 \\ 0.10156 \end{pmatrix} \cdot \begin{pmatrix} 0.46212 \\ 0.76159 \\ 0.46212\end{pmatrix}^{T}) + 
+                 (\begin{pmatrix} -1 * 10^{-5} \\ -1.7 * 10^{-4}  \end{pmatrix} \cdot \begin{pmatrix} -0.90515 \\ -0.90515 \\ -0.90515\end{pmatrix}^{T}) = \\
+             &= \begin{pmatrix} -0.17304 & -0.28519 & -0.17304\\ -0.04678 & -0.07719 & -0.04678 \end{pmatrix}
+          \end{align*}
+
+          \begin{align*}
+            \frac{d\mathcal{L}}{dW^{[1]}} &= \sum_{i=1}^{2} (\delta^{[1]}_i \cdot (x^{[0]}_i)^{T}) = \\
+             &= (\delta^{[1]}_1 \cdot (x^{[0]}_1)^{T}) + (\delta^{[1]}_2 \cdot (x^{[0]}_2)^{T}) = \\
+             &= (\begin{pmatrix} -0.18719 \\ -0.33587 \\ -0.18719 \end{pmatrix} \cdot \begin{pmatrix} 1 \\ 1 \\ 1 \\ 1\end{pmatrix}^{T}) + 
+                 (\begin{pmatrix} -2 * 10^{-5} \\ -2 * 10^{-5} \\ -2 * 10^{-5}  \end{pmatrix} \cdot \begin{pmatrix} 1 \\ 0 \\ 0 \\ -1\end{pmatrix}^{T}) = \\
+             &= \begin{pmatrix} -0.18721 & -0.18719 & -0.18719 & -0.18717\\ -0.33589 & -0.33587 & -0.33587 & -0.33585 \\ -0.18721 & -0.18719 & -0.18719 & -0.18717\end{pmatrix}
+          \end{align*}
+
+          \textbf{The final step} is to calculate the final weights and bias, which shall be given by the following equations:
+          
+          \begin{equation}\label{ex2-new-weight}
+            W^{[i]}_{new} = W^{[i]}_{old} - \eta \nabla\mathcal{L}
+          \end{equation}
+
+          \begin{equation}\label{ex2-new-bias}
+            b^{[i]}_{new} = b^{[i]}_{old} - \eta \sum_{k=1}^{2}(\delta_k^{i}) 
+          \end{equation}
+
+          Considering $\eta = 0.1$ we have all the values we need to start computing the results.
+          
+          \textbf{By substituting} the values into the formula \ref{ex2-new-weight}, we obtain the following weights:
+
+          \begin{align*}
+            W^{[1]}_{new} &= \begin{pmatrix} 1.01872 & 1.01872 & 1.01872 & 1.01872 \\ 1.03359 & 1.03359 & 2.03359 & 1.03359 \\ 1.01872 & 1.01872 & 1.01872 & 1.01872 \end{pmatrix} \\
+            W^{[2]}_{new} &= \begin{pmatrix} 1.0173 & 4.02852 & 1.0173 \\ 1.00468 & 1.00772 & 1.00468\end{pmatrix} \\
+            W^{[3]}_{new} &= \begin{pmatrix} 0.99704 & 0.99775 \\ 3.01431 & 0.98169 \\ 0.99971 & 1.00041\end{pmatrix} \\
+          \end{align*}
+
+          \textbf{Finally,} by replacing the values on the equation \ref{ex2-new-bias}, we get the following bias:
+
+          \begin{align*}
+            b^{[1]}_{new} &= \begin{pmatrix} 1.01872 \\ 1.03359 \\ 1.01872\end{pmatrix} \\
+            b^{[2]}_{new} &= \begin{pmatrix} 1.03745 \\ 1.01017\end{pmatrix} \\
+            b^{[3]}_{new} &= \begin{pmatrix} 1.00198 \\ 1.03177 \\ 0.9993\end{pmatrix} \\
+          \end{align*}
+
 \end{enumerate}
 
 \vskip 0.5cm
+
+\newpage
 
 \begin{center}
 \large{\textbf{Part II}: Programming and critical analysis}\normalsize
