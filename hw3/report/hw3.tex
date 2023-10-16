@@ -58,7 +58,7 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
 \large{\textbf{Part I}: Pen and Paper}\normalsize
 \end{center}
 
-\noindent For questions in this group, show your numerical results with 5 decimals or scientific notation.\\
+\noindent For questions in this group, show your numerical results with 5 decimals or scientific notation. \\
 \textit{Hint}: we highly recommend the use of \texttt{numpy} (e.g., \texttt{linalg.pinv} for inverse) or other programmatic
 facilities to support the calculus involved in both questions (1) and (2).
 
@@ -72,10 +72,14 @@ facilities to support the calculus involved in both questions (1) and (2).
     \begin{enumerate}
         \item \textbf{Given the radial basis function, $\phi_j(x) = \text{exp}\left({ -\frac{\| \mathbf{x} - \boldsymbol{c}_j \|^2}{2} }\right)$ that transforms
               the original space onto a new space characterized by the similarity of the original observations to the following data points
-              $\left\{ c_1 = \begin{bmatrix} 0 & 0 \\ \end{bmatrix}^T, c_2 = \begin{bmatrix} 1 & -1 \\ \end{bmatrix}^T, c_3 = \begin{bmatrix} -1 & 1 \\ \end{bmatrix}^T\right\}$. \\
+              $\left\{ c_1 = \begin{bmatrix} 0 & 0 \\ \end{bmatrix}^T,\, c_2 = \begin{bmatrix} 1 & -1 \\ \end{bmatrix}^T,\, c_3 = \begin{bmatrix} -1 & 1 \\ \end{bmatrix}^T\right\}$. \\
               Learn the Ridge regression ($l_2$ regularization) using the closed solution with $\lambda = 0.1$.}
 
               \vskip 0.3cm
+              \textbf{Note:} The intermediate values and matrices, in both items of this exercise, show values rounded to 5 decimal places,
+              but all intermediate calculations have been carried out without rounding. The values were obtained with the help of \texttt{numpy}
+              as suggested in the prompt. The code can be found in the Jupyter notebook \texttt{G028.ipynb}.
+
               Considering the data points along with the 4 bivariate observations, we can calculate the values of $\phi_1(x), \phi_2(x)$
               and $\phi_3(x)$ for each observation, with $\phi_0(x)$ always being equal to 1.
 
@@ -102,17 +106,17 @@ facilities to support the calculus involved in both questions (1) and (2).
                   \highlight[byellow]{w_3}\phi_3(x)
               \end{equation}
 
-              We know the parameters in the Ridge regression are given by \eqref{ex1a-ridge}, where $X$ is the matrix after applying $\phi_j(x)$ to the
+              We know the parameters in the Ridge regression are given by \eqref{ex1a-ridge}, where $\Phi$ is the matrix after applying $\phi_j(x)$ to the
               observations (Table \ref{ex1a-phi-table}) and $z$ is the vector of targets for the observations, $z = \begin{bmatrix}0.8 & 0.6 & 0.3 & 0.3\end{bmatrix}^T$.
 
               \vskip -0.2cm
               \begin{equation}\label{ex1a-ridge}
-                  w = \left(X^T X + \lambda I\right)^{-1} \cdot X^T z
+                  w = \left(\Phi^T \Phi + \lambda I\right)^{-1} \cdot \Phi^T z
               \end{equation}
 
               \vskip -0.2cm
               $$
-                  X = \begin{bmatrix}{}
+                  \Phi = \begin{bmatrix}
                       1.00000 & 0.74826 & 0.74826 & 0.10127 \\
                       1.00000 & 0.81465 & 0.27117 & 0.33121 \\
                       1.00000 & 0.71177 & 0.09633 & 0.71177 \\
@@ -120,7 +124,7 @@ facilities to support the calculus involved in both questions (1) and (2).
                   \end{bmatrix}
                   \quad
                   \quad
-                  X^T = \begin{bmatrix}{}
+                  \Phi^T = \begin{bmatrix}
                       1.00000 & 1.00000 & 1.00000 & 1.00000 \\
                       0.74826 & 0.81465 & 0.71177 & 0.88250 \\
                       0.74826 & 0.27117 & 0.09633 & 0.16122 \\
@@ -130,38 +134,36 @@ facilities to support the calculus involved in both questions (1) and (2).
 
               Therefore, we can then calculate the remaining values, until we get the vector $w$:
 
-              \textbf{Note:} The intermediate values and matrices, in both items of this exercise, show values rounded to 5 decimal places,
-              but all intermediate calculations have been carried out without rounding.
-
               $$
                   \begin{aligned}
-                      X^T X                                      & = \begin{bmatrix}
-                                                                       4.00000 & 3.15718 & 1.27698 & 1.79802 \\
-                                                                       3.15718 & 2.50897 & 0.99165 & 1.42916 \\
-                                                                       1.27698 & 0.99164 & 0.66870 & 0.33955 \\
-                                                                       1.79802 & 1.42917 & 0.33956 & 1.05399
-                                                                   \end{bmatrix}                                                            \\
-                      X^T X + \highlight[bmint]{0.1} I           & = \begin{bmatrix}
-                                                                      \highlight[bmint]{4.10000}  & 3.15718 & 1.27698 & 1.79802 \\
-                                                                       3.15718 & \highlight[bmint]{2.60897} & 0.99164 & 1.42917 \\
-                                                                       1.27698 & 0.99164 & \highlight[bmint]{0.76870} & 0.33956 \\
-                                                                       1.79802 & 1.42917 & 0.33956 & \highlight[bmint]{1.15399}
-                                                                   \end{bmatrix}                                                            \\
-                      \left(X^T X + 0.1I\right) ^ {-1}           & = \begin{bmatrix}
-                                                                       4.54826  & -3.77682 & -1.86117 & -1.86155 \\
-                                                                       -3.77682 & 5.98285  & -0.88543 & -1.26432 \\
-                                                                       -1.86117 & -0.88543 & 4.33276  & 2.72156  \\
-                                                                       -1.86155 & -1.26432 & 2.72156  & 4.53204
-                                                                   \end{bmatrix}                                                            \\
-                      \left(X^T X + 0.1I\right) ^ {-1} \cdot X^T & = \begin{bmatrix}
-                                                                       0.14105  & 0.35022  & 0.35575  & -0.30185 \\
-                                                                       -0.09064 & 0.43823  & -0.50361 & 0.53370  \\
-                                                                       0.99394  & -0.50615 & -0.13690 & -0.16477 \\
-                                                                       -0.31222 & -0.65246 & 0.72647  & 0.42436
-                                                                   \end{bmatrix}                                                            \\
-                      w = \left(X^T X + 0.1I\right) ^ {-1} \cdot X^T z & = \begin{bmatrix}
-                                                                       \highlight[bblue]{0.33914} & \highlight[bred]{0.19945} & \highlight[bgreen]{0.40096} & \highlight[byellow]{-0.29600}
-                                                                   \end{bmatrix}^T
+                      \Phi^T \Phi                                          & = \begin{bmatrix}
+                                                                                   4.00000 & 3.15718 & 1.27698 & 1.79802 \\
+                                                                                   3.15718 & 2.50897 & 0.99165 & 1.42916 \\
+                                                                                   1.27698 & 0.99164 & 0.66870 & 0.33955 \\
+                                                                                   1.79802 & 1.42917 & 0.33956 & 1.05399
+                                                                               \end{bmatrix}                                                            \\
+                      \Phi^T \Phi + \highlight[bmint]{0.1} I               & = \begin{bmatrix}
+                                                                                  \highlight[bmint]{4.10000}  & 3.15718 & 1.27698 & 1.79802 \\
+                                                                                   3.15718 & \highlight[bmint]{2.60897} & 0.99164 & 1.42917 \\
+                                                                                   1.27698 & 0.99164 & \highlight[bmint]{0.76870} & 0.33956 \\
+                                                                                   1.79802 & 1.42917 & 0.33956 & \highlight[bmint]{1.15399}
+                                                                               \end{bmatrix}                                                            \\
+                      \left(\Phi^T \Phi + 0.1 I\right) ^ {-1}              & = \begin{bmatrix}
+                                                                                   4.54826  & -3.77682 & -1.86117 & -1.86155 \\
+                                                                                   -3.77682 & 5.98285  & -0.88543 & -1.26432 \\
+                                                                                   -1.86117 & -0.88543 & 4.33276  & 2.72156  \\
+                                                                                   -1.86155 & -1.26432 & 2.72156  & 4.53204
+                                                                               \end{bmatrix}                                                            \\
+                      \left(\Phi^T \Phi + 0.1 I\right) ^ {-1} \cdot \Phi^T & = \begin{bmatrix}
+                                                                                   0.14105  & 0.35022  & 0.35575  & -0.30185 \\
+                                                                                   -0.09064 & 0.43823  & -0.50361 & 0.53370  \\
+                                                                                   0.99394  & -0.50615 & -0.13690 & -0.16477 \\
+                                                                                   -0.31222 & -0.65246 & 0.72647  & 0.42436
+                                                                               \end{bmatrix}                                                            \\
+                      w = \left(\Phi^T \Phi + 0.1 I\right) ^ {-1} \cdot \Phi^T z & = \begin{bmatrix}
+                                                                                         \highlight[bblue]{0.33914} & \highlight[bred]{0.19945} &
+                                                                                         \highlight[bgreen]{0.40096} & \highlight[byellow]{-0.29600}
+                                                                                     \end{bmatrix}^T
                   \end{aligned}
               $$
 
@@ -193,12 +195,13 @@ facilities to support the calculus involved in both questions (1) and (2).
                   \text{RMSE} = \sqrt{\frac{1}{N} \sum_{i = 1}^{N} (z_i - \hat{z}_i)^2}
               \end{equation}
 
-              $N = 4$, because we have 4 observations.
+              Here we have $N = 4$, because 4 is the number of samples in the dataset, $z_i$ is the true label for the $i$-th sample and $\hat{z}_i$
+              is the predicted label for the $i$-th sample.
 
-              Using \eqref{ex1a-final-z-hat} from the previous exercise, we can determine $\hat{z}$ for the 4 observations:
+              Using \eqref{ex1a-final-z-hat} from the previous item, we can determine $\hat{z}$ for the 4 observations:
 
               $$
-                X = \begin{bmatrix}{}
+                \Phi = \begin{bmatrix}
                       1.00000 & 0.74826 & 0.74826 & 0.10127 \\
                       1.00000 & 0.81465 & 0.27117 & 0.33121 \\
                       1.00000 & 0.71177 & 0.09633 & 0.71177 \\
@@ -212,7 +215,7 @@ facilities to support the calculus involved in both questions (1) and (2).
                       \highlight[byellow]{-0.29600}
                     \end{bmatrix} \,
                \Rightarrow \,
-               \hat{z} = X w = \begin{bmatrix}{}
+               \hat{z} = \Phi w = \begin{bmatrix}{}
                                    0.75844 \\
                                    0.51232 \\
                                    0.30905 \\
@@ -243,7 +246,8 @@ facilities to support the calculus involved in both questions (1) and (2).
           respectively.}
 
           \vskip 0.3cm
-          To help with the calculations and as suggested in the prompt, we used \texttt{numpy} to facilitate the calculus of this question. You can find the code in the Jupyter notebook \texttt{G028.ipynb}.
+          \textbf{Note:} To help with the calculations and as suggested in the prompt, we used \texttt{numpy} to facilitate the calculus of this question.
+          The code can be found in the Jupyter notebook \texttt{G028.ipynb}.
 
           To begin, we initiate the process with the \textbf{forward pass}. Below are the key equations for this step:
 
@@ -327,7 +331,7 @@ facilities to support the calculus involved in both questions (1) and (2).
             \frac{d\mathcal{L}}{dW^{[p]}} = \sum_{i=1}^{2} \left(\delta^{[p]}_i \cdot \left(x^{[p-1]}_i\right)^{T} \right)
           \end{equation}
 
-          \textbf{Since,} the $tanh$ function variates from -1 to 1 and since the targets for $x_1$ and $x_2$ are B and A, respectively, we can conclude that:
+          \textbf{Since,} the \texttt{tanh} function variates from -1 to 1 and since the targets for $x_1$ and $x_2$ are B and A, respectively, we can conclude that:
 
           \vskip -0.3cm
           \[
@@ -337,7 +341,8 @@ facilities to support the calculus involved in both questions (1) and (2).
               \end{array}
           \]
 
-        \textbf{Now,} we have all we need to compute the values for the deltas, $\delta$, by replacing the equation on \eqref{ex2-deltalastlayer} for $p=3$, and \eqref{ex2-deltanotlastlayer} for any $p \neq 3$:
+        \textbf{Now,} we have all we need to compute the values for the deltas, $\delta$, by replacing the equation on \eqref{ex2-deltalastlayer} for $p=3$,
+        and \eqref{ex2-deltanotlastlayer} for any $p \neq 3$:
         \begingroup
         \allowdisplaybreaks
           \begin{align*}
@@ -378,18 +383,18 @@ facilities to support the calculus involved in both questions (1) and (2).
         \begingroup
         \allowdisplaybreaks
           \begin{align*}
-            \frac{d\mathcal{L}}{dW^{[3]}} &= \sum_{i=1}^{2} \left(\delta^{[3]}_i \cdot (x^{[2]}_i\right)^{T}) = \\
-             &= \left(\delta^{[3]}_1 \cdot (x^{[2]}_1\right)^{T}) + \left(\delta^{[3]}_2 \cdot (x^{[2]}_2\right)^{T}) = \\
+            \frac{d\mathcal{L}}{dW^{[3]}} &= \sum_{i=1}^{2} \left(\delta^{[3]}_i \cdot \left(x^{[2]}_i\right)^{T}\right) = \\
+             &= \left(\delta^{[3]}_1 \cdot \left(x^{[2]}_1\right)^{T}\right) + \left(\delta^{[3]}_2 \cdot \left(x^{[2]}_2\right)^{T}\right) = \\
              &= \left(\begin{pmatrix} 0.00678 \\ -0.31773 \\ 0.00678 \end{pmatrix} \cdot \begin{pmatrix} 0.45048 \\ -0.57642\end{pmatrix}^{T}\right) +
                  \left(\begin{pmatrix} -0.0266 \\ 0 \\ 0.00018 \end{pmatrix} \cdot \begin{pmatrix} -0.99956 \\ -0.99343\end{pmatrix}^{T}\right) = \\
              &= \begin{pmatrix} 0.02964 & 0.02252 \\ -0.14314 & 0.18315 \\ 0.00287 & -0.00408 \end{pmatrix} \\
-            \frac{d\mathcal{L}}{dW^{[2]}} &= \sum_{i=1}^{2} \left(\delta^{[2]}_i \cdot (x^{[1]}_i\right)^{T}) = \\
-             &= \left(\delta^{[2]}_1 \cdot (x^{[1]}_1\right)^{T}) + \left(\delta^{[2]}_2 \cdot (x^{[1]}_2\right)^{T}) = \\
+            \frac{d\mathcal{L}}{dW^{[2]}} &= \sum_{i=1}^{2} \left(\delta^{[2]}_i \cdot \left(x^{[1]}_i\right)^{T}\right) = \\
+             &= \left(\delta^{[2]}_1 \cdot \left(x^{[1]}_1\right)^{T}\right) + \left(\delta^{[2]}_2 \cdot \left(x^{[1]}_2\right)^{T}\right) = \\
              &= \left(\begin{pmatrix} -0.37448 \\ 0.10156 \end{pmatrix} \cdot \begin{pmatrix} 0.46212 \\ 0.76159 \\ 0.46212\end{pmatrix}^{T}\right) +
                  \left(\begin{pmatrix} -1 \times 10^{-5} \\ -1.7 \times 10^{-4}  \end{pmatrix} \cdot \begin{pmatrix} -0.90515 \\ -0.90515 \\ -0.90515\end{pmatrix}^{T}\right) = \\
              &= \begin{pmatrix} -0.17304 & -0.28519 & -0.17304\\ -0.04678 & -0.07719 & -0.04678 \end{pmatrix} \\
-            \frac{d\mathcal{L}}{dW^{[1]}} &= \sum_{i=1}^{2} \left(\delta^{[1]}_i \cdot (x^{[0]}_i\right)^{T}) = \\
-             &= \left(\delta^{[1]}_1 \cdot (x^{[0]}_1\right)^{T}) + \left(\delta^{[1]}_2 \cdot (x^{[0]}_2\right)^{T}) = \\
+            \frac{d\mathcal{L}}{dW^{[1]}} &= \sum_{i=1}^{2} \left(\delta^{[1]}_i \cdot \left(x^{[0]}_i\right)^{T}\right) = \\
+             &= \left(\delta^{[1]}_1 \cdot \left(x^{[0]}_1\right)^{T}\right) + \left(\delta^{[1]}_2 \cdot \left(x^{[0]}_2\right)^{T}\right) = \\
              &= \left(\begin{pmatrix} -0.18719 \\ -0.33587 \\ -0.18719 \end{pmatrix} \cdot \begin{pmatrix} 1 \\ 1 \\ 1 \\ 1\end{pmatrix}^{T}\right) +
                  \left(\begin{pmatrix} -2 \times 10^{-5} \\ -2 \times 10^{-5} \\ -2 \times 10^{-5}  \end{pmatrix} \cdot \begin{pmatrix} 1 \\ 0 \\ 0 \\ -1\end{pmatrix}^{T}\right) = \\
              &= \begin{pmatrix} -0.18721 & -0.18719 & -0.18719 & -0.18717\\ -0.33589 & -0.33587 & -0.33587 & -0.33585 \\ -0.18721 & -0.18719 & -0.18719 & -0.18717\end{pmatrix}
