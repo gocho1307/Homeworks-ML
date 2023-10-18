@@ -476,8 +476,8 @@ regressors to answer the following questions.
           \vskip 0.3cm
           \lstinputlisting[language=Python]{./assets/code_2.py}
 
-          MAE without operations: 0.4937438468885914        \\
-          MAE with rounded and bounded predictions: 0.43125
+          MAE without operations: 0.5097171955009515 \\
+          MAE with rounded and bounded predictions: 0.43875000000000003
 
           \vskip 0.2cm
           By rounding to the nearest unit and bounding the estimates between 1 and 10 (as per the \textit{FAQ}), we get a lower Mean Absolute Error.
@@ -486,13 +486,13 @@ regressors to answer the following questions.
     \item \textbf{Similarly assess the impact on RMSE from replacing early stopping by a well-defined
           number of iterations in $\{20,50,100,200\}$ (where one iteration corresponds to a batch).}
 
-           \vskip 0.3cm
+          \vskip 0.3cm
           \lstinputlisting[language=Python]{./assets/code_3.py}
 
-          RMSE with 20 iterations: 1.0336201651006487  \\
-          RMSE with 50 iterations: 0.7060815422297181  \\
-          RMSE with 100 iterations: 0.6641845695241441 \\
-          RMSE with 200 iterations: 0.6393054830316605
+          RMSE with 20 iterations: 1.4039789509925442  \\
+          RMSE with 50 iterations: 0.7996073631460567  \\
+          RMSE with 100 iterations: 0.6940361469112144 \\
+          RMSE with 200 iterations: 0.6554543932216472
 
     \item \textbf{Critically comment the results obtained in the previous question, hypothesizing at least
           one reason why early stopping favors and/or worsens performance.}
