@@ -464,19 +464,36 @@ regressors to answer the following questions.
           default. Plot the distribution of the residues (in absolute value) using a histogram.}
 
           \vskip 0.3cm
-          Blah
+          \lstinputlisting[language=Python]{./assets/code_1.py}
+
+          \begin{figure}[H]
+              \centering
+              \includegraphics[width=14cm]{./assets/residues_histogram_ex1_PartII.png}
+              \caption{The distribution of absolute residues for MLP regression on wine quality prediction}
+              \label{fig:PartII-ex1}
+          \end{figure}
 
     \item \textbf{Since we are in the presence of a \textit{integer regression} task, a recommended trick is to
           round and bound estimates. Assess the impact of these operations on the MAE of the MLP learnt in the previous question.}
 
           \vskip 0.3cm
+          \lstinputlisting[language=Python]{./assets/code_1.py}
+          \begin{figure}[H]
+              \includegraphics[width=10cm]{./assets/mae_round_bound_ex2_PartII.png}
+              \label{fig:PartII-ex2}
+          \end{figure}
+
           Blah
 
     \item \textbf{Similarly assess the impact on RMSE from replacing early stopping by a well-defined
           number of iterations in $\{20,50,100,200\}$ (where one iteration corresponds to a batch).}
 
            \vskip 0.3cm
-           Blah
+          \lstinputlisting[language=Python]{./assets/code_1.py}
+          \begin{figure}[H]
+              \includegraphics[width=10cm]{./assets/rmse_iters_ex3_PartII.png}
+              \label{fig:PartII-ex3}
+          \end{figure}
 
     \item \textbf{Critically comment the results obtained in the previous question, hypothesizing at least
           one reason why early stopping favors and/or worsens performance.}
