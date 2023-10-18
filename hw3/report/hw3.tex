@@ -40,7 +40,7 @@
     captionpos=b,
     keepspaces=true,
     numbers=left,
-    numbersep=5pt,
+    numbersep=6pt,
     showspaces=false,
     showstringspaces=false,
     showtabs=false,
@@ -253,13 +253,13 @@ facilities to support the calculus involved in both questions (1) and (2).
           respectively.}
 
           \vskip 0.3cm
-          \textbf{Note:} To help with the calculations and as suggested in the prompt, we used \texttt{numpy} to facilitate the calculus of this question.
+          \textbf{Note:} To help with the calculations and as suggested in the prompt, we used \texttt{numpy}.
           The code can be found in the Jupyter notebook \texttt{G028.ipynb}.
 
           To begin, we initiate the process with the \textbf{forward pass}. Below are the key equations for this step:
 
             \begin{equation}\label{ex2-z}
-                \mathbf{z}^{[n]} = \mathbf{W}^{[n]} \cdot \mathbf{X}^{{n-1}} + \mathbf{b}^{[n]}
+                \mathbf{z}^{[n]} = \mathbf{W}^{[n]} \cdot \mathbf{x}^{[n-1]} + \mathbf{b}^{[n]}
             \end{equation}
 
             \begin{equation}\label{ex2-x}
@@ -270,13 +270,13 @@ facilities to support the calculus involved in both questions (1) and (2).
             \begingroup
             \allowdisplaybreaks
             \begin{align*}
-                z^{[1]}_1 &= {W}^{[1]} \cdot {X}^{0}_1 + {b}^{[1]} = \begin{pmatrix} 1 & 1 & 1 & 1 \\ 1 & 1 & 2 & 1 \\ 1 & 1 & 1 & 1\end{pmatrix} \cdot  \begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \end{pmatrix} +
+                z^{[1]}_1 &= {W}^{[1]} \cdot {x}^{[0]}_1 + {b}^{[1]} = \begin{pmatrix} 1 & 1 & 1 & 1 \\ 1 & 1 & 2 & 1 \\ 1 & 1 & 1 & 1\end{pmatrix} \cdot  \begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \end{pmatrix} +
                 \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} = \begin{pmatrix} 5 \\ 6 \\ 5\end{pmatrix} \\
                 {x}^{[1]}_1 &= f\left({z}^{[1]}_1\right) \approx \begin{pmatrix} 0.46212 \\ 0.76159 \\ 0.46212\end{pmatrix} \\
-                z^{[2]}_1 &= {W}^{[2]} \cdot {X}^{1}_1 + {b}^{[2]} = \begin{pmatrix} 1 & 4 & 1 \\ 1 & 1 & 1\end{pmatrix} \cdot \begin{pmatrix} 0.46212 \\ 0.76159 \\ 0.46212 \end{pmatrix} +
+                z^{[2]}_1 &= {W}^{[2]} \cdot {x}^{[1]}_1 + {b}^{[2]} = \begin{pmatrix} 1 & 4 & 1 \\ 1 & 1 & 1\end{pmatrix} \cdot \begin{pmatrix} 0.46212 \\ 0.76159 \\ 0.46212 \end{pmatrix} +
                 \begin{pmatrix} 1 \\ 1\end{pmatrix} \approx \begin{pmatrix} 4.97061 \\ 2.68583\end{pmatrix} \\
                 {x}^{[2]}_1 &= f\left({z}^{[2]}_1\right) \approx \begin{pmatrix} 0.45048 \\ -0.57642\end{pmatrix} \\
-                z^{[3]}_1 &= {W}^{[3]} \cdot {X}^{2}_1 + {b}^{[3]} = \begin{pmatrix} 1 & 1 \\ 3 & 1 \\ 1 & 1\end{pmatrix} \cdot  \begin{pmatrix} 0.45048 \\ -0.57642\end{pmatrix} +
+                z^{[3]}_1 &= {W}^{[3]} \cdot {x}^{[2]}_1 + {b}^{[3]} = \begin{pmatrix} 1 & 1 \\ 3 & 1 \\ 1 & 1\end{pmatrix} \cdot  \begin{pmatrix} 0.45048 \\ -0.57642\end{pmatrix} +
                 \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} \approx \begin{pmatrix} 0.87406 \\ 1.77503 \\ 0.87406\end{pmatrix} \\
                 {x}^{[3]}_1 &= f\left({z}^{[3]}_1\right) \approx \begin{pmatrix} -0.9159 \\ -0.80494 \\ -0.9159\end{pmatrix}
             \end{align*}
@@ -287,13 +287,13 @@ facilities to support the calculus involved in both questions (1) and (2).
             \begingroup
             \allowdisplaybreaks
             \begin{align*}
-                 z^{[1]}_2 &= {W}^{[1]} \cdot {X}^{0}_2 + {b}^{[1]} = \begin{pmatrix} 1 & 1 & 1 & 1 \\ 1 & 1 & 2 & 1 \\ 1 & 1 & 1 & 1\end{pmatrix} \cdot  \begin{pmatrix} 1 \\ 0 \\ 0 \\ -1 \end{pmatrix} +
-                 \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} = \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} \\
+                z^{[1]}_2 &= {W}^{[1]} \cdot {x}^{[0]}_2 + {b}^{[1]} = \begin{pmatrix} 1 & 1 & 1 & 1 \\ 1 & 1 & 2 & 1 \\ 1 & 1 & 1 & 1\end{pmatrix} \cdot  \begin{pmatrix} 1 \\ 0 \\ 0 \\ -1 \end{pmatrix} +
+                \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} = \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} \\
                 {x}^{[1]}_2 &= f\left({z}^{[1]}_2\right) \approx \begin{pmatrix} -0.90515 \\ -0.90515 \\ -0.90515\end{pmatrix} \\
-                  z^{[2]}_2 &= {W}^{[2]} \cdot {X}^{1}_2 + {b}^{[2]} = \begin{pmatrix} 1 & 4 & 1 \\ 1 & 1 & 1\end{pmatrix} \cdot  \begin{pmatrix} -0.90515 \\ -0.90515 \\ -0.90515 \end{pmatrix} +
+                z^{[2]}_2 &= {W}^{[2]} \cdot {x}^{[1]}_2 + {b}^{[2]} = \begin{pmatrix} 1 & 4 & 1 \\ 1 & 1 & 1\end{pmatrix} \cdot  \begin{pmatrix} -0.90515 \\ -0.90515 \\ -0.90515 \end{pmatrix} +
                 \begin{pmatrix} 1 \\ 1\end{pmatrix} \approx \begin{pmatrix} -4.43089 \\ -1.71544\end{pmatrix} \\
                 {x}^{[2]}_2 &= f\left({z}^{[2]}_2\right) \approx \begin{pmatrix} -0.99956 \\ -0.99343\end{pmatrix} \\
-                  z^{[3]}_2 &= {W}^{[3]} \cdot {X}^{2}_2 + {b}^{[3]} = \begin{pmatrix} 1 & 1 \\ 3 & 1 \\ 1 & 1\end{pmatrix} \cdot  \begin{pmatrix} -0.99956 \\ -0.99343\end{pmatrix} +
+                z^{[3]}_2 &= {W}^{[3]} \cdot {x}^{[2]}_2 + {b}^{[3]} = \begin{pmatrix} 1 & 1 \\ 3 & 1 \\ 1 & 1\end{pmatrix} \cdot  \begin{pmatrix} -0.99956 \\ -0.99343\end{pmatrix} +
                 \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} \approx \begin{pmatrix} -0.993 \\ -2.99212 \\ -0.993\end{pmatrix} \\
                 {x}^{[3]}_2 &= f\left({z}^{[3]}_2\right) \approx \begin{pmatrix} -0.98652 \\ -0.99816 \\ -0.98652\end{pmatrix}
             \end{align*}
@@ -477,11 +477,10 @@ regressors to answer the following questions.
           round and bound estimates. Assess the impact of these operations on the MAE of the MLP learnt in the previous question.}
 
           \vskip 0.3cm
-          \lstinputlisting[language=Python]{./assets/code_1.py}
-          \begin{figure}[H]
-              \includegraphics[width=10cm]{./assets/mae_round_bound_ex2_PartII.png}
-              \label{fig:PartII-ex2}
-          \end{figure}
+          \lstinputlisting[language=Python]{./assets/code_2.py}
+
+          MAE without operations: 0.4937438468885914        \\
+          MAE with rounded and bounded predictions: 0.43125 \\
 
           Blah
 
@@ -489,11 +488,12 @@ regressors to answer the following questions.
           number of iterations in $\{20,50,100,200\}$ (where one iteration corresponds to a batch).}
 
            \vskip 0.3cm
-          \lstinputlisting[language=Python]{./assets/code_1.py}
-          \begin{figure}[H]
-              \includegraphics[width=10cm]{./assets/rmse_iters_ex3_PartII.png}
-              \label{fig:PartII-ex3}
-          \end{figure}
+          \lstinputlisting[language=Python]{./assets/code_3.py}
+
+          RMSE with 20 iterations: 1.0336201651006487  \\
+          RMSE with 50 iterations: 0.7060815422297181  \\
+          RMSE with 100 iterations: 0.6641845695241441 \\
+          RMSE with 200 iterations: 0.6393054830316605 \\
 
     \item \textbf{Critically comment the results obtained in the previous question, hypothesizing at least
           one reason why early stopping favors and/or worsens performance.}

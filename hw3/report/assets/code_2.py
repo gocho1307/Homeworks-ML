@@ -22,13 +22,12 @@ for rs in range(1, 11):
 
 # Apply rounding and bounding operations
 y_pred = np.mean(y_preds, axis=0)
-y_pred_rounded = np.round(y_pred)
-y_pred_bounded = np.clip(y_pred, 1, 10)  # Bound between 1 and 10
+y_pred_rb = np.clip(np.round(y_pred), 1, 10)  # Bound between 1 and 10
 
 # Calculate MAE for both rounded and bounded predictions
-mae_rounded = mean_absolute_error(y_test, y_pred_rounded)
-mae_bounded = mean_absolute_error(y_test, y_pred_bounded)
+mae = mean_absolute_error(y_test, y_pred)
+mae_rb = mean_absolute_error(y_test, y_pred_rb)
 
 # Print the MAE for both cases
-print(f"MAE with rounded predictions: {mae_rounded}")
-print(f"MAE with bounded predictions: {mae_bounded}")
+print(f"MAE without operations: {mae}")
+print(f"MAE with rounded and bounded predictions: {mae_rb}")
