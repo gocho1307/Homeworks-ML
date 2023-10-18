@@ -258,13 +258,10 @@ facilities to support the calculus involved in both questions (1) and (2).
 
           To begin, we initiate the process with the \textbf{forward pass}. Below are the key equations for this step:
 
-            \begin{equation}\label{ex2-z}
-                \mathbf{z}^{[n]} = \mathbf{W}^{[n]} \cdot \mathbf{x}^{[n-1]} + \mathbf{b}^{[n]}
-            \end{equation}
-
-            \begin{equation}\label{ex2-x}
-                \mathbf{x}^{[n]} = f\left(\mathbf{z}^{[n]}\right)
-            \end{equation}
+          \begin{align*}
+              \mathbf{z}^{[n]} = \mathbf{W}^{[n]} \cdot \mathbf{x}^{[n-1]} + \mathbf{b}^{[n]} & \qquad\qquad
+              \mathbf{x}^{[n]} = f\left(\mathbf{z}^{[n]}\right)
+          \end{align*}
 
           We will start with $x_1$:
             \begingroup
@@ -314,15 +311,18 @@ facilities to support the calculus involved in both questions (1) and (2).
           This can be broken down into:
 
           \vskip -0.3cm
-          \begin{equation*}
-            \frac{d\mathcal{L}}{dx^{[p]}_i} \circ \frac{dx^{[p]}_i}{dz^{[p]}_i} = \delta^{[p]}_i
-          \end{equation*}
+          \begin{align*}
+              \frac{d\mathcal{L}}{dx^{[p]}_i} \circ \frac{dx^{[p]}_i}{dz^{[p]}_i} = \delta^{[p]}_i & \qquad\qquad
+              \frac{dz^{[p]}_i}{dW^{[p]}} = \left(x^{[p-1]}_i\right)^{T}
+          \end{align*}
 
-          \begin{equation*}
-            \frac{dz^{[p]}_i}{dW^{[p]}} = \left(x^{[p-1]}_i\right)^{T}
-          \end{equation*}
+          \textbf{Therefore,} the derivative of the loss fuction is given by:
 
-          After computing \(\delta\), we can split it into two separate cases: if it is in the last layer \eqref{ex2-deltalastlayer}, or in non-external layers \eqref{ex2-deltanotlastlayer}:
+          \begin{equation}\label{ex2-derivate-loss-smiplified}
+            \frac{d\mathcal{L}}{dW^{[p]}} = \sum_{i=1}^{2} \left(\delta^{[p]}_i \cdot \left(x^{[p-1]}_i\right)^{T} \right)
+          \end{equation}
+
+          When computing \(\delta\), we can split it into two separate cases: if it is in the last layer \eqref{ex2-deltalastlayer}, or in non-external layers \eqref{ex2-deltanotlastlayer}:
 
           \begin{equation}\label{ex2-deltalastlayer}
               \delta^{[p]}_i = \left(x^{[p]}_i - z_i\right) \circ \text{sech}^{2}\left(0.5 \times z^{[p]}_i - 2\right) \times 0.5
@@ -332,18 +332,12 @@ facilities to support the calculus involved in both questions (1) and (2).
               \delta^{[p]}_i = \left(W^{[p+1]^{T}} \cdot \delta^{[p+1]}_i\right) \circ \text{sech}^{2}\left(0.5 \times z^{[p]}_i - 2\right) \times 0.5
           \end{equation}
 
-          \textbf{Therefore,} the derivitave of the loss fuction is given by:
-
-          \begin{equation}\label{ex2-derivate-loss-smiplified}
-            \frac{d\mathcal{L}}{dW^{[p]}} = \sum_{i=1}^{2} \left(\delta^{[p]}_i \cdot \left(x^{[p-1]}_i\right)^{T} \right)
-          \end{equation}
-
-          \textbf{Since,} the \texttt{tanh} function variates from -1 to 1 and since the targets for $x_1$ and $x_2$ are B and A, respectively, we can conclude that:
+          \textbf{Since,} the \texttt{tanh} function has a codomain of $]-1,1[$ and since the targets for $x_1$ and $x_2$ are B and A, respectively, we can conclude that:
 
           \vskip -0.3cm
           \[
               \begin{array}{cc}
-                  z_1 = \begin{bmatrix} -1 & 1 & -1\end{bmatrix}^T & \quad
+                  z_1 = \begin{bmatrix} -1 & 1 & -1\end{bmatrix}^T & \qquad
                   z_2 = \begin{bmatrix} 1 & -1 & -1\end{bmatrix}^T
               \end{array}
           \]
@@ -415,7 +409,7 @@ facilities to support the calculus involved in both questions (1) and (2).
           \end{equation}
 
           \begin{equation}\label{ex2-new-bias}
-            b^{[i]}_{new} = b^{[i]}_{old} - \eta \sum_{k=1}^{2}\left(\delta_k^{i}\right)
+            b^{[i]}_{new} = b^{[i]}_{old} - \eta \sum_{k=1}^{2}\left(\delta_k^{[i]}\right)
           \end{equation}
 
           Considering $\eta = 0.1$ we have all the values we need to start computing the results.
@@ -428,11 +422,11 @@ facilities to support the calculus involved in both questions (1) and (2).
             W^{[3]}_{new} &= \begin{pmatrix} 0.99704 & 0.99775 \\ 3.01431 & 0.98169 \\ 0.99971 & 1.00041\end{pmatrix}
           \end{align*}
 
-          \textbf{Finally,} by replacing the values into \eqref{ex2-new-bias}, we get the following bias:
+          \textbf{Finally,} by replacing the values into \eqref{ex2-new-bias}, we get the following biases:
           \[
               \begin{array}{ccc}
-                  b^{[1]}_{new} = \begin{pmatrix} 1.01872 \\ 1.03359 \\ 1.01872\end{pmatrix} &
-                  b^{[2]}_{new} = \begin{pmatrix} 1.03745 \\ 1.01017\end{pmatrix} &
+                  b^{[1]}_{new} = \begin{pmatrix} 1.01872 \\ 1.03359 \\ 1.01872\end{pmatrix} & \quad
+                  b^{[2]}_{new} = \begin{pmatrix} 1.03745 \\ 1.01017\end{pmatrix} & \quad
                   b^{[3]}_{new} = \begin{pmatrix} 1.00198 \\ 1.03177 \\ 0.9993\end{pmatrix}
               \end{array}
           \]
@@ -466,10 +460,13 @@ regressors to answer the following questions.
           \vskip 0.3cm
           \lstinputlisting[language=Python]{./assets/code_1.py}
 
+          The residues were calculated as the absolute difference between the predicted value and the expected value, for each observation.
+          Due to the stochastic behavior of MLP regressors, we took the results of the MLP from 10 runs.
+
           \begin{figure}[H]
               \centering
               \includegraphics[width=14cm]{./assets/residues_histogram_ex1_PartII.png}
-              \caption{The distribution of absolute residues for MLP regression on wine quality prediction}
+              \caption{The distribution of absolute residues for MLP regression on wine quality prediction using an histogram with 30 bins}
               \label{fig:PartII-ex1}
           \end{figure}
 
@@ -480,9 +477,11 @@ regressors to answer the following questions.
           \lstinputlisting[language=Python]{./assets/code_2.py}
 
           MAE without operations: 0.4937438468885914        \\
-          MAE with rounded and bounded predictions: 0.43125 \\
+          MAE with rounded and bounded predictions: 0.43125
 
-          Blah
+          \vskip 0.2cm
+          By rounding to the nearest unit and bounding the estimates between 1 and 10 (as per the \textit{FAQ}), we get a lower Mean Absolute Error.
+          The wine quality is an integer between 1 and 10, so it is expected that rounding and bounding the estimates gets them closer to the real integer values.
 
     \item \textbf{Similarly assess the impact on RMSE from replacing early stopping by a well-defined
           number of iterations in $\{20,50,100,200\}$ (where one iteration corresponds to a batch).}
@@ -493,7 +492,7 @@ regressors to answer the following questions.
           RMSE with 20 iterations: 1.0336201651006487  \\
           RMSE with 50 iterations: 0.7060815422297181  \\
           RMSE with 100 iterations: 0.6641845695241441 \\
-          RMSE with 200 iterations: 0.6393054830316605 \\
+          RMSE with 200 iterations: 0.6393054830316605
 
     \item \textbf{Critically comment the results obtained in the previous question, hypothesizing at least
           one reason why early stopping favors and/or worsens performance.}
