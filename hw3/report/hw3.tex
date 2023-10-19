@@ -240,9 +240,9 @@ facilities to support the calculus involved in both questions (1) and (2).
 
           \begin{center}
               \vskip -0.3cm
-              $\text{W}^{[1]} = \begin{pmatrix} 1 & 1 & 1 & 1 \\ 1 & 1 & 2 & 1 \\ 1 & 1 & 1 & 1\end{pmatrix},\; \text{b}^{[1]} = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix},\;
-              \text{W}^{[2]} = \begin{pmatrix} 1 & 4 & 1 \\ 1 & 1 & 1 \end{pmatrix},\; \text{b}^{[2]} = \begin{pmatrix} 1 \\ 1 \end{pmatrix},\;
-              \text{W}^{[3]} = \begin{pmatrix} 1 & 1 \\ 3 & 1 \\ 1 & 1\end{pmatrix},\; \text{b}^{[3]} = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$ \\
+              $\text{W}^{[1]} = \begin{bmatrix} 1 & 1 & 1 & 1 \\ 1 & 1 & 2 & 1 \\ 1 & 1 & 1 & 1\end{bmatrix},\; \text{b}^{[1]} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix},\;
+              \text{W}^{[2]} = \begin{bmatrix} 1 & 4 & 1 \\ 1 & 1 & 1 \end{bmatrix},\; \text{b}^{[2]} = \begin{bmatrix} 1 \\ 1 \end{bmatrix},\;
+              \text{W}^{[3]} = \begin{bmatrix} 1 & 1 \\ 3 & 1 \\ 1 & 1\end{bmatrix},\; \text{b}^{[3]} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$ \\
           \end{center}
 
           \[ f\left(x\right) = \frac{{e^{0.5x - 2} - e^{-0.5x + 2}}}{{e^{0.5x - 2} + e^{-0.5x + 2}}} = \tanh\left(0.5x - 2\right) \] \\
@@ -256,183 +256,250 @@ facilities to support the calculus involved in both questions (1) and (2).
           \textbf{Note:} To help with the calculations and as suggested in the prompt, we used \texttt{numpy}.
           The code can be found in the Jupyter notebook \texttt{G028.ipynb}.
 
-          To begin, we initiate the process with the \textbf{forward pass}. Below are the key equations for this step:
+          To begin, we initiate the process with the \textbf{forward propagation}. Below are the key equations to calculate the values of each
+          layer, $x^{[p]}_i$, per observation:
 
+          \vskip -0.2cm
           \begin{align*}
-              \mathbf{z}^{[n]} = \mathbf{W}^{[n]} \cdot \mathbf{x}^{[n-1]} + \mathbf{b}^{[n]} & \qquad\qquad
-              \mathbf{x}^{[n]} = f\left(\mathbf{z}^{[n]}\right)
+              z^{[p]}_i = W^{[p]} \, x^{[p-1]}_i + b^{[p]} & \qquad\qquad
+              x^{[p]}_i = f\left(z^{[p]}_i\right)
           \end{align*}
 
-          We will start with $x_1$:
+          The function $f$ is the activation function, for every layer, provided in the prompt, $f\left(z^{[p]}_i\right) = \text{tanh}\left(0.5\,z^{[p]} - 2\right)$.
+          In this notation, the value $p$ is the index of the MLP layer and $n$ is the number of the observation, either 1 or 2.
+
+          We can now calculate the values of each node in the multi-layer perceptron with the initialized weights and biases provided in the prompt,
+          for each of the observations.
+
+          We will \textbf{start} with $x_1$:
             \begingroup
             \allowdisplaybreaks
             \begin{align*}
-                z^{[1]}_1 &= {W}^{[1]} \cdot {x}^{[0]}_1 + {b}^{[1]} = \begin{pmatrix} 1 & 1 & 1 & 1 \\ 1 & 1 & 2 & 1 \\ 1 & 1 & 1 & 1\end{pmatrix} \cdot  \begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \end{pmatrix} +
-                \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} = \begin{pmatrix} 5 \\ 6 \\ 5\end{pmatrix} \\
-                {x}^{[1]}_1 &= f\left({z}^{[1]}_1\right) \approx \begin{pmatrix} 0.46212 \\ 0.76159 \\ 0.46212\end{pmatrix} \\
-                z^{[2]}_1 &= {W}^{[2]} \cdot {x}^{[1]}_1 + {b}^{[2]} = \begin{pmatrix} 1 & 4 & 1 \\ 1 & 1 & 1\end{pmatrix} \cdot \begin{pmatrix} 0.46212 \\ 0.76159 \\ 0.46212 \end{pmatrix} +
-                \begin{pmatrix} 1 \\ 1\end{pmatrix} \approx \begin{pmatrix} 4.97061 \\ 2.68583\end{pmatrix} \\
-                {x}^{[2]}_1 &= f\left({z}^{[2]}_1\right) \approx \begin{pmatrix} 0.45048 \\ -0.57642\end{pmatrix} \\
-                z^{[3]}_1 &= {W}^{[3]} \cdot {x}^{[2]}_1 + {b}^{[3]} = \begin{pmatrix} 1 & 1 \\ 3 & 1 \\ 1 & 1\end{pmatrix} \cdot  \begin{pmatrix} 0.45048 \\ -0.57642\end{pmatrix} +
-                \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} \approx \begin{pmatrix} 0.87406 \\ 1.77503 \\ 0.87406\end{pmatrix} \\
-                {x}^{[3]}_1 &= f\left({z}^{[3]}_1\right) \approx \begin{pmatrix} -0.9159 \\ -0.80494 \\ -0.9159\end{pmatrix}
+                z^{[1]}_1 &= {W}^{[1]} \, {x}^{[0]}_1 + {b}^{[1]} = \begin{bmatrix} 1 & 1 & 1 & 1 \\ 1 & 1 & 2 & 1 \\ 1 & 1 & 1 & 1\end{bmatrix} \,  \begin{bmatrix} 1 \\ 1 \\ 1 \\ 1 \end{bmatrix} +
+                \begin{bmatrix} 1 \\ 1 \\ 1\end{bmatrix} = \begin{bmatrix} 5 \\ 6 \\ 5\end{bmatrix} \\
+                    {x}^{[1]}_1 &= f\left({z}^{[1]}_1\right) = \text{tanh}\left(0.5\,{z}^{[1]}_1 - 2\right) \approx \begin{bmatrix} 0.46212 \\ 0.76159 \\ 0.46212\end{bmatrix} \\
+                z^{[2]}_1 &= {W}^{[2]} \, {x}^{[1]}_1 + {b}^{[2]} = \begin{bmatrix} 1 & 4 & 1 \\ 1 & 1 & 1\end{bmatrix} \, \begin{bmatrix} 0.46212 \\ 0.76159 \\ 0.46212 \end{bmatrix} +
+                \begin{bmatrix} 1 \\ 1\end{bmatrix} \approx \begin{bmatrix} 4.97061 \\ 2.68583\end{bmatrix} \\
+                {x}^{[2]}_1 &= f\left({z}^{[2]}_1\right) = \text{tanh}\left(0.5\,{z}^{[2]}_1 - 2\right) \approx \begin{bmatrix} 0.45048 \\ -0.57642\end{bmatrix} \\
+                z^{[3]}_1 &= {W}^{[3]} \, {x}^{[2]}_1 + {b}^{[3]} = \begin{bmatrix} 1 & 1 \\ 3 & 1 \\ 1 & 1\end{bmatrix} \,  \begin{bmatrix} 0.45048 \\ -0.57642\end{bmatrix} +
+                \begin{bmatrix} 1 \\ 1 \\ 1\end{bmatrix} \approx \begin{bmatrix} 0.87406 \\ 1.77503 \\ 0.87406\end{bmatrix} \\
+                {x}^{[3]}_1 &= f\left({z}^{[3]}_1\right) = \text{tanh}\left(0.5\,{z}^{[3]}_1 - 2\right) \approx \begin{bmatrix} -0.9159 \\ -0.80494 \\ -0.9159\end{bmatrix}
             \end{align*}
             \endgroup
 
           \vskip -0.2cm
-          Next in line is $x_2$:
+          \textbf{Next} in line is $x_2$:
             \begingroup
             \allowdisplaybreaks
             \begin{align*}
-                z^{[1]}_2 &= {W}^{[1]} \cdot {x}^{[0]}_2 + {b}^{[1]} = \begin{pmatrix} 1 & 1 & 1 & 1 \\ 1 & 1 & 2 & 1 \\ 1 & 1 & 1 & 1\end{pmatrix} \cdot  \begin{pmatrix} 1 \\ 0 \\ 0 \\ -1 \end{pmatrix} +
-                \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} = \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} \\
-                {x}^{[1]}_2 &= f\left({z}^{[1]}_2\right) \approx \begin{pmatrix} -0.90515 \\ -0.90515 \\ -0.90515\end{pmatrix} \\
-                z^{[2]}_2 &= {W}^{[2]} \cdot {x}^{[1]}_2 + {b}^{[2]} = \begin{pmatrix} 1 & 4 & 1 \\ 1 & 1 & 1\end{pmatrix} \cdot  \begin{pmatrix} -0.90515 \\ -0.90515 \\ -0.90515 \end{pmatrix} +
-                \begin{pmatrix} 1 \\ 1\end{pmatrix} \approx \begin{pmatrix} -4.43089 \\ -1.71544\end{pmatrix} \\
-                {x}^{[2]}_2 &= f\left({z}^{[2]}_2\right) \approx \begin{pmatrix} -0.99956 \\ -0.99343\end{pmatrix} \\
-                z^{[3]}_2 &= {W}^{[3]} \cdot {x}^{[2]}_2 + {b}^{[3]} = \begin{pmatrix} 1 & 1 \\ 3 & 1 \\ 1 & 1\end{pmatrix} \cdot  \begin{pmatrix} -0.99956 \\ -0.99343\end{pmatrix} +
-                \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} \approx \begin{pmatrix} -0.993 \\ -2.99212 \\ -0.993\end{pmatrix} \\
-                {x}^{[3]}_2 &= f\left({z}^{[3]}_2\right) \approx \begin{pmatrix} -0.98652 \\ -0.99816 \\ -0.98652\end{pmatrix}
+                z^{[1]}_2 &= {W}^{[1]} \, {x}^{[0]}_2 + {b}^{[1]} = \begin{bmatrix} 1 & 1 & 1 & 1 \\ 1 & 1 & 2 & 1 \\ 1 & 1 & 1 & 1\end{bmatrix} \,  \begin{bmatrix} 1 \\ 0 \\ 0 \\ -1 \end{bmatrix} +
+                \begin{bmatrix} 1 \\ 1 \\ 1\end{bmatrix} = \begin{bmatrix} 1 \\ 1 \\ 1\end{bmatrix} \\
+                {x}^{[1]}_2 &= f\left({z}^{[1]}_2\right) = \text{tanh}\left(0.5\,{z}^{[1]}_2 - 2\right) \approx \begin{bmatrix} -0.90515 \\ -0.90515 \\ -0.90515\end{bmatrix} \\
+                z^{[2]}_2 &= {W}^{[2]} \, {x}^{[1]}_2 + {b}^{[2]} = \begin{bmatrix} 1 & 4 & 1 \\ 1 & 1 & 1\end{bmatrix} \,  \begin{bmatrix} -0.90515 \\ -0.90515 \\ -0.90515 \end{bmatrix} +
+                \begin{bmatrix} 1 \\ 1\end{bmatrix} \approx \begin{bmatrix} -4.43089 \\ -1.71544\end{bmatrix} \\
+                {x}^{[2]}_2 &= f\left({z}^{[2]}_2\right) = \text{tanh}\left(0.5\,{z}^{[2]}_2 - 2\right) \approx \begin{bmatrix} -0.99956 \\ -0.99343\end{bmatrix} \\
+                z^{[3]}_2 &= {W}^{[3]} \, {x}^{[2]}_2 + {b}^{[3]} = \begin{bmatrix} 1 & 1 \\ 3 & 1 \\ 1 & 1\end{bmatrix} \,  \begin{bmatrix} -0.99956 \\ -0.99343\end{bmatrix} +
+                \begin{bmatrix} 1 \\ 1 \\ 1\end{bmatrix} \approx \begin{bmatrix} -0.993 \\ -2.99212 \\ -0.993\end{bmatrix} \\
+                {x}^{[3]}_2 &= f\left({z}^{[3]}_2\right) = \text{tanh}\left(0.5\,{z}^{[3]}_2 - 2\right) \approx \begin{bmatrix} -0.98652 \\ -0.99816 \\ -0.98652\end{bmatrix}
             \end{align*}
             \endgroup
 
-          Let's initiate the \textbf{backpropagation} process. To do this, we first need to take into account the loss function, which, as per the prompt, is defined as follows:
+          Now that we have obtained the values for our observations, considering the initial weights and biases, we can initiate the \textbf{back propagation} process
+          to perform a batch gradient descent update (with learning rate $\eta = 0.1$).
 
-          \begin{equation}\label{ex2-loss}
-            \mathcal{L} = \frac{1}{2} \|\mathbf{z} - \hat{\mathbf{z}}\|^{2}_{2} = \frac{1}{2} \left(\mathbf{t} - {\mathbf{o}}\right)^{2}
+          The updated values for the weights and biases can be obtained by the following equations:
+
+          \begin{equation}\label{ex2-new-weight}
+              W^{[i]}_{new} = W^{[i]}_{old} + \Delta W^{[i]} = W^{[i]}_{old} - \eta \frac{\partial E}{\partial W^{[i]}} = W^{[i]}_{old} - 0.1 \frac{\partial E}{\partial W^{[i]}}
           \end{equation}
 
-          The next step involves computing its derivative:
+          \begin{equation}\label{ex2-new-bias}
+              b^{[i]}_{new} = b^{[i]}_{old} + \Delta b^{[i]} = b^{[i]}_{old} - \eta \frac{\partial E}{\partial b^{[i]}} = b^{[i]}_{old} - 0.1 \frac{\partial E}{\partial b^{[i]}}
+          \end{equation}
+
+          We first need to take into account the error function, which, as per the prompt, is the half squared error loss, defined as follows:
+
+          \begin{equation}\label{ex2-loss}
+              E(w) = \frac{1}{2} \|\mathbf{z} - \hat{\mathbf{z}}\|^{2}_{2} = \frac{1}{2} \sum^{N}_{i = 1} \left(t_i - o_i\right)^2
+          \end{equation}
+
+          The next step involves computing its derivatives by applying the \textbf{chain rule}:
 
           \begin{equation}
-            \frac{d\mathcal{L}}{dW^{[p]}} = \sum_{i=1}^{2} \left(\frac{d\mathcal{L}}{dx^{[p]}_i} \circ \frac{dx^{[p]}_i}{dz^{[p]}_i} \cdot \frac{dz^{[p]}_i}{dW^{[p]}} \right)
+            \frac{\partial E}{\partial W^{[p]}} = \sum_{i=1}^{2} \left(\frac{\partial E}{\partial x^{[p]}_i} \circ
+              \frac{\partial x^{[p]}_i}{\partial z^{[p]}_i} \cdot \frac{\partial z^{[p]}_i}{\partial W^{[p]}} \right)
+            \qquad
+            \frac{\partial E}{\partial b^{[p]}} = \sum_{i=1}^{2} \left(\frac{\partial E}{\partial x^{[p]}_i} \circ
+              \frac{\partial x^{[p]}_i}{\partial z^{[p]}_i} \cdot \frac{\partial z^{[p]}_i}{\partial b^{[p]}} \right)
           \end{equation}
 
           This can be broken down into:
 
-          \vskip -0.3cm
+          \vskip -0.2cm
+          \begin{equation*}
+              \frac{\partial E}{\partial x^{[p]}_i} \circ \frac{\partial x^{[p]}_i}{\partial z^{[p]}_i} = \delta^{[p]}_i
+          \end{equation*}
+
+          \begin{equation*}
+              \frac{\partial E}{\partial x^{[3]}_i} = \frac{1}{2} \times 2 \times \left(x^{[3]}_i - t_i\right)
+              = x^{[3]}_i - t_i
+          \end{equation*}
+
+          \begin{equation*}
+              \frac{\partial E}{\partial x^{[p]}_i} = \left(W^{[p+1]}\right)^{T} \cdot \delta^{[p+1]}_i, \;\; p \neq 3 \quad (\text{using recursion})
+          \end{equation*}
+
+          \vskip -0.5cm
           \begin{align*}
-              \frac{d\mathcal{L}}{dx^{[p]}_i} \circ \frac{dx^{[p]}_i}{dz^{[p]}_i} = \delta^{[p]}_i & \qquad\qquad
-              \frac{dz^{[p]}_i}{dW^{[p]}} = \left(x^{[p-1]}_i\right)^{T}
+              \frac{\partial x^{[p]}_i}{\partial z^{[p]}_i} & = f'\left(z^{[p]}_i\right) = \text{tanh}'\left(0.5 \times z^{[p]}_i - 2\right) \times
+              \frac{d}{d z^{[p]}_i} \left(0.5 \times z^{[p]}_i - 2\right) \\
+              & = \text{sech}^2\left(0.5 \times z^{[p]}_i - 2\right) \times 0.5
           \end{align*}
 
-          \textbf{Therefore,} the derivative of the loss fuction is given by:
+          \begin{equation*}
+              \frac{\partial z^{[p]}_i}{\partial W^{[p]}} = \left(x^{[p-1]}_i\right)^{T} \qquad\qquad
+              \frac{\partial z^{[p]}_i}{\partial b^{[p]}} = 1
+          \end{equation*}
+
+          \textbf{Therefore,} the derivatives of the error function are given by:
 
           \begin{equation}\label{ex2-derivate-loss-smiplified}
-            \frac{d\mathcal{L}}{dW^{[p]}} = \sum_{i=1}^{2} \left(\delta^{[p]}_i \cdot \left(x^{[p-1]}_i\right)^{T} \right)
+            \frac{\partial E}{\partial W^{[p]}} = \sum_{i=1}^{2} \left(\delta^{[p]}_i \cdot \left(x^{[p-1]}_i\right)^{T} \right) \qquad\qquad
+            \frac{\partial E}{\partial b^{[p]}} = \sum_{i=1}^{2} \left(\delta^{[p]}_i\right)
           \end{equation}
 
-          When computing \(\delta\), we can split it into two separate cases: if it is in the last layer \eqref{ex2-deltalastlayer}, or in non-external layers \eqref{ex2-deltanotlastlayer}:
+          When computing \(\delta\), we split it into two separate cases: if it is in  last layer \eqref{ex2-deltalastlayer}, or in non-external
+          layers \eqref{ex2-deltanotlastlayer}:
 
           \begin{equation}\label{ex2-deltalastlayer}
-              \delta^{[p]}_i = \left(x^{[p]}_i - z_i\right) \circ \text{sech}^{2}\left(0.5 \times z^{[p]}_i - 2\right) \times 0.5
+              \delta^{[3]}_i = \left(x^{[3]}_i - t_i\right) \circ \text{sech}^{2}\left(0.5 \times z^{[3]}_i - 2\right) \times 0.5
           \end{equation}
 
           \begin{equation}\label{ex2-deltanotlastlayer}
-              \delta^{[p]}_i = \left(W^{[p+1]^{T}} \cdot \delta^{[p+1]}_i\right) \circ \text{sech}^{2}\left(0.5 \times z^{[p]}_i - 2\right) \times 0.5
+              \delta^{[p]}_i = \left(\left(W^{[p+1]}\right)^{T} \cdot \delta^{[p+1]}_i\right) \circ \text{sech}^{2}\left(0.5 \times z^{[p]}_i - 2\right) \times 0.5, \;\; p \neq 3
           \end{equation}
 
-          \textbf{Since,} the \texttt{tanh} function has a codomain of $]-1,1[$ and since the targets for $x_1$ and $x_2$ are B and A, respectively, we can conclude that:
+          \textbf{Since,} the \texttt{tanh} function has a codomain in $[-1,1]$ and since the targets for $x_1$ and $x_2$ are B and A, respectively, we can
+          conclude the following encodings for the outputs:
 
-          \vskip -0.3cm
-          \[
-              \begin{array}{cc}
-                  z_1 = \begin{bmatrix} -1 & 1 & -1\end{bmatrix}^T & \qquad
-                  z_2 = \begin{bmatrix} 1 & -1 & -1\end{bmatrix}^T
-              \end{array}
-          \]
+          \begin{equation*}
+              t_1 = \begin{bmatrix} -1 & 1 & -1\end{bmatrix}^T \qquad\qquad
+              t_2 = \begin{bmatrix} 1 & -1 & -1\end{bmatrix}^T
+          \end{equation*}
 
         \textbf{Now,} we have all we need to compute the values for the deltas, $\delta$, by replacing the equation on \eqref{ex2-deltalastlayer} for $p=3$,
         and \eqref{ex2-deltanotlastlayer} for any $p \neq 3$:
         \begingroup
         \allowdisplaybreaks
           \begin{align*}
-            \delta^{[3]}_1 &= \left(x^{[3]}_1 - z_1\right) \circ  \text{sech}^{2}\left(0.5\times z^{[3]}_1 - 2\right) \times 0.5 =  \\
-            &=  \left(\begin{pmatrix} -0.9159 \\ -0.80494 \\ -0.9159\end{pmatrix} - \begin{pmatrix} -1 \\ 1 \\ -1 \end{pmatrix}\right) \circ \text{sech}^{2}\left(0.5\times \begin{pmatrix} 0.87406 \\ 1.77503 \\ 0.87406\end{pmatrix} \times 0.5\right) = \\
-            &= \begin{pmatrix} 0.00678 \\ -0.31773 \\ 0.00678 \end{pmatrix} \\
-            \delta^{[3]}_2 &= \left(x^{[3]}_2 - z_2\right) \circ  \text{sech}^{2}\left(0.5\times z^{[3]}_2 - 2\right) \times 0.5 =  \\
-            &=  \left(\begin{pmatrix} -0.98652 \\ -0.99816 \\ -0.98652\end{pmatrix} - \begin{pmatrix} 1 \\ -1 \\ -1\end{pmatrix}\right) \circ \text{sech}^{2}\left(0.5\times \begin{pmatrix} -0.993 \\ -2.99212 \\ -0.993\end{pmatrix} \times 0.5\right) = \\
-            &= \begin{pmatrix} -0.0266 \\ 0 \\ 0.00018 \end{pmatrix}
+              \delta^{[1]}_1 &= \left(\left(W^{[2]}\right)^{T} \cdot \delta^{[2]}_1\right) \circ \text{sech}^{2}\left(0.5 \times z^{[1]}_1 - 2\right) \times 0.5 = \\
+             &= \left(\begin{bmatrix} 1 4 1 \\ 1 1 1 \end{bmatrix}^{T} \cdot \begin{bmatrix} -0.37448 \\ -0.10156 \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5 \times \begin{bmatrix}  5 \\ 6 \\ 5 \end{bmatrix} - 2\right) \times 0.5 = \\
+             &= \begin{bmatrix} -0.18719 \\ -0.33587 \\ -0.18719\end{bmatrix} \\
+                 \delta^{[1]}_2 &= \left(\left(W^{[2]}\right)^{T} \cdot \delta^{[2]}_2\right) \circ  \text{sech}^{2}\left(0.5\times z^{[1]}_2 - 2\right) \times 0.5 = \\
+             &= \left(\begin{bmatrix} 1 4 1 \\ 1 1 1 \end{bmatrix}^{T} \cdot \begin{bmatrix} -1 \times 10^{-5} \\ -1.7 \times 10^{-4} \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5\times\begin{bmatrix}  1 \\ 1 \\ 1 \end{bmatrix} - 2\right) \times 0.5 = \\
+             &= \begin{bmatrix} -2 \times 10^{-5} \\ -2 \times 10^{-5} \\ -2 \times 10^{-5}\end{bmatrix}
           \end{align*}
         \endgroup
 
         \begingroup
         \allowdisplaybreaks
           \begin{align*}
-            \delta^{[2]}_1 &= \left(W^{[3]^{T}} \cdot \delta^{[3]}_1\right) \circ  \text{sech}^{2}\left(0.5\times z^{[2]}_1 - 2\right) \times 0.5 = \\
-             &= \left(\begin{pmatrix} 1 1 \\ 3 1 \\ 1 1\end{pmatrix}^{T} \cdot \begin{pmatrix} 0.00678 \\ -0.31773 \\ 0.00678 \end{pmatrix}\right) \circ \text{sech}^{2}\left(0.5\times\begin{pmatrix} 4.97061 \\ 2.68583\end{pmatrix} - 2\right) \times 0.5 = \\
-             &= \begin{pmatrix} -0.37448 \\ -0.10156 \end{pmatrix} \\
-            \delta^{[2]}_2 &= \left(W^{[3]^{T}} \cdot \delta^{[3]}_2\right) \circ  \text{sech}^{2}\left(0.5\times z^{[2]}_2 - 2\right) \times 0.5 = \\
-             &= \left(\begin{pmatrix} 1 1 \\ 3 1 \\ 1 1\end{pmatrix}^{T} \cdot \begin{pmatrix} -0.0266 \\ 0 \\ -0.00018 \end{pmatrix}\right) \circ \text{sech}^{2}\left(0.5\times\begin{pmatrix} 4.97061 \\ 2.68583\end{pmatrix} - 2\right) \times 0.5 = \\
-             &= \begin{pmatrix} -1 \times 10^{-5} \\ -1.7 \times 10^{-4} \end{pmatrix}
+              \delta^{[2]}_1 &= \left(\left(W^{[3]}\right)^{T} \cdot \delta^{[3]}_1\right) \circ \text{sech}^{2}\left(0.5\times z^{[2]}_1 - 2\right) \times 0.5 = \\
+             &= \left(\begin{bmatrix} 1 1 \\ 3 1 \\ 1 1\end{bmatrix}^{T} \cdot \begin{bmatrix} 0.00678 \\ -0.31773 \\ 0.00678 \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5\times\begin{bmatrix} 4.97061 \\ 2.68583\end{bmatrix} - 2\right) \times 0.5 = \\
+             &= \begin{bmatrix} -0.37448 \\ -0.10156 \end{bmatrix} \\
+                 \delta^{[2]}_2 &= \left(\left(W^{[3]}\right)^{T} \cdot \delta^{[3]}_2\right) \circ  \text{sech}^{2}\left(0.5\times z^{[2]}_2 - 2\right) \times 0.5 = \\
+             &= \left(\begin{bmatrix} 1 1 \\ 3 1 \\ 1 1\end{bmatrix}^{T} \cdot \begin{bmatrix} -0.0266 \\ 0 \\ -0.00018 \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5\times\begin{bmatrix} 4.97061 \\ 2.68583\end{bmatrix} - 2\right) \times 0.5 = \\
+             &= \begin{bmatrix} -1 \times 10^{-5} \\ -1.7 \times 10^{-4} \end{bmatrix}
           \end{align*}
         \endgroup
 
         \begingroup
         \allowdisplaybreaks
           \begin{align*}
-            \delta^{[1]}_1 &= \left(W^{[2]^{T}} \cdot \delta^{[2]}_1\right) \circ \text{sech}^{2}\left(0.5 \times z^{[1]}_1 - 2\right) \times 0.5 = \\
-             &= \left(\begin{pmatrix} 1 4 1 \\ 1 1 1 \end{pmatrix}^{T} \cdot \begin{pmatrix} -0.37448 \\ -0.10156 \end{pmatrix}\right) \circ \text{sech}^{2}\left(0.5 \times \begin{pmatrix}  5 \\ 6 \\ 5 \end{pmatrix} - 2\right) \times 0.5 = \\
-             &= \begin{pmatrix} -0.18719 \\ -0.33587 \\ -0.18719\end{pmatrix} \\
-            \delta^{[1]}_2 &= \left(W^{[2]^{T}} \cdot \delta^{[2]}_2\right) \circ  \text{sech}^{2}\left(0.5\times z^{[1]}_2 - 2\right) \times 0.5 = \\
-             &= \left(\begin{pmatrix} 1 4 1 \\ 1 1 1 \end{pmatrix}^{T} \cdot \begin{pmatrix} -1 \times 10^{-5} \\ -1.7 \times 10^{-4} \end{pmatrix}\right) \circ \text{sech}^{2}\left(0.5\times\begin{pmatrix}  1 \\ 1 \\ 1 \end{pmatrix} - 2\right) \times 0.5 = \\
-             &= \begin{pmatrix} -2 \times 10^{-5} \\ -2 \times 10^{-5} \\ -2 \times 10^{-5}\end{pmatrix}
+            \delta^{[3]}_1 &= \left(x^{[3]}_1 - t_1\right) \circ  \text{sech}^{2}\left(0.5\times z^{[3]}_1 - 2\right) \times 0.5 =  \\
+            &=  \left(\begin{bmatrix} -0.9159 \\ -0.80494 \\ -0.9159\end{bmatrix} - \begin{bmatrix} -1 \\ 1 \\ -1 \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5\times \begin{bmatrix} 0.87406 \\ 1.77503 \\ 0.87406\end{bmatrix} \times 0.5\right) = \\
+            &= \begin{bmatrix} 0.00678 \\ -0.31773 \\ 0.00678 \end{bmatrix} \\
+            \delta^{[3]}_2 &= \left(x^{[3]}_2 - t_2\right) \circ  \text{sech}^{2}\left(0.5\times z^{[3]}_2 - 2\right) \times 0.5 =  \\
+            &=  \left(\begin{bmatrix} -0.98652 \\ -0.99816 \\ -0.98652\end{bmatrix} - \begin{bmatrix} 1 \\ -1 \\ -1\end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5\times \begin{bmatrix} -0.993 \\ -2.99212 \\ -0.993\end{bmatrix} \times 0.5\right) = \\
+            &= \begin{bmatrix} -0.0266 \\ 0 \\ 0.00018 \end{bmatrix}
           \end{align*}
         \endgroup
 
-        \textbf{Next,} we will compute the derivatives of the loss function, employing the equation \eqref{ex2-derivate-loss-smiplified}:
+        \textbf{Next,} we will compute the derivatives of the error function, employing the first equation at \eqref{ex2-derivate-loss-smiplified}:
         \begingroup
         \allowdisplaybreaks
           \begin{align*}
-            \frac{d\mathcal{L}}{dW^{[3]}} &= \sum_{i=1}^{2} \left(\delta^{[3]}_i \cdot \left(x^{[2]}_i\right)^{T}\right) = \\
-             &= \left(\delta^{[3]}_1 \cdot \left(x^{[2]}_1\right)^{T}\right) + \left(\delta^{[3]}_2 \cdot \left(x^{[2]}_2\right)^{T}\right) = \\
-             &= \left(\begin{pmatrix} 0.00678 \\ -0.31773 \\ 0.00678 \end{pmatrix} \cdot \begin{pmatrix} 0.45048 \\ -0.57642\end{pmatrix}^{T}\right) +
-                 \left(\begin{pmatrix} -0.0266 \\ 0 \\ 0.00018 \end{pmatrix} \cdot \begin{pmatrix} -0.99956 \\ -0.99343\end{pmatrix}^{T}\right) = \\
-             &= \begin{pmatrix} 0.02964 & 0.02252 \\ -0.14314 & 0.18315 \\ 0.00287 & -0.00408 \end{pmatrix} \\
-            \frac{d\mathcal{L}}{dW^{[2]}} &= \sum_{i=1}^{2} \left(\delta^{[2]}_i \cdot \left(x^{[1]}_i\right)^{T}\right) = \\
-             &= \left(\delta^{[2]}_1 \cdot \left(x^{[1]}_1\right)^{T}\right) + \left(\delta^{[2]}_2 \cdot \left(x^{[1]}_2\right)^{T}\right) = \\
-             &= \left(\begin{pmatrix} -0.37448 \\ 0.10156 \end{pmatrix} \cdot \begin{pmatrix} 0.46212 \\ 0.76159 \\ 0.46212\end{pmatrix}^{T}\right) +
-                 \left(\begin{pmatrix} -1 \times 10^{-5} \\ -1.7 \times 10^{-4}  \end{pmatrix} \cdot \begin{pmatrix} -0.90515 \\ -0.90515 \\ -0.90515\end{pmatrix}^{T}\right) = \\
-             &= \begin{pmatrix} -0.17304 & -0.28519 & -0.17304\\ -0.04678 & -0.07719 & -0.04678 \end{pmatrix} \\
-            \frac{d\mathcal{L}}{dW^{[1]}} &= \sum_{i=1}^{2} \left(\delta^{[1]}_i \cdot \left(x^{[0]}_i\right)^{T}\right) = \\
-             &= \left(\delta^{[1]}_1 \cdot \left(x^{[0]}_1\right)^{T}\right) + \left(\delta^{[1]}_2 \cdot \left(x^{[0]}_2\right)^{T}\right) = \\
-             &= \left(\begin{pmatrix} -0.18719 \\ -0.33587 \\ -0.18719 \end{pmatrix} \cdot \begin{pmatrix} 1 \\ 1 \\ 1 \\ 1\end{pmatrix}^{T}\right) +
-                 \left(\begin{pmatrix} -2 \times 10^{-5} \\ -2 \times 10^{-5} \\ -2 \times 10^{-5}  \end{pmatrix} \cdot \begin{pmatrix} 1 \\ 0 \\ 0 \\ -1\end{pmatrix}^{T}\right) = \\
-             &= \begin{pmatrix} -0.18721 & -0.18719 & -0.18719 & -0.18717\\ -0.33589 & -0.33587 & -0.33587 & -0.33585 \\ -0.18721 & -0.18719 & -0.18719 & -0.18717\end{pmatrix}
+            \frac{\partial E}{\partial W^{[1]}} &= \sum_{i=1}^{2} \left(\delta^{[1]}_i \cdot \left(x^{[0]}_i\right)^{T}\right)
+             = \left(\delta^{[1]}_1 \cdot \left(x^{[0]}_1\right)^{T}\right) + \left(\delta^{[1]}_2 \cdot \left(x^{[0]}_2\right)^{T}\right) = \\
+             &= \left(\begin{bmatrix} -0.18719 \\ -0.33587 \\ -0.18719 \end{bmatrix} \cdot \begin{bmatrix} 1 \\ 1 \\ 1 \\ 1\end{bmatrix}^{T}\right) +
+                 \left(\begin{bmatrix} -2 \times 10^{-5} \\ -2 \times 10^{-5} \\ -2 \times 10^{-5}  \end{bmatrix} \cdot \begin{bmatrix} 1 \\ 0 \\ 0 \\ -1\end{bmatrix}^{T}\right) = \\
+             &= \begin{bmatrix} -0.18721 & -0.18719 & -0.18719 & -0.18717\\ -0.33589 & -0.33587 & -0.33587 & -0.33585 \\ -0.18721 & -0.18719 & -0.18719 & -0.18717\end{bmatrix} \\
+            \frac{\partial E}{\partial W^{[2]}} &= \sum_{i=1}^{2} \left(\delta^{[2]}_i \cdot \left(x^{[1]}_i\right)^{T}\right)
+             = \left(\delta^{[2]}_1 \cdot \left(x^{[1]}_1\right)^{T}\right) + \left(\delta^{[2]}_2 \cdot \left(x^{[1]}_2\right)^{T}\right) = \\
+             &= \left(\begin{bmatrix} -0.37448 \\ 0.10156 \end{bmatrix} \cdot \begin{bmatrix} 0.46212 \\ 0.76159 \\ 0.46212\end{bmatrix}^{T}\right) +
+                 \left(\begin{bmatrix} -1 \times 10^{-5} \\ -1.7 \times 10^{-4}  \end{bmatrix} \cdot \begin{bmatrix} -0.90515 \\ -0.90515 \\ -0.90515\end{bmatrix}^{T}\right) = \\
+             &= \begin{bmatrix} -0.17304 & -0.28519 & -0.17304\\ -0.04678 & -0.07719 & -0.04678 \end{bmatrix} \\
+            \frac{\partial E}{\partial W^{[3]}} &= \sum_{i=1}^{2} \left(\delta^{[3]}_i \cdot \left(x^{[2]}_i\right)^{T}\right)
+             = \left(\delta^{[3]}_1 \cdot \left(x^{[2]}_1\right)^{T}\right) + \left(\delta^{[3]}_2 \cdot \left(x^{[2]}_2\right)^{T}\right) = \\
+             &= \left(\begin{bmatrix} 0.00678 \\ -0.31773 \\ 0.00678 \end{bmatrix} \cdot \begin{bmatrix} 0.45048 \\ -0.57642\end{bmatrix}^{T}\right) +
+                 \left(\begin{bmatrix} -0.0266 \\ 0 \\ 0.00018 \end{bmatrix} \cdot \begin{bmatrix} -0.99956 \\ -0.99343\end{bmatrix}^{T}\right) = \\
+             &= \begin{bmatrix} 0.02964 & 0.02252 \\ -0.14314 & 0.18315 \\ 0.00287 & -0.00408 \end{bmatrix}
           \end{align*}
         \endgroup
 
-          \textbf{The final step} is to calculate the final weights and bias, which shall be given by the following equations:
-
-          \begin{equation}\label{ex2-new-weight}
-            W^{[i]}_{new} = W^{[i]}_{old} - \eta \nabla\mathcal{L}
-          \end{equation}
-
-          \begin{equation}\label{ex2-new-bias}
-            b^{[i]}_{new} = b^{[i]}_{old} - \eta \sum_{k=1}^{2}\left(\delta_k^{[i]}\right)
-          \end{equation}
-
-          Considering $\eta = 0.1$ we have all the values we need to start computing the results.
-
-          \textbf{By substituting} the values into \eqref{ex2-new-weight}, we obtain the following weights:
-
+        \textbf{Next,} we will employ the second equation at \eqref{ex2-derivate-loss-smiplified}:
+        \begingroup
+        \allowdisplaybreaks
           \begin{align*}
-            W^{[1]}_{new} &= \begin{pmatrix} 1.01872 & 1.01872 & 1.01872 & 1.01872 \\ 1.03359 & 1.03359 & 2.03359 & 1.03359 \\ 1.01872 & 1.01872 & 1.01872 & 1.01872 \end{pmatrix} \\
-            W^{[2]}_{new} &= \begin{pmatrix} 1.0173 & 4.02852 & 1.0173 \\ 1.00468 & 1.00772 & 1.00468\end{pmatrix} \\
-            W^{[3]}_{new} &= \begin{pmatrix} 0.99704 & 0.99775 \\ 3.01431 & 0.98169 \\ 0.99971 & 1.00041\end{pmatrix}
+            \frac{\partial E}{\partial b^{[1]}} &= \sum_{i=1}^{2} \left(\delta^{[1]}_i\right)
+             = \delta^{[1]}_1 + \delta^{[1]}_2
+             = \begin{bmatrix} -0.18719 \\ -0.33587 \\ -0.18719 \end{bmatrix} +
+                 \begin{bmatrix} -2 \times 10^{-5} \\ -2 \times 10^{-5} \\ -2 \times 10^{-5} \end{bmatrix}
+             = \begin{bmatrix} 0.02964 \\ -0.14314 \\ 0.00287 \end{bmatrix} \\
+            \frac{\partial E}{\partial b^{[2]}} &= \sum_{i=1}^{2} \left(\delta^{[2]}_i\right)
+             = \delta^{[2]}_1 + \delta^{[2]}_2
+             = \begin{bmatrix} -0.37448 \\ 0.10156 \end{bmatrix} +
+                 \begin{bmatrix} -1 \times 10^{-5} \\ -1.7 \times 10^{-4}  \end{bmatrix}
+             = \begin{bmatrix} 0.02964 \\ -0.14314 \end{bmatrix} \\
+            \frac{\partial E}{\partial b^{[3]}} &= \sum_{i=1}^{2} \left(\delta^{[3]}_i\right)
+             = \delta^{[3]}_1 + \delta^{[3]}_2
+             = \begin{bmatrix} 0.00678 \\ -0.31773 \\ 0.00678 \end{bmatrix} +
+                 \begin{bmatrix} -0.0266 \\ 0 \\ 0.00018 \end{bmatrix}
+             = \begin{bmatrix} 0.02964 \\ -0.14314 \\ 0.00287 \end{bmatrix}
+          \end{align*}
+        \endgroup
+
+          \textbf{The final step} is to calculate the updated weights and biases.
+
+          \textbf{By substituting} the values into \eqref{ex2-new-weight}, we obtain the following updated weights:
+
+          \vskip -0.2cm
+          \begin{align*}
+              W^{[1]}_{new} = & \begin{bmatrix} -1.01872 & -1.01872 & -1.01872 & -1.01872 \\ 1.03359 & 1.03359 & 2.03359 & 1.03359 \\ 1.01872 & 1.01872 & 1.01872 & 1.01872 \end{bmatrix} -\\
+                - 0.1 & \begin{bmatrix} -1.01872 & -1.01872 & -1.01872 & -1.01872 \\ 1.03359 & 1.03359 & 2.03359 & 1.03359 \\ 1.01872 & 1.01872 & 1.01872 & 1.01872 \end{bmatrix} = \\
+                = & \begin{bmatrix} -1.01872 & -1.01872 & -1.01872 & -1.01872 \\ 1.03359 & 1.03359 & 2.03359 & 1.03359 \\ 1.01872 & 1.01872 & 1.01872 & 1.01872 \end{bmatrix} \\
+              W^{[2]}_{new} = & \begin{bmatrix} 1.01872 & 1.01872 & 1.01872 \\ 1.03359 & 1.03359 & 2.03359 \end{bmatrix} -
+                0.1 \begin{bmatrix} 1.01872 & 1.01872 & 1.01872 \\ 1.03359 & 1.03359 & 2.03359 \end{bmatrix} = \\
+                = & \begin{bmatrix} 1.0173 & 4.02852 & 1.0173 \\ 1.00468 & 1.00772 & 1.00468\end{bmatrix} \\
+              W^{[3]}_{new} = & \begin{bmatrix} 1.01872 & 1.01872 \\ 1.03359 & 1.03359 \\ 1.01872 & 1.01872 \end{bmatrix} -
+                0.1 \begin{bmatrix} 1.01872 & 1.01872 \\ 1.03359 & 1.03359 \\ 1.01872 & 1.01872 \end{bmatrix} = \\
+                = & \begin{bmatrix} 0.99704 & 0.99775 \\ 3.01431 & 0.98169 \\ 0.99971 & 1.00041\end{bmatrix}
           \end{align*}
 
-          \textbf{Finally,} by replacing the values into \eqref{ex2-new-bias}, we get the following biases:
-          \[
-              \begin{array}{ccc}
-                  b^{[1]}_{new} = \begin{pmatrix} 1.01872 \\ 1.03359 \\ 1.01872\end{pmatrix} & \quad
-                  b^{[2]}_{new} = \begin{pmatrix} 1.03745 \\ 1.01017\end{pmatrix} & \quad
-                  b^{[3]}_{new} = \begin{pmatrix} 1.00198 \\ 1.03177 \\ 0.9993\end{pmatrix}
-              \end{array}
-          \]
+          \textbf{Finally,} by replacing the values into \eqref{ex2-new-bias}, we get the following updated biases:
+
+          \vskip -0.2cm
+          \begin{align*}
+              b^{[1]}_{new} &= \begin{bmatrix} 1.01872 \\ 1.03359 \\ 1.01872\end{bmatrix} - 0.1 \begin{bmatrix} 1.01872 \\ 1.03359 \\ 1.01872\end{bmatrix}
+                  = \begin{bmatrix} 1.01872 \\ 1.03359 \\ 1.01872\end{bmatrix} \\
+              b^{[2]}_{new} &= \begin{bmatrix} 1.03745 \\ 1.01017\end{bmatrix} - 0.1 \begin{bmatrix} 1.03745 \\ 1.01017\end{bmatrix}
+                  = \begin{bmatrix} 1.03745 \\ 1.01017\end{bmatrix} \\
+              b^{[3]}_{new} &= \begin{bmatrix} 1.00198 \\ 1.03177 \\ 0.9993\end{bmatrix} - 0.1 \begin{bmatrix} 1.00198 \\ 1.03177 \\ 0.9993\end{bmatrix}
+                  = \begin{bmatrix} 1.00198 \\ 1.03177 \\ 0.9993\end{bmatrix}
+          \end{align*}
 \end{enumerate}
 
-\vskip 0.5cm
+\pagebreak
 
 \begin{center}
 \large{\textbf{Part II}: Programming and critical analysis}\normalsize
@@ -477,7 +544,7 @@ regressors to answer the following questions.
           \lstinputlisting[language=Python]{./assets/code_2.py}
 
           MAE without operations: 0.5097171955009515 \\
-          MAE with rounded and bounded predictions: 0.43875000000000003
+          MAE with rounded and bounded predictions: 0.43875
 
           \vskip 0.2cm
           By rounding to the nearest unit and bounding the estimates between 1 and 10 (as per the \textit{FAQ}), we get a lower Mean Absolute Error.
@@ -498,8 +565,8 @@ regressors to answer the following questions.
           one reason why early stopping favors and/or worsens performance.}
 
           \vskip 0.3cm
-
-          Increasing the number of training cycles consistently lowered the Root Mean Squared Error (RMSE). This is expected because more cycles let the model adjust its weights and bias, potentially fitting the data accurately.
+          Increasing the number of training cycles consistently lowered the Root Mean Squared Error (RMSE).
+          This is expected because more cycles let the model adjust its weights and bias, potentially fitting the data accurately.
 
           Now, let's understand how stopping training early might affect performance:
 
