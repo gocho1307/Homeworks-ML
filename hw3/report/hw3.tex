@@ -498,6 +498,14 @@ regressors to answer the following questions.
           one reason why early stopping favors and/or worsens performance.}
 
           \vskip 0.3cm
-          Blah
+
+          Increasing the number of training cycles consistently lowered the Root Mean Squared Error (RMSE). This is expected because more cycles let the model adjust its weights and bias, potentially fitting the data accurately.
+
+          Now, let's understand how stopping training early might affect performance:
+
+          \begin{itemize}
+            \item \textbf{Possible downside:} If we stop too soon, we might halt before the model reaches its optimal performance.
+            \item \textbf{Potential benefit:} Early stopping can prevent the model from overfitting, which can help it make better predictions on new and unseen data.
+          \end{itemize}
 \end{enumerate}
 \end{document}
