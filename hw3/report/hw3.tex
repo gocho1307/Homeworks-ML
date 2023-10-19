@@ -565,14 +565,16 @@ regressors to answer the following questions.
           one reason why early stopping favors and/or worsens performance.}
 
           \vskip 0.3cm
-          Increasing the number of training cycles consistently lowered the Root Mean Squared Error (RMSE).
-          This is expected because more cycles let the model adjust its weights and bias, potentially fitting the data accurately.
+          Increasing the number of iterations consistently lowered the Root Mean Squared Error (RMSE).
+          This outcome is expected since additional iterations provide the model with more opportunities to adjust its weights and biases, potentially 
+           leading to a more precise fit to the data.
 
-          Now, let's understand how stopping training early might affect performance:
+          However, it's noteworthy that even though 20 and 50 iterations resulted in higher RMSE, suggesting poorer performance, they might perform better on real, unseen data. 
+          This is because early stopping helps prevent the model from overfitting.
+          
+          Conversely, there is a possibility that the model stopped training before fully learning the patterns in the data, leading to non-optimal performance.
 
-          \begin{itemize}
-            \item \textbf{Possible downside:} If we stop too soon, we might halt before the model reaches its optimal performance.
-            \item \textbf{Potential benefit:} Early stopping can prevent the model from overfitting, which can help it make better predictions on new and unseen data.
-          \end{itemize}
+          In summary, while increasing the number of iterations generally improved the model's fit to the training data, the impact on real-world, unseen data remains uncertain. 
+          Early stopping, although potentially beneficial in preventing overfitting, could also lead to premature cessation of training, possibly hindering optimal performance.
 \end{enumerate}
 \end{document}
