@@ -409,11 +409,11 @@ Jupyter notebook \texttt{G028.ipynb}.
         \begingroup
         \allowdisplaybreaks
           \begin{align*}
-              \delta^{[2]}_1 &= \left(\left(W^{[3]}\right)^{T} \cdot \delta^{[3]}_1\right) \circ \text{sech}^{2}\left(0.5\times z^{[2]}_1 - 2\right) \times 0.5 = \\
-             &= \left(\begin{bmatrix} 1 1 \\ 3 1 \\ 1 1\end{bmatrix}^{T} \cdot \begin{bmatrix} 0.00678 \\ -0.31773 \\ 0.00678 \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5\times\begin{bmatrix} 4.97061 \\ 2.68583\end{bmatrix} - 2\right) \times 0.5 = \\
+             \delta^{[2]}_1 &= \left(\left(W^{[3]}\right)^{T} \cdot \delta^{[3]}_1\right) \circ \text{sech}^{2}\left(0.5\times z^{[2]}_1 - 2\right) \times 0.5 = \\
+             &= \left(\begin{bmatrix} 1 & 1 \\ 3 & 1 \\ 1 & 1\end{bmatrix}^{T} \cdot \begin{bmatrix} 0.00678 \\ -0.31773 \\ 0.00678 \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5\times\begin{bmatrix} 4.97061 \\ 2.68583\end{bmatrix} - 2\right) \times 0.5 = \\
              &= \begin{bmatrix} -0.37448 \\ -0.10156 \end{bmatrix} \\
-                 \delta^{[2]}_2 &= \left(\left(W^{[3]}\right)^{T} \cdot \delta^{[3]}_2\right) \circ  \text{sech}^{2}\left(0.5\times z^{[2]}_2 - 2\right) \times 0.5 = \\
-             &= \left(\begin{bmatrix} 1 1 \\ 3 1 \\ 1 1\end{bmatrix}^{T} \cdot \begin{bmatrix} -0.0266 \\ 0 \\ -0.00018 \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5\times\begin{bmatrix} 4.97061 \\ 2.68583\end{bmatrix} - 2\right) \times 0.5 = \\
+             \delta^{[2]}_2 &= \left(\left(W^{[3]}\right)^{T} \cdot \delta^{[3]}_2\right) \circ  \text{sech}^{2}\left(0.5\times z^{[2]}_2 - 2\right) \times 0.5 = \\
+             &= \left(\begin{bmatrix} 1 & 1 \\ 3 & 1 \\ 1 & 1\end{bmatrix}^{T} \cdot \begin{bmatrix} -0.0266 \\ 0 \\ -0.00018 \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5\times\begin{bmatrix} 4.97061 \\ 2.68583\end{bmatrix} - 2\right) \times 0.5 = \\
              &= \begin{bmatrix} -1 \times 10^{-5} \\ -1.7 \times 10^{-4} \end{bmatrix}
           \end{align*}
         \endgroup
@@ -421,11 +421,11 @@ Jupyter notebook \texttt{G028.ipynb}.
         \begingroup
         \allowdisplaybreaks
           \begin{align*}
-              \delta^{[1]}_1 &= \left(\left(W^{[2]}\right)^{T} \cdot \delta^{[2]}_1\right) \circ \text{sech}^{2}\left(0.5 \times z^{[1]}_1 - 2\right) \times 0.5 = \\
-             &= \left(\begin{bmatrix} 1 4 1 \\ 1 1 1 \end{bmatrix}^{T} \cdot \begin{bmatrix} -0.37448 \\ -0.10156 \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5 \times \begin{bmatrix}  5 \\ 6 \\ 5 \end{bmatrix} - 2\right) \times 0.5 = \\
+             \delta^{[1]}_1 &= \left(\left(W^{[2]}\right)^{T} \cdot \delta^{[2]}_1\right) \circ \text{sech}^{2}\left(0.5 \times z^{[1]}_1 - 2\right) \times 0.5 = \\
+             &= \left(\begin{bmatrix} 1 & 4 & 1 \\ 1 & 1 & 1 \end{bmatrix}^{T} \cdot \begin{bmatrix} -0.37448 \\ -0.10156 \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5 \times \begin{bmatrix}  5 \\ 6 \\ 5 \end{bmatrix} - 2\right) \times 0.5 = \\
              &= \begin{bmatrix} -0.18719 \\ -0.33587 \\ -0.18719\end{bmatrix} \\
-                 \delta^{[1]}_2 &= \left(\left(W^{[2]}\right)^{T} \cdot \delta^{[2]}_2\right) \circ  \text{sech}^{2}\left(0.5\times z^{[1]}_2 - 2\right) \times 0.5 = \\
-             &= \left(\begin{bmatrix} 1 4 1 \\ 1 1 1 \end{bmatrix}^{T} \cdot \begin{bmatrix} -1 \times 10^{-5} \\ -1.7 \times 10^{-4} \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5\times\begin{bmatrix}  1 \\ 1 \\ 1 \end{bmatrix} - 2\right) \times 0.5 = \\
+             \delta^{[1]}_2 &= \left(\left(W^{[2]}\right)^{T} \cdot \delta^{[2]}_2\right) \circ  \text{sech}^{2}\left(0.5\times z^{[1]}_2 - 2\right) \times 0.5 = \\
+             &= \left(\begin{bmatrix} 1 & 4 & 1 \\ 1 & 1 & 1 \end{bmatrix}^{T} \cdot \begin{bmatrix} -1 \times 10^{-5} \\ -1.7 \times 10^{-4} \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5\times\begin{bmatrix}  1 \\ 1 \\ 1 \end{bmatrix} - 2\right) \times 0.5 = \\
              &= \begin{bmatrix} -2 \times 10^{-5} \\ -2 \times 10^{-5} \\ -2 \times 10^{-5}\end{bmatrix}
           \end{align*}
         \endgroup
