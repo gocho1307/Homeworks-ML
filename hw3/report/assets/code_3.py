@@ -15,14 +15,11 @@ for n_iter in n_iters:
     for rs in range(1, 11):
         # Train the MLP regressor with a specific number of iterations
         mlp = MLPRegressor(hidden_layer_sizes=(10, 10), activation="relu",
-                           max_iter=n_iter, validation_fraction=0.2,
-                           random_state=rs)
+                           max_iter=n_iter, random_state=rs)
         mlp.fit(X_train, y_train)
 
-        # Predict the target values on the test set
+        # Predict the target values on the test set and Calculate RMSE
         y_pred = mlp.predict(X_test)
-
-        # Calculate RMSE
         rmse_runs.append(mean_squared_error(y_test, y_pred, squared=False))
     rmse_iters.append(np.mean(rmse_runs))
 

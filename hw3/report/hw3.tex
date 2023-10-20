@@ -62,6 +62,15 @@ Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
 \textit{Hint}: we highly recommend the use of \texttt{numpy} (e.g., \texttt{linalg.pinv} for inverse) or other programmatic
 facilities to support the calculus involved in both questions (1) and (2).
 
+\vspace{5pt}
+\hrule
+\vspace{5pt}
+
+\noindent \textbf{Note:} The intermediate values and matrices, in both exercises, show values rounded to 5 decimal places,
+but all intermediate calculations have been carried out without rounding. To help with the calculations of this
+Part, and as suggested in the statement, we used \texttt{numpy}. The code for both exercises can be found in the
+Jupyter notebook \texttt{G028.ipynb}.
+
 \begin{enumerate}[leftmargin=\labelsep]
     \item \textbf{Consider the problem of learning a regression model from 4 bivariate observations} \\
 
@@ -76,10 +85,6 @@ facilities to support the calculus involved in both questions (1) and (2).
               Learn the Ridge regression ($l_2$ regularization) using the closed solution with $\lambda = 0.1$.}
 
               \vskip 0.3cm
-              \textbf{Note:} The intermediate values and matrices, in both items of this exercise, show values rounded to 5 decimal places,
-              but all intermediate calculations have been carried out without rounding. The values were obtained with the help of \texttt{numpy}
-              as suggested in the prompt. The code can be found in the Jupyter notebook \texttt{G028.ipynb}.
-
               Considering the data points along with the 4 bivariate observations, we can calculate the values of $\phi_1(x), \phi_2(x)$
               and $\phi_3(x)$ for each observation, with $\phi_0(x)$ always being equal to 1.
 
@@ -253,9 +258,6 @@ facilities to support the calculus involved in both questions (1) and (2).
           respectively.}
 
           \vskip 0.3cm
-          \textbf{Note:} To help with the calculations and as suggested in the prompt, we used \texttt{numpy}.
-          The code can be found in the Jupyter notebook \texttt{G028.ipynb}.
-
           To begin, we initiate the process with the \textbf{forward propagation}. Below are the key equations to calculate the values of each
           layer, $x^{[p]}_i$, per observation:
 
@@ -265,10 +267,10 @@ facilities to support the calculus involved in both questions (1) and (2).
               x^{[p]}_i = f\left(z^{[p]}_i\right)
           \end{align*}
 
-          The function $f$ is the activation function, for every layer, provided in the prompt, $f\left(z^{[p]}_i\right) = \text{tanh}\left(0.5\,z^{[p]} - 2\right)$.
+          The function $f$ is the activation function, for every layer, provided in the statement, $f\left(z^{[p]}_i\right) = \text{tanh}\left(0.5\,z^{[p]} - 2\right)$.
           In this notation, the value $p$ is the index of the MLP layer and $n$ is the number of the observation, either 1 or 2.
 
-          We can now calculate the values of each node in the multi-layer perceptron with the initialized weights and biases provided in the prompt,
+          We can now calculate the values of each node in the multi-layer perceptron with the initialized weights and biases provided in the statement,
           for each of the observations.
 
           We will \textbf{start} with $x_1$:
@@ -317,7 +319,7 @@ facilities to support the calculus involved in both questions (1) and (2).
               b^{[i]}_{new} = b^{[i]}_{old} + \Delta b^{[i]} = b^{[i]}_{old} - \eta \frac{\partial E}{\partial b^{[i]}} = b^{[i]}_{old} - 0.1 \frac{\partial E}{\partial b^{[i]}}
           \end{equation}
 
-          We first need to take into account the loss function, which, as per the prompt, is the half squared error loss, defined as follows:
+          We first need to take into account the loss function, which, as per the statement, is the half squared error loss, defined as follows:
 
           \vskip -0.3cm
           \begin{equation*}
@@ -525,7 +527,7 @@ regressors to answer the following questions.
     \item \textbf{Learn a MLP regressor with 2 hidden layers of size 10, rectifier linear unit activation
           on all nodes, and early stopping with 20\% of training data set aside for validation. All
           remaining parameters (e.g., loss, batch size, regularization term, solver) should be set as
-          default. Plot the distribution of the residues (in absolute value) using a histogram.}
+          default. Plot the distribution of the residues (in absolute value) using a histogram.}\label{ex1}
 
           \vskip 0.3cm
           \lstinputlisting[language=Python]{./assets/code_1.py}
@@ -541,7 +543,7 @@ regressors to answer the following questions.
           \end{figure}
 
     \item \textbf{Since we are in the presence of a \textit{integer regression} task, a recommended trick is to
-          round and bound estimates. Assess the impact of these operations on the MAE of the MLP learnt in the previous question.}
+          round and bound estimates. Assess the impact of these operations on the MAE of the MLP learnt in the previous question.}\label{ex2}
 
           \vskip 0.3cm
           \lstinputlisting[language=Python]{./assets/code_2.py}
@@ -568,16 +570,27 @@ regressors to answer the following questions.
           one reason why early stopping favors and/or worsens performance.}
 
           \vskip 0.3cm
-          Increasing the number of iterations consistently lowered the Root Mean Squared Error (RMSE).
-          This outcome is expected since additional iterations provide the model with more opportunities to adjust its weights and biases, potentially
-           leading to a more precise fit to the data.
+          Before comparing the results, we need to calculate the RMSE for the early stopping case with a validation fraction of 20\%:
 
-          However, it's noteworthy that even though 20 and 50 iterations resulted in higher RMSE, suggesting poorer performance, they might perform better on real, unseen data.
-          This is because early stopping helps prevent the model from overfitting.
+          \lstinputlisting[language=Python]{./assets/code_4.py}
 
-          Conversely, there is a possibility that the model stopped training before fully learning the patterns in the data, leading to non-optimal performance.
+          RMSE with early stopping and validation\_fraction = 0.2: 0.6706527958221329
 
-          In summary, while increasing the number of iterations generally improved the model's fit to the training data, the impact on real-world, unseen data remains uncertain.
-          Early stopping, although potentially beneficial in preventing overfitting, could also lead to premature cessation of training, possibly hindering optimal performance.
+          \vskip 0.2cm
+          The model in exercises \ref{ex1} and \ref{ex2} uses early stopping with a validation fraction of 20\%, which means that the model uses 80\% of the data to train and
+          the other 20\% for validation. By reading the documentation about the \href{https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPRegressor.html}{sklearn.neural network.MLPRegressor},
+          we can conclude that after each iteration, the model will calculate the validation score. If the score is not improving by at least
+          \texttt{tol} (default value = 0.0001) for \texttt{n\_iter\_no\_change} (default value = 10) iterations, the model will stop training.
+
+          In general, early stopping improves performance because it stops the MLP training before it overfits the training data. This happens, because if the validation
+          score doesn't improve along a few iterations we start training unnecessary data, which would only optimize weights for the training data to the detriment of
+          unseen data, and thus causing overfitting.
+
+          When we use a model without early stopping with a number of iterations equal to 20, 50 or 100, we can see that it doesn't have enough opportunity to learn the
+          patterns in the data, which causes underfitting and so we get a larger error for this model in comparison to the early stopping one.
+
+          Conversely, we can also see that when we have 200 iterations, we get better performance than with early stopping ($0.671 > 0.655$), possibly because early
+          stopping may be halting a little prematurely, which may be caused by the chosen validation sets granting validation scores that are not improving too early on.
+          However, finding the right number of iterations can be difficult and so early stopping gives us a good estimate of when to stop.
 \end{enumerate}
 \end{document}
