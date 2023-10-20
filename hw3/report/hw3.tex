@@ -395,12 +395,12 @@ facilities to support the calculus involved in both questions (1) and (2).
         \begingroup
         \allowdisplaybreaks
           \begin{align*}
-              \delta^{[1]}_1 &= \left(\left(W^{[2]}\right)^{T} \cdot \delta^{[2]}_1\right) \circ \text{sech}^{2}\left(0.5 \times z^{[1]}_1 - 2\right) \times 0.5 = \\
-             &= \left(\begin{bmatrix} 1 4 1 \\ 1 1 1 \end{bmatrix}^{T} \cdot \begin{bmatrix} -0.37448 \\ -0.10156 \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5 \times \begin{bmatrix}  5 \\ 6 \\ 5 \end{bmatrix} - 2\right) \times 0.5 = \\
-             &= \begin{bmatrix} -0.18719 \\ -0.33587 \\ -0.18719\end{bmatrix} \\
-                 \delta^{[1]}_2 &= \left(\left(W^{[2]}\right)^{T} \cdot \delta^{[2]}_2\right) \circ  \text{sech}^{2}\left(0.5\times z^{[1]}_2 - 2\right) \times 0.5 = \\
-             &= \left(\begin{bmatrix} 1 4 1 \\ 1 1 1 \end{bmatrix}^{T} \cdot \begin{bmatrix} -1 \times 10^{-5} \\ -1.7 \times 10^{-4} \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5\times\begin{bmatrix}  1 \\ 1 \\ 1 \end{bmatrix} - 2\right) \times 0.5 = \\
-             &= \begin{bmatrix} -2 \times 10^{-5} \\ -2 \times 10^{-5} \\ -2 \times 10^{-5}\end{bmatrix}
+            \delta^{[3]}_1 &= \left(x^{[3]}_1 - t_1\right) \circ  \text{sech}^{2}\left(0.5\times z^{[3]}_1 - 2\right) \times 0.5 =  \\
+            &=  \left(\begin{bmatrix} -0.9159 \\ -0.80494 \\ -0.9159\end{bmatrix} - \begin{bmatrix} -1 \\ 1 \\ -1 \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5\times \begin{bmatrix} 0.87406 \\ 1.77503 \\ 0.87406\end{bmatrix} \times 0.5\right) = \\
+            &= \begin{bmatrix} 0.00678 \\ -0.31773 \\ 0.00678 \end{bmatrix} \\
+            \delta^{[3]}_2 &= \left(x^{[3]}_2 - t_2\right) \circ  \text{sech}^{2}\left(0.5\times z^{[3]}_2 - 2\right) \times 0.5 =  \\
+            &=  \left(\begin{bmatrix} -0.98652 \\ -0.99816 \\ -0.98652\end{bmatrix} - \begin{bmatrix} 1 \\ -1 \\ -1\end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5\times \begin{bmatrix} -0.993 \\ -2.99212 \\ -0.993\end{bmatrix} \times 0.5\right) = \\
+            &= \begin{bmatrix} -0.0266 \\ 0 \\ 0.00018 \end{bmatrix}
           \end{align*}
         \endgroup
 
@@ -419,12 +419,12 @@ facilities to support the calculus involved in both questions (1) and (2).
         \begingroup
         \allowdisplaybreaks
           \begin{align*}
-            \delta^{[3]}_1 &= \left(x^{[3]}_1 - t_1\right) \circ  \text{sech}^{2}\left(0.5\times z^{[3]}_1 - 2\right) \times 0.5 =  \\
-            &=  \left(\begin{bmatrix} -0.9159 \\ -0.80494 \\ -0.9159\end{bmatrix} - \begin{bmatrix} -1 \\ 1 \\ -1 \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5\times \begin{bmatrix} 0.87406 \\ 1.77503 \\ 0.87406\end{bmatrix} \times 0.5\right) = \\
-            &= \begin{bmatrix} 0.00678 \\ -0.31773 \\ 0.00678 \end{bmatrix} \\
-            \delta^{[3]}_2 &= \left(x^{[3]}_2 - t_2\right) \circ  \text{sech}^{2}\left(0.5\times z^{[3]}_2 - 2\right) \times 0.5 =  \\
-            &=  \left(\begin{bmatrix} -0.98652 \\ -0.99816 \\ -0.98652\end{bmatrix} - \begin{bmatrix} 1 \\ -1 \\ -1\end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5\times \begin{bmatrix} -0.993 \\ -2.99212 \\ -0.993\end{bmatrix} \times 0.5\right) = \\
-            &= \begin{bmatrix} -0.0266 \\ 0 \\ 0.00018 \end{bmatrix}
+              \delta^{[1]}_1 &= \left(\left(W^{[2]}\right)^{T} \cdot \delta^{[2]}_1\right) \circ \text{sech}^{2}\left(0.5 \times z^{[1]}_1 - 2\right) \times 0.5 = \\
+             &= \left(\begin{bmatrix} 1 4 1 \\ 1 1 1 \end{bmatrix}^{T} \cdot \begin{bmatrix} -0.37448 \\ -0.10156 \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5 \times \begin{bmatrix}  5 \\ 6 \\ 5 \end{bmatrix} - 2\right) \times 0.5 = \\
+             &= \begin{bmatrix} -0.18719 \\ -0.33587 \\ -0.18719\end{bmatrix} \\
+                 \delta^{[1]}_2 &= \left(\left(W^{[2]}\right)^{T} \cdot \delta^{[2]}_2\right) \circ  \text{sech}^{2}\left(0.5\times z^{[1]}_2 - 2\right) \times 0.5 = \\
+             &= \left(\begin{bmatrix} 1 4 1 \\ 1 1 1 \end{bmatrix}^{T} \cdot \begin{bmatrix} -1 \times 10^{-5} \\ -1.7 \times 10^{-4} \end{bmatrix}\right) \circ \text{sech}^{2}\left(0.5\times\begin{bmatrix}  1 \\ 1 \\ 1 \end{bmatrix} - 2\right) \times 0.5 = \\
+             &= \begin{bmatrix} -2 \times 10^{-5} \\ -2 \times 10^{-5} \\ -2 \times 10^{-5}\end{bmatrix}
           \end{align*}
         \endgroup
 
@@ -480,7 +480,7 @@ facilities to support the calculus involved in both questions (1) and (2).
           \begin{align*}
               W^{[1]}_{new} = & \begin{bmatrix} 1 & 1 & 1 & 1 \\ 1 & 1 & 2 & 1 \\ 1 & 1 & 1 & 1\end{bmatrix}
                 - 0.1 \begin{bmatrix} -0.18721 & -0.18719 & -0.18719 & -0.18717 \\ -0.33589 & -0.33587 & -0.33587 & -0.33585 \\ -0.18721 & -0.18719 & -0.18719 & -0.18717 \end{bmatrix} = \\
-                = & \begin{bmatrix} -1.01872 & -1.01872 & -1.01872 & -1.01872 \\ 1.03359 & 1.03359 & 2.03359 & 1.03359 \\ 1.01872 & 1.01872 & 1.01872 & 1.01872 \end{bmatrix} \\
+                = & \begin{bmatrix} 1.01872 & 1.01872 & 1.01872 & 1.01872 \\ 1.03359 & 1.03359 & 2.03359 & 1.03359 \\ 1.01872 & 1.01872 & 1.01872 & 1.01872 \end{bmatrix} \\
               W^{[2]}_{new} = & \begin{bmatrix} 1 & 4 & 1 \\ 1 & 1 & 1 \end{bmatrix} -
                 0.1 \begin{bmatrix} -0.17304 & -0.28519 & -0.17304\\ -0.04678 & -0.07719 & -0.04678 \end{bmatrix} = \\
                 = & \begin{bmatrix} 1.0173 & 4.02852 & 1.0173 \\ 1.00468 & 1.00772 & 1.00468\end{bmatrix} \\
