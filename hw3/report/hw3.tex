@@ -317,25 +317,26 @@ facilities to support the calculus involved in both questions (1) and (2).
               b^{[i]}_{new} = b^{[i]}_{old} + \Delta b^{[i]} = b^{[i]}_{old} - \eta \frac{\partial E}{\partial b^{[i]}} = b^{[i]}_{old} - 0.1 \frac{\partial E}{\partial b^{[i]}}
           \end{equation}
 
-          We first need to take into account the error function, which, as per the prompt, is the half squared error loss, defined as follows:
+          We first need to take into account the loss function, which, as per the prompt, is the half squared error loss, defined as follows:
 
-          \begin{equation}\label{ex2-loss}
-              E(w) = \frac{1}{2} \|\mathbf{z} - \hat{\mathbf{z}}\|^{2}_{2} = \frac{1}{2} \sum^{N}_{i = 1} \left(t_i - o_i\right)^2
-          \end{equation}
+          \vskip -0.3cm
+          \begin{equation*}
+              E(w) = \frac{1}{2} \|\mathbf{z} - \hat{\mathbf{z}}\|^{2}_{2}
+          \end{equation*}
 
           The next step involves computing its derivatives by applying the \textbf{chain rule}:
 
-          \begin{equation}
+          \begin{equation*}
             \frac{\partial E}{\partial W^{[p]}} = \sum_{i=1}^{2} \left(\frac{\partial E}{\partial x^{[p]}_i} \circ
               \frac{\partial x^{[p]}_i}{\partial z^{[p]}_i} \cdot \frac{\partial z^{[p]}_i}{\partial W^{[p]}} \right)
             \qquad
             \frac{\partial E}{\partial b^{[p]}} = \sum_{i=1}^{2} \left(\frac{\partial E}{\partial x^{[p]}_i} \circ
               \frac{\partial x^{[p]}_i}{\partial z^{[p]}_i} \cdot \frac{\partial z^{[p]}_i}{\partial b^{[p]}} \right)
-          \end{equation}
+          \end{equation*}
 
           This can be broken down into:
 
-          \vskip -0.2cm
+          \vskip -0.3cm
           \begin{equation*}
               \frac{\partial E}{\partial x^{[p]}_i} \circ \frac{\partial x^{[p]}_i}{\partial z^{[p]}_i} = \delta^{[p]}_i
           \end{equation*}
@@ -346,7 +347,9 @@ facilities to support the calculus involved in both questions (1) and (2).
           \end{equation*}
 
           \begin{equation*}
-              \frac{\partial E}{\partial x^{[p]}_i} = \left(W^{[p+1]}\right)^{T} \cdot \delta^{[p+1]}_i, \;\; p \neq 3 \quad (\text{using recursion})
+              \frac{\partial E}{\partial x^{[p]}_i} = \frac{\partial z^{[p+1]}_i}{\partial x^{[p]}_i} \cdot
+              \underbrace{\frac{\partial x^{[p+1]}_i}{\partial z^{[p+1]}_i} \circ \frac{\partial E}{\partial x^{[p+1]}_i}}_{\delta^{[p+1]}_i}
+              = \left(W^{[p+1]}\right)^{T} \cdot \delta^{[p+1]}_i, \;\; p \neq 3 \quad \text{(using recursion)}
           \end{equation*}
 
           \vskip -0.5cm
@@ -361,15 +364,15 @@ facilities to support the calculus involved in both questions (1) and (2).
               \frac{\partial z^{[p]}_i}{\partial b^{[p]}} = 1
           \end{equation*}
 
-          \textbf{Therefore,} the derivatives of the error function are given by:
+          \textbf{Therefore,} the derivatives of the loss function are given by:
 
           \begin{equation}\label{ex2-derivate-loss-smiplified}
             \frac{\partial E}{\partial W^{[p]}} = \sum_{i=1}^{2} \left(\delta^{[p]}_i \cdot \left(x^{[p-1]}_i\right)^{T} \right) \qquad\qquad
             \frac{\partial E}{\partial b^{[p]}} = \sum_{i=1}^{2} \left(\delta^{[p]}_i\right)
           \end{equation}
 
-          When computing \(\delta\), we split it into two separate cases: if it is in  last layer \eqref{ex2-deltalastlayer}, or in non-external
-          layers \eqref{ex2-deltanotlastlayer}:
+          When computing \(\delta\), we split it into two separate cases: if it is in  last layer \eqref{ex2-deltalastlayer} for $p = 3$, or in non-external
+          layers \eqref{ex2-deltanotlastlayer} for any $p \neq 3$:
 
           \begin{equation}\label{ex2-deltalastlayer}
               \delta^{[3]}_i = \left(x^{[3]}_i - t_i\right) \circ \text{sech}^{2}\left(0.5 \times z^{[3]}_i - 2\right) \times 0.5
@@ -425,7 +428,7 @@ facilities to support the calculus involved in both questions (1) and (2).
           \end{align*}
         \endgroup
 
-        \textbf{Next,} we will compute the derivatives of the error function, employing the first equation at \eqref{ex2-derivate-loss-smiplified}:
+        \textbf{Next,} we will compute the derivatives of the loss function, employing the first equation at \eqref{ex2-derivate-loss-smiplified}:
         \begingroup
         \allowdisplaybreaks
           \begin{align*}
@@ -475,8 +478,8 @@ facilities to support the calculus involved in both questions (1) and (2).
 
           \vskip -0.2cm
           \begin{align*}
-              W^{[1]}_{new} = & \begin{bmatrix} 1 & 1 & 1 & 1 \\ 1 & 1 & 2 & 1 \\ 1 & 1 & 1 & 1\end{bmatrix} -\\
-                - 0.1 & \begin{bmatrix} -0.18721 & -0.18719 & -0.18719 & -0.18717 \\ -0.33589 & -0.33587 & -0.33587 & -0.33585 \\ -0.18721 & -0.18719 & -0.18719 & -0.18717 \end{bmatrix} = \\
+              W^{[1]}_{new} = & \begin{bmatrix} 1 & 1 & 1 & 1 \\ 1 & 1 & 2 & 1 \\ 1 & 1 & 1 & 1\end{bmatrix}
+                - 0.1 \begin{bmatrix} -0.18721 & -0.18719 & -0.18719 & -0.18717 \\ -0.33589 & -0.33587 & -0.33587 & -0.33585 \\ -0.18721 & -0.18719 & -0.18719 & -0.18717 \end{bmatrix} = \\
                 = & \begin{bmatrix} -1.01872 & -1.01872 & -1.01872 & -1.01872 \\ 1.03359 & 1.03359 & 2.03359 & 1.03359 \\ 1.01872 & 1.01872 & 1.01872 & 1.01872 \end{bmatrix} \\
               W^{[2]}_{new} = & \begin{bmatrix} 1 & 4 & 1 \\ 1 & 1 & 1 \end{bmatrix} -
                 0.1 \begin{bmatrix} -0.17304 & -0.28519 & -0.17304\\ -0.04678 & -0.07719 & -0.04678 \end{bmatrix} = \\
@@ -566,15 +569,15 @@ regressors to answer the following questions.
 
           \vskip 0.3cm
           Increasing the number of iterations consistently lowered the Root Mean Squared Error (RMSE).
-          This outcome is expected since additional iterations provide the model with more opportunities to adjust its weights and biases, potentially 
+          This outcome is expected since additional iterations provide the model with more opportunities to adjust its weights and biases, potentially
            leading to a more precise fit to the data.
 
-          However, it's noteworthy that even though 20 and 50 iterations resulted in higher RMSE, suggesting poorer performance, they might perform better on real, unseen data. 
+          However, it's noteworthy that even though 20 and 50 iterations resulted in higher RMSE, suggesting poorer performance, they might perform better on real, unseen data.
           This is because early stopping helps prevent the model from overfitting.
-          
+
           Conversely, there is a possibility that the model stopped training before fully learning the patterns in the data, leading to non-optimal performance.
 
-          In summary, while increasing the number of iterations generally improved the model's fit to the training data, the impact on real-world, unseen data remains uncertain. 
+          In summary, while increasing the number of iterations generally improved the model's fit to the training data, the impact on real-world, unseen data remains uncertain.
           Early stopping, although potentially beneficial in preventing overfitting, could also lead to premature cessation of training, possibly hindering optimal performance.
 \end{enumerate}
 \end{document}
