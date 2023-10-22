@@ -1,0 +1,150 @@
+\documentclass[12pt]{article}
+\usepackage[paper=letterpaper,margin=2cm]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{newtxtext,newtxmath}
+\usepackage{enumitem}
+\usepackage{titling}
+\usepackage{subfig,graphicx}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+
+\newcommand{\ind}{\perp\!\!\!\perp}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+
+% BACKGROUND BOX COLORS
+\definecolor{bblue}{HTML}{7cc0f3}
+\definecolor{bgreen}{HTML}{84b082}
+\definecolor{bred}{HTML}{f6908e}
+\definecolor{byellow}{HTML}{e0b400}
+\definecolor{bmint}{HTML}{00c49a}
+
+% \highlight[<colour>]{<stuff>}
+\newcommand{\highlight}[2][yellow]{\mathchoice
+  {\colorbox{#1}{$\displaystyle#2$}}
+  {\colorbox{#1}{$\textstyle#2$}}
+  {\colorbox{#1}{$\scriptstyle#2$}}
+  {\colorbox{#1}{$\scriptscriptstyle#2$}}}
+
+\lstdefinestyle{mystyle}{
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=6pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\begin{document}
+\begin{center}
+\large{Aprendizagem 2023} \\
+Homework IV -- Group 28 \\
+\vskip 0.3cm
+Gonçalo Bárias (ist1103124) \& Raquel Braunschweig (ist1102624)\vskip 1cm
+
+\large{\textbf{Part I}: Pen and Paper}\normalsize
+\end{center}
+
+\noindent Given the following observations, $\left\{\begin{pmatrix} 1 \\ 0.6 \\ 0.1 \end{pmatrix}, \begin{pmatrix} 0 \\ -0.4 \\ 0.8 \end{pmatrix}, \begin{pmatrix} 0 \\ 0.2 \\ 0.5 \end{pmatrix},
+\begin{pmatrix} 1 \\ 0.4 \\ -0.1 \end{pmatrix}\right\}$.
+
+\vskip 0.2cm
+\noindent Consider a Bayesian clustering that assumes $\{y_1\} \ind \{y_2, y_3\}$, two clusters following a Bernoulli distribution on $y_1$ ($p_1$ and $p_2$), a multivariate Gaussian on $\{y_2, y_3\}$ ($N_1$ and $N_2$),
+and the following initial mixture:
+
+\vskip -0.3cm
+\begin{equation*}
+    \pi_1 = 0.5 \quad , \quad \pi_2 = 0.5
+\end{equation*}
+\begin{equation*}
+    p_1 = P(y_1 = 1) = 0.3 \quad , \quad p_2 = P(y_1 = 1) = 0.7
+\end{equation*}
+\begin{equation*}
+    N_1 \left(\boldsymbol{\mu}_1 = \begin{pmatrix} 1 \\ 1 \end{pmatrix}, \mathbf{\Sigma}_1 = \begin{pmatrix} 2 & 0.5 \\ 0.5 & 2 \end{pmatrix}\right) \quad
+    , \quad N_2 \left(\boldsymbol{\mu}_2 = \begin{pmatrix} 0 \\ 0 \end{pmatrix}, \mathbf{\Sigma}_2 = \begin{pmatrix} 1.5 & 1 \\ 1 & 1.5 \end{pmatrix}\right)
+\end{equation*}
+
+\vskip 0.2cm
+\begin{enumerate}[leftmargin=\labelsep]
+    \item \textbf{Perform one epoch of the EM clustering algorithm and determine the new parameters.}\\
+          \textbf{\textit{Hint:} we suggest you to use numpy and scipy, however disclose the intermediary results step by step.}
+
+          \vskip 0.3cm
+          Blah
+
+    \item \textbf{Given the new observation, $x_{new} = \begin{bmatrix} 1 & 0.3 & 0.7 \end{bmatrix}^T$, determine the cluster memberships (posteriors).}
+
+          \vskip 0.3cm
+          Blah
+
+    \item \textbf{Performing a hard assignment of observations to clusters under a ML assumption, identify the silhouette of the larger cluster under a Manhattan distance.}
+
+          \vskip 0.3cm
+          Blah
+
+    \item \textbf{Knowing the purity of the clustering solution is 0.75, identify the number of possible classes (ground truth).}
+
+          \vskip 0.3cm
+          Blah
+\end{enumerate}
+
+\vskip 0.5cm
+
+\begin{center}
+\large{\textbf{Part II}: Programming and critical analysis}\normalsize
+\end{center}
+
+\noindent Recall the \texttt{column\_diagnosis.arff} dataset from previous homeworks. For the following exercises,
+normalize the data using sklearn's \texttt{MinMaxScaler}.
+
+\begin{enumerate}[leftmargin=\labelsep]
+    \item \textbf{Using \texttt{sklearn}, apply \textit{k}-means clustering fully unsupervisedly on the normalized data with
+        $k \in \{2,3,4,5\}$ (\textnormal{random = 0} and remaining parameters as default). Assess the silhouette and purity of the produced solutions.}
+
+          \vskip 0.3cm
+          Blah
+
+    \item \textbf{Consider the application of PCA after the data normalization:}
+
+    \begin{enumerate}
+        \item \textbf{Identify the variability explained by the top two principal components.}
+
+              \vskip 0.3cm
+              Blah
+
+        \item \textbf{For each one of these two components, sort the input variables by relevance by
+              inspecting the absolute weights of the linear projection.}
+
+              \vskip 0.3cm
+              Blah
+    \end{enumerate}
+
+    \item \textbf{Visualize side-by-side the data using: i) the ground diagnoses, and ii) the \textit{previously} learned
+          $k = 3$ clustering solution. To this end, projected the normalized data onto a 2-dimensional data
+          space using PCA and then color observations using the reference and cluster annotations.}
+
+          \vskip 0.3cm
+          Blah
+
+    \item \textbf{Considering the results from questions (1) and (3), identify two ways on how clustering can
+          be used to characterize the population of ill and healthy individuals.}
+
+          \vskip 0.3cm
+          Blah
+\end{enumerate}
+\end{document}
