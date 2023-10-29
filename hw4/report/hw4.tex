@@ -3,19 +3,20 @@
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{newtxtext,newtxmath}
 \usepackage{enumitem}
-\usepackage{titling}
 \usepackage{subfig,graphicx}
 \usepackage[colorlinks=true]{hyperref}
 \usepackage{multirow}
 \usepackage{listings}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{float}
+\usepackage[font=small]{caption}
 
 \newcommand{\ind}{\perp\!\!\!\perp}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{stepscolor}{HTML}{444444}
 
 % BACKGROUND BOX COLORS
 \definecolor{byellow}{HTML}{e0b400}
@@ -86,7 +87,10 @@ and the following initial mixture:
           Initialization, Expectation, Maximization and Evaluate.
 
           \vskip 0.2cm
+          {
+          \color{stepscolor}
           \begin{large}\textbf{1. Initialization}\end{large}
+          }
           \vskip 0.1cm
 
           We'll start by labeling each observation:
@@ -120,12 +124,15 @@ and the following initial mixture:
                   $\begin{pmatrix} 1.5 & 1 \\ 1 & 1.5 \end{pmatrix}$  &
                   0.5                                                 \\
               \end{tabular}
-              \captionof{table}{Initial parameters for the 2 clusters}
+              \captionof{table}{Initial parameters for the two clusters}
               \label{exI1-initial-params-table}
           \end{center}
 
           \vskip 0.2cm
+          {
+          \color{stepscolor}
           \begin{large}\textbf{2. Expectation (E-step)}\end{large}
+          }
           \vskip 0.1cm
 
           Considering $\{y_1\} \ind \{y_2, y_3\}$ we know the posterior probability, $P(c_k | x_i)$, is given by Baye's rule:
@@ -135,7 +142,7 @@ and the following initial mixture:
           \end{equation}
 
           Since we know that $\sum_j P(c_j|x_i)$ must be equal to 1, we need to normalize the values given by equation \eqref{exI1-posterior}.
-          Therefore, we get these new updated values for the posteriors represented by $\gamma_{k,i}$:
+          Therefore, we get these new normalized values for the posteriors represented by $\gamma_{k,i}$:
 
           \begin{equation}\label{exI1-gamma}
               \gamma_{k,i} = \frac{P(c_k | x_i)}{\sum_j P(c_j | x_i)}
@@ -145,7 +152,7 @@ and the following initial mixture:
           The variable $y_1$ follows a Bernoulli distribution ($y_1 \sim \text{Bern}\left(p=p_k\right)$), and so the likelihoods,\\
           $P(y_1=0|c_k)$ and $P(y_1=1|c_k)$, can be calculated for each cluster:
 
-          \vskip -0.2cm
+          \vskip -0.4cm
           \begin{align*}
               P(y_1 = 0 | c_1) = 1 - p_1 = 1 - 0.3 = 0.7 & \qquad P(y_1 = 0 | c_2) = 1 - p_2 = 1 - 0.7 = 0.3 \\
               P(y_1 = 1 | c_1) = p_1 = 0.3               & \qquad P(y_1 = 1 | c_2) = p_2 = 0.7
@@ -156,14 +163,17 @@ and the following initial mixture:
 
           \vskip -0.2cm
           \begin{equation}\label{exI1-likelihood-multivariate}
-              P(y_2=a,y_3=b|c_k) = \mathcal{N}_k(y_2,y_3|\mu_k, \Sigma_k)
+              P(y_2=a,y_3=b|c_k) = \mathcal{N}_k(y_2=a,y_3=b|\mu_k, \Sigma_k)
               = \frac{
               \exp\left(-\frac{1}{2} \left(\begin{bmatrix} a \\ b \end{bmatrix} - \mu_k\right)^T
               \Sigma_k^{-1} \left(\begin{bmatrix} a \\ b \end{bmatrix} - \mu_k\right)\right)}{(2\pi)^{d/2} \times |\Sigma_k|^{1/2}}
           \end{equation}
 
           We now have all the building blocks to calculate the posterior probabilities
-          for each combination of observation, $x_i$ and cluster, $c_k$ by utilizing the equations \eqref{exI1-likelihood-multivariate} and \eqref{exI1-gamma}.
+          for each combination of observation, $x_i$ and cluster, $c_k$.
+
+          We'll start off by calculating the multivariate likelihood by employing equation
+          \eqref{exI1-likelihood-multivariate}, for each pair of observation and cluster:
 
           \begin{center}
               \textbf{\colorbox{bmint}{Cluster 1 Multivariate Likelihoods}}
@@ -186,7 +196,7 @@ and the following initial mixture:
 
           \vskip -0.7cm
           \begingroup
-          \addtolength{\jot}{0.5em}
+          \addtolength{\jot}{0.7em}
           \begin{align*}
               P(y_2=0.6, y_3=0.1 | c_2) & = \mathcal{N}_2(y_2=0.6, y_3=0.1|\mu_2, \Sigma_2) \approx 0.11962 \\
               P(y_2=-0.4, y_3=0.8 | c_2) & = \mathcal{N}_2(y_2=-0.4, y_3=0.8|\mu_2, \Sigma_2) \approx 0.06819 \\
@@ -195,13 +205,17 @@ and the following initial mixture:
           \end{align*}
           \endgroup
 
+          \vskip 0.1cm
+          Finally, we can employ equation \eqref{exI1-gamma} to calculate the normalized posteriors with the previously calculated values,
+          for each pair of observation and cluster:
+
           \begin{center}
               \textbf{\colorbox{bmint}{Cluster 1 Posteriors}}
           \end{center}
 
           \vskip -0.5cm
           \begingroup
-          \addtolength{\jot}{0.5em}
+          \addtolength{\jot}{0.7em}
           \begin{align*}
               \gamma_{1,1} & = \frac{P(y_1=1|c_1)P(y_2=0.6,y_3=0.1|c_1)P(c_1)}{P(y_1=1|c_1)P(y_2=0.6,y_3=0.1|c_1)P(c_1) + P(y_1=1|c_2)P(y_2=0.6,y_3=0.1|c_2)P(c_2)} \\
                            & = \frac{0.3 \times 0.06658 \times 0.5}{0.3 \times 0.06658 \times 0.5 + 0.7 \times 0.11962 \times 0.5} \approx 0.19259 \\
@@ -234,31 +248,39 @@ and the following initial mixture:
           \endgroup
 
           \vskip 0.2cm
-          \begin{large}\textbf{2. Maximization (M-step)}\end{large}
+          {
+          \color{stepscolor}
+          \begin{large}\textbf{3. Maximization (M-step)}\end{large}
+          }
           \vskip 0.1cm
+
+          Below we will use ${x_i}_{[y_1]}$ to refer to the variable $\{y_1\}$ of observation $x_i$ and
+          ${x_i}_{[y_2 \land y_3]}$ to refer to the variables $\{y_2,y_3\}$ of observation $x_i$.
 
           For each cluster, $c_k$, we will calculate the following in order to update the parameters:
 
-          \begin{equation*}
+          \begin{equation}\label{exI1-Nk}
               N_k = \sum_i \gamma_{k,i}
-          \end{equation*}
-          \begin{equation*}
+          \end{equation}
+          \begin{equation}\label{exI1-pk}
               p_k' = \frac{1}{N_k} \sum_{i} \gamma_{k,i} \cdot {x_i}_{[y_1]}
-          \end{equation*}
-          \begin{equation*}
+          \end{equation}
+          \begin{equation}\label{exI1-muk}
               \mu_k' = \frac{1}{N_k} \sum_{i} \gamma_{k,i} \cdot {x_i}_{[y_2 \land y_3]}
-          \end{equation*}
-          \begin{equation*}
+          \end{equation}
+          \begin{equation}\label{exI1-sigmak}
               \Sigma_k' = \frac{1}{N_k} \sum_{i} \gamma_{k,i} \cdot \left({x_i}_{[y_2 \land y_3]} - \mu_k'\right) \cdot ({x_i}_{[y_2 \land y_3]} - \mu_k')^T
-          \end{equation*}
+          \end{equation}
 
           Considering $N = \sum_k N_k$, we can also update the priors:
 
-          \begin{equation*}
+          \begin{equation}\label{exI1-pik}
               \pi_k' = \frac{N_k}{N}
-          \end{equation*}
+          \end{equation}
 
-          We can now update the values for both clusters using the previous equations:
+          We can now update the values for both clusters using the previous equations.
+
+          We start off by calculating the sum of the weights, for each cluster, $N_k$, by employing equation \eqref{exI1-Nk}:
 
           \begin{equation*}
               \highlight[bmint]{N_1} = \sum_{i} \gamma_{1,i} = \gamma_{1,1} + \gamma_{1,2} + \gamma_{1,3} + \gamma_{1,4} = 1.54467
@@ -270,6 +292,9 @@ and the following initial mixture:
           \begin{center}
               \textbf{\colorbox{bmint}{Cluster 1 Updates}}
           \end{center}
+
+          Now for cluster 1 we can update $p_1$, $\mu_1$, $\Sigma_1$ and $\pi_1$, by employing, \eqref{exI1-pk}, \eqref{exI1-muk},
+          \eqref{exI1-sigmak} and \eqref{exI1-pik}, respectively:
 
           \begingroup
           \allowdisplaybreaks
@@ -317,6 +342,9 @@ and the following initial mixture:
               \textbf{\colorbox{byellow}{Cluster 2 Updates}}
           \end{center}
 
+          Finally, for cluster 2 we can update $p_2$, $\mu_2$, $\Sigma_2$ and $\pi_2$, by employing, \eqref{exI1-pk}, \eqref{exI1-muk},
+          \eqref{exI1-sigmak} and \eqref{exI1-pik}, respectively:
+
           \begingroup
           \allowdisplaybreaks
           \begin{equation*}
@@ -360,14 +388,20 @@ and the following initial mixture:
           \end{equation*}
 
           \vskip 0.2cm
-          \begin{large}\textbf{3. Evaluate the log likelihood}\end{large}
+          {
+          \color{stepscolor}
+          \begin{large}\textbf{4. Verify the log likelihood}\end{large}
           \vskip 0.1cm
+          }
 
           Since we are only performing one epoch of the EM clustering algorithm, we can skip this step.
 
           \vskip 0.2cm
-          \begin{large}\textbf{4. Conclusion}\end{large}
+          {
+          \color{stepscolor}
+          \begin{large}\textbf{5. Conclusion}\end{large}
           \vskip 0.1cm
+          }
 
           After performing one epoch of the EM clustering algorithm, we end up with the following updated parameters for each cluster:
 
@@ -387,105 +421,154 @@ and the following initial mixture:
                   $\begin{pmatrix} 0.10829 & -0.08865 \\ -0.08865 & 0.10412 \end{pmatrix}$  &
                   0.61383                                                                   \\
               \end{tabular}
-              \captionof{table}{Updated parameters for the 2 clusters}
+              \captionof{table}{Updated parameters for the two clusters after one epoch of the EM clustering algorithm}
               \label{exI1-updated-params-table}
           \end{center}
 
     \item \textbf{Given the new observation, $x_{new} = \begin{bmatrix} 1 & 0.3 & 0.7 \end{bmatrix}^T$, determine the cluster memberships (posteriors).}
 
           \vskip 0.3cm
-          As per the \textit{FAQ}, we will be using the updated values obtained in exercise 1.
+          \textbf{Note:} As per the \textit{FAQ}, we will be using the updated values obtained in exercise 1.
 
-          Using the equation on \eqref{exI1-likelihood-multivariate}, we can compute the value of $P(y_2,y_3|c_k)$ for the new observation:
+          Using the equation on \eqref{exI1-likelihood-multivariate}, we can compute, for each cluster, $c_k$,
+          the value of $P(y_2,y_3|c_k)$ for the new observation, $x_{new}$:
 
+          \vskip -0.5cm
           \begingroup
-          \addtolength{\jot}{0.5em}
+          \addtolength{\jot}{0.7em}
           \begin{align*}
-              P(y_2,y_3|c_1) = \mathcal{N}(x_{new} | u'_1, \Sigma'_{1}) \approx 0.02708 \\
-              P(y_2,y_3|c_2) = \mathcal{N}(x_{new} | u'_2, \Sigma'_{2}) \approx 0.06843
+              P(y_2=0.3,y_3=0.7|c_1) = \mathcal{N}_1(y_2=0.3, y_3=0.7 | \mu'_1, \Sigma'_{1}) \approx 0.02708 \\
+              P(y_2=0.3,y_3=0.7|c_2) = \mathcal{N}_2(y_2=0.3, y_3=0.7 | \mu'_2, \Sigma'_{2}) \approx 0.06843
           \end{align*}
           \endgroup
 
-          Now, by using the equation on , we can compute the posteriors:
+          Now, by using the equation on \eqref{exI1-gamma}, we can compute the normalized posteriors:
 
+          \vskip -0.3cm
           \begingroup
-          \addtolength{\jot}{0.5em}
+          \addtolength{\jot}{0.7em}
           \begin{align*}
-            P(c_1 | x_{new}) & = \frac{P(y_1|c_1)P(y_2,y_3|c_1)P(c_1)}{P(y_1)P(y_2,y_3)} \\
-                             & = \frac{0.23404 \cdot 0.02708 \cdot 0.38617}{0.23404 \cdot 0.02708 \cdot 0.38617 + 0.66732 \cdot 0.06843 \cdot 0.6137} \\
-                             & \approx 0.08029 \\
-            P(c_2 | x_{new}) & = \frac{P(y_1|c_2)P(y_2,y_3|c_2)P(c_2)}{P(y_1)P(y_2,y_3)} \\
-                             & = \frac{0.66732 \cdot 0.06843 \cdot 0.6137}{0.23404 \cdot 0.02708 \cdot 0.38617 + 0.66732 \cdot 0.06843 \cdot 0.6137} \\
-                             & \approx 0.91971
+            \gamma_{1, new} & = \frac{P(y_1=1|c_1)P(y_2=0.3,y_3=0.7|c_1)P(c_1)}{P(y_1=1|c_1)P(y_2=0.3,y_3=0.7|c_1)P(c_1) + P(y_1=1|c_2)P(y_2=0.3,y_3=0.7|c_2)P(c_2)} \\
+                            & = \frac{p_1' \times 0.02708 \times \pi_1'}{p_1' \times 0.02708 \times \pi_1' + p_2' \times 0.06843 \times \pi_2'} \\
+                            & = \frac{0.23404 \times 0.02708 \times 0.38617}{0.23404 \times 0.02708 \times 0.38617 + 0.66732 \times 0.06843 \times 0.61383} \approx 0.08029 \\
+            \gamma_{2, new} & = \frac{P(y_1=1|c_2)P(y_2=0.3,y_3=0.7|c_2)P(c_2)}{P(y_1=1|c_1)P(y_2=0.3,y_3=0.7|c_1)P(c_1) + P(y_1=1|c_2)P(y_2=0.3,y_3=0.7|c_2)P(c_2)} \\
+                            & = \frac{p_2' \times 0.06843 \times \pi_2'}{p_1' \times 0.02708 \times \pi_1' + p_2' \times 0.06843 \times \pi_2'} \\
+                            & = \frac{0.66732 \times 0.06843 \times 0.61383}{0.23404 \times 0.02708 \times 0.38617 + 0.66732 \times 0.06843 \times 0.61383} \approx 0.91971
           \end{align*}
           \endgroup
 
     \item \textbf{Performing a hard assignment of observations to clusters under a ML assumption, identify the silhouette of both clusters under a Manhattan distance.}
 
           \vskip 0.3cm
-          As per the \textit{FAQ}, we will be using the updated values obtained in exercise 1.
+          \textbf{Note:} As per the \textit{FAQ}, we will be using the updated values obtained in exercise 1 and only show the calculus for the
+          observation $x_2$, only presenting the remaining results in Table \ref{exI3-likelihood-table}.
 
-          Firstly, we need to calculate the updated likelihoods. For that we need to use the equation on \eqref{exI1-likelihood-multivariate} and multiply it with the Bernoulli probability. 
-          We will show how we compute the likelihoods for $x_1$ and then only present the results for the other likelihoods for simplification purposes.
+          Firstly, we need to calculate the updated likelihoods. For that, we consider $\{y_1\} \ind \{y_2, y_3\}$ and multiply $P(y_1|c_k)$ by $P(y_2,y_3|c_k)$,
+          which is given by the equation \eqref{exI1-likelihood-multivariate}:
 
-          \begin{equation*}
-            \begin{align*}
-                P(x_1| c_1) &= P(y_1 | c_1) \cdot P(y_2, y_3 | c_1) = \\
-                            &= p'_1 \cdot \mathcal{N}(x_{1} | u'_1, \Sigma'_{1}) = \\
-                            & \approx 0.23147 \\
-                P(x_1| c_2) &= P(y_1 | c_2) \cdot P(y_2, y_3 | c_2) = \\
-                            &= p'_2 \cdot \mathcal{N}(x_{1} | u'_2, \Sigma'_{2}) = \\
-                            & \approx 0.94954 \\
-            \end{align*}
-          \end{equation*}
+          \vskip -0.4cm
+          \begingroup
+          \addtolength{\jot}{0.5em}
+          \begin{align*}
+              P(x_2 | c_1) & = P(y_1 = 0 | c_1) \times P(y_2 = -0.4, y_3 = 0.8 | c_1)
+                             = (1 - p_1') \times \mathcal{N}_1(y_2 = -0.4, y_3 = 0.8 | \mu_1', \Sigma_1') \\
+                           & = 0.76596 \times 1.65326 \approx 1.26633 \\
+              P(x_2 | c_2) & = P(y_1 = 0 | c_2) \times P(y_2 = -0.4, y_3 = 0.8 | c_2)
+                             = (1 - p_2') \times \mathcal{N}_2(y_2 = -0.4, y_3 = 0.8 | \mu_2', \Sigma_2') \\
+                           & = 0.33268 \times 0.26673 \approx 0.08874
+          \end{align*}
+          \endgroup
 
+          \vskip 0.2cm
           \begin{center}
             \captionsetup{type=table}
             \begin{tabular}{c|cccc}
-                Cluster & $P(c_k | x_1)$ & $P(c_k | x_2)$& $P(c_k | x_3)$ & $P(c_k | x_4)$                            \\
+                Cluster & $P(x_1 | c_k)$ & $P(x_2 | c_k)$& $P(x_3 | c_k)$ & $P(x_4 | c_k)$ \\
                 \hline
-                \colorbox{bmint}{Cluster 1}                                               &
-                0.23147                                                                   &
-                1.26633                                                                   &
-                1.43811                                                                   &
-                0.02077                                                                  \\
-                \colorbox{byellow}{Cluster 2}                                             &
-                0.94954                                                                   &
-                0.08874                                                                   &
-                0.45417                                                                   &
-                0.72331                                                                  \\
+                \colorbox{bmint}{Cluster 1} ($c_1$)                                        &
+                0.23147                                                                    &
+                1.26633                                                                    &
+                1.43811                                                                    &
+                0.02077                                                                    \\
+                \colorbox{byellow}{Cluster 2} ($c_2$)                                      &
+                0.94954                                                                    &
+                0.08874                                                                    &
+                0.45417                                                                    &
+                0.72331                                                                    \\
             \end{tabular}
-            \captionof{table}{Updated likelihoods for the 2 clusters}
+            \captionof{table}{Updated likelihoods for the two clusters}
+            \label{exI3-likelihood-table}
           \end{center}
 
-          Based on the calculated likelihoods, we can infer that $x_1$ and $x_4$ belong in cluster 2, while $x_2$ and $x_3$ are assigned to cluster 1.
+          Based on the calculated likelihoods, we can infer that $x_1$ and $x_4$ are assigned to Cluster 2, while $x_2$ and $x_3$ are assigned to Cluster 1:
+
+          \vskip -0.3cm
+          \begin{equation*}
+              C_1 = \{x_2, x_3\} \qquad\qquad C_2 = \{x_1, x_4\}
+          \end{equation*}
 
           The Manhattan distance is given by the following equation:
 
-          \begin{equation}\label{ex3-manhattan}
-            d(P, Q) = |x_2 - x_1| + |y_2 - y_1| + |z_2 - z_1|
+          \begin{equation}\label{exI3-manhattan}
+              d(P, Q) = d((a_1, b_1, c_1), (a_2, b_2, c_2))= |a_2 - a_1| + |b_2 - b_1| + |c_2 - c_1|
           \end{equation}
 
-          And the silhouette is given by;
+          By employing equation \eqref{exI3-manhattan}, we can create the Table \ref{exI3-manhattan-distances} that has the manhattan
+          distances between every pair of observations. Only the upper diagonal entries are filled, because the distance function is commutative.
 
-          \begin{equation}\label{ex3-silhouette}
-            S(i) = \frac{b(i) - a(i)}{\max\{b(i), a(i)\}}
+          \begin{center}
+              \captionsetup{type=table}
+              \begin{tabular}{c|cccc}
+                  $d(x_i, x_j)$ & $x_1$ & $x_2$ & $x_3$ & $x_4$ \\
+                  \hline
+                  $x_1$ & 0 & 2.7 & 1.8 & 0.4 \\
+                  $x_2$ & - & 0   & 0.9 & 2.7 \\
+                  $x_3$ & - & -   & 0   & 1.8 \\
+                  $x_4$ & - & -   & -   & 0
+              \end{tabular}
+              \captionof{table}{Manhattan distances between every pair of observations}
+              \label{exI3-manhattan-distances}
+          \end{center}
+
+          And the Cohesion ($a(x_i)$), Separation ($b(x_i)$) and Silhouette ($S(x_i)$), for a given observation $x_i$, are given by:
+
+          \vskip -0.3cm
+          \begin{equation*}
+          \begin{aligned}
+              a(x_i) & = \text{average distance of} \; x_i \; \text{to the other points in its cluster} \\
+              b(x_i) & = \text{min}_j\{\text{average distance of} \; x_i \; \text{to the points of cluster} \; C_j \; \text{such that} \; x_i \notin C_j\}
+          \end{aligned}
+          \end{equation*}
+
+          \begin{equation}\label{exI3-silhouette}
+                S(x_i) = \frac{b(x_i) - a(x_i)}{\max\{b(x_i), a(x_i)\}}
           \end{equation}
 
-          By replacing the values on the equation \eqref{ex3-silhouette}, we get the following values:
+          The silhouette for a cluster $C_k$ is given by:
 
+          \begin{equation}\label{exI3-silhouette-cluster}
+              S(C_k) = \frac{\sum_{x_i \in C_k} S(x_i)}{\left|C_k\right|}
+          \end{equation}
+
+          By replacing the values on the equation \eqref{exI3-silhouette}, we get the following values:
+
+          \begingroup
+          \allowdisplaybreaks
+          \addtolength{\jot}{0.7em}
           \begin{align*}
-              S(x_1) = \frac{\frac{d(x_1, x_2) + d(x_1, x_3)}{2} - d(x_1,x_4)}{\max(\frac{d(x_1, x_2) + d(x_1, x_3)}{2}, d(x_1,x_4))} \approx 0.82222 \\
-              S(x_2) = \frac{\frac{d(x_2, x_1) + d(x_2, x_4)}{2} - d(x_2,x_3)}{\max(\frac{d(x_2, x_1) + d(x_2, x_4)}{2}, d(x_2,x_3))} \approx 0.66667 \\
-              S(x_3) = \frac{\frac{d(x_3, x_1) + d(x_3, x_4)}{2} - d(x_3,x_2)}{\max(\frac{d(x_3, x_1) + d(x_3, x_4)}{2}, d(x_3,x_2))} \approx 0.49999 \\
-              S(x_4) = \frac{\frac{d(x_4, x_2) + d(x_4, x_3)}{2} - d(x_4,x_1)}{\max(\frac{d(x_4, x_2) + d(x_4, x_3)}{2}, d(x_4,x_1))} \approx 0.82222
+              S(x_1) = \frac{\frac{d(x_1, x_2) \,+\, d(x_1, x_3)}{2} - d(x_1,x_4)}{\max\left\{\frac{d(x_1, x_2) \,+\, d(x_1, x_3)}{2}, d(x_1,x_4)\right\}} \approx 0.82222 \\
+              S(x_2) = \frac{\frac{d(x_2, x_1) \,+\, d(x_2, x_4)}{2} - d(x_2,x_3)}{\max\left\{\frac{d(x_2, x_1) \,+\, d(x_2, x_4)}{2}, d(x_2,x_3)\right\}} \approx 0.66667 \\
+              S(x_3) = \frac{\frac{d(x_3, x_1) \,+\, d(x_3, x_4)}{2} - d(x_3,x_2)}{\max\left\{\frac{d(x_3, x_1) \,+\, d(x_3, x_4)}{2}, d(x_3,x_2)\right\}} \approx 0.49999 \\
+              S(x_4) = \frac{\frac{d(x_4, x_2) \,+\, d(x_4, x_3)}{2} - d(x_4,x_1)}{\max\left\{\frac{d(x_4, x_2) \,+\, d(x_4, x_3)}{2}, d(x_4,x_1)\right\}} \approx 0.82222
            \end{align*}
+           \endgroup
 
-           Therefore the values of the silhouette for the clusters are:
+           Therefore the values of the silhouette for the clusters are given by \eqref{exI3-silhouette-cluster}:
 
+          \vskip -0.3cm
           \begin{align*}
-              S(c_1) = \frac{S(x_2) + S(x_3)}{2} = 0.58333 \\
-              S(c_2) = \frac{S(x_1) + S(x_4)}{2} = 0.82222
+              S(C_1) = \frac{S(x_2) + S(x_3)}{2} = 0.58333 \qquad\qquad
+              S(C_2) = \frac{S(x_1) + S(x_4)}{2} = 0.82222
            \end{align*}
 
 
@@ -534,7 +617,7 @@ normalize the data using sklearn's \texttt{MinMaxScaler}.
                   Purity               & 0.63226 & 0.66774 & 0.66129 & 0.67742
               \end{tabular}
               \captionof{table}{Silhouette and purity scores (rounded to 5 decimal places) for \texttt{n\_clusters} $\in \{2,3,4,5\}$}
-              \label{ex1p-silhouette-purity}
+              \label{exII1-silhouette-purity}
           \end{center}
 
     \item \textbf{Consider the application of PCA after the data normalization:}
@@ -544,7 +627,7 @@ normalize the data using sklearn's \texttt{MinMaxScaler}.
 
               \vskip 0.3cm
               \lstinputlisting[language=Python]{./assets/code_2a.py}
-            
+
               The explained variability for the top 2 PCs is 56.181445\% and 20.955953\% respectively.
 
              And the total explained variability is 77.1374\%.
@@ -579,7 +662,7 @@ normalize the data using sklearn's \texttt{MinMaxScaler}.
                     \item \texttt{degree\_spondylolisthesis}
                 \end{enumerate}
               \end{minipage}
-            
+
 
     \end{enumerate}
 

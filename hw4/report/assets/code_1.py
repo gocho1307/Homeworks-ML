@@ -16,7 +16,6 @@ for n_clusters in [2, 3, 4, 5]:
     k_means = cluster.KMeans(n_clusters=n_clusters, random_state=0)
     k_means_models.append(k_means.fit(X_scaled))
 
-silhouettes, purities = [], []
 for model in k_means_models:
     n_clusters = model.n_clusters
     y_pred = model.labels_
