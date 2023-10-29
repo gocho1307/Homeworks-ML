@@ -481,14 +481,13 @@ and the following initial mixture:
     \item \textbf{Knowing the purity of the clustering solution is 0.75, identify the number of possible classes (ground truth).}
 
           \vskip 0.3cm
-          Given the purity score of 0.75 and the presence of four observations, we can deduce that approximately 75\% of the observations ($0.75 \times 4 = 3$) 
+          Given the purity score of 0.75 and the presence of four observations, we can deduce that approximately 75\% of the observations ($0.75 \times 4 = 3$)
            were correctly assigned to their respective clusters. However, it also implies that one observation was misclassified.
 
-          The unaccounted observation may belong to the opposing cluster, or possibly a cluster that wasn't initially considered, as our analysis began with a 
+          The unaccounted observation may belong to the opposing cluster, or possibly a cluster that wasn't initially considered, as our analysis began with a
            default assumption of two clusters.
 
           Therefore, the number of possible classes is either two or three.
-          
 \end{enumerate}
 
 \vskip 0.5cm
@@ -502,10 +501,30 @@ normalize the data using sklearn's \texttt{MinMaxScaler}.
 
 \begin{enumerate}[leftmargin=\labelsep]
     \item \textbf{Using \texttt{sklearn}, apply \textit{k}-means clustering fully unsupervisedly on the normalized data with
-          $k \in \{2,3,4,5\}$ (\textnormal{random = 0} and remaining parameters as default). Assess the silhouette and purity of the produced solutions.}
+          $k \in \{2,3,4,5\}$ (\textnormal{\texttt{random} = 0} and remaining parameters as default).
+          Assess the silhouette and purity of the produced solutions.}
 
           \vskip 0.3cm
-          Gonçalo
+          Using \texttt{sklearn}'s \texttt{cluster.KMeans} class, we can apply a \textit{k}-means clustering algorithm
+          for each $k \in \{2,3,4,5\}$ with \texttt{random} = 0 and remaining parameters as default. \\
+          We opted for the default parameters in the \texttt{metric.silhouette\_score} function. \\
+          To calculate the purity score, we used the code in the \texttt{purity\_score} function from the
+          course's N5 (Clustering) Notebook available in
+          \href{https://fenix.tecnico.ulisboa.pt/disciplinas/Apre2/2023-2024/1-semestre/notebooks}{Fénix}.
+
+          \lstinputlisting[language=Python]{./assets/code_1.py}
+
+          \begin{center}
+              \captionsetup{type=table}
+              \begin{tabular}{c|cccc}
+                  \texttt{n\_clusters} & 2 & 3 & 4 & 5 \\
+                  \hline
+                  Silhouette           & 0.36044 & 0.29579 & 0.27442 & 0.23824 \\
+                  Purity               & 0.63226 & 0.66774 & 0.66129 & 0.67742
+              \end{tabular}
+              \captionof{table}{Silhouette and purity scores (rounded to 5 decimal places) for \texttt{n\_clusters} $\in \{2,3,4,5\}$}
+              \label{ex1p-silhouette-purity}
+          \end{center}
 
     \item \textbf{Consider the application of PCA after the data normalization:}
 
