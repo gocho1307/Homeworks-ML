@@ -458,16 +458,16 @@ and the following initial mixture:
           And the silhouette is given by;
 
           \begin{equation}\label{ex3-silhouette}
-            S(i) = \frac{b(i) - a(i)}{\max\{a(i), b(i)\}}
+            S(i) = \frac{b(i) - a(i)}{\max\{b(i), a(i)\}}
           \end{equation}
 
           By replacing the values on the equation \eqref{ex3-silhouette}, we get the following values:
 
           \begin{align*}
-              S(x_1) = 0.82222 \\
-              S(x_2) = 0.66667 \\
-              S(x_3) = 0.49999 \\
-              S(x_1) = 0.82222
+              S(x_1) = \frac{\frac{d(x_1, x_2) + d(x_1, x_3)}{2} - d(x_1,x_4)}{\max(\frac{d(x_1, x_2) + d(x_1, x_3)}{2}, d(x_1,x_4))} \approx 0.82222 \\
+              S(x_2) = \frac{\frac{d(x_2, x_1) + d(x_2, x_4)}{2} - d(x_2,x_3)}{\max(\frac{d(x_2, x_1) + d(x_2, x_4)}{2}, d(x_2,x_3))} \approx 0.66667 \\
+              S(x_3) = \frac{\frac{d(x_3, x_1) + d(x_3, x_4)}{2} - d(x_3,x_2)}{\max(\frac{d(x_3, x_1) + d(x_3, x_4)}{2}, d(x_3,x_2))} \approx 0.49999 \\
+              S(x_4) = \frac{\frac{d(x_4, x_2) + d(x_4, x_3)}{2} - d(x_4,x_1)}{\max(\frac{d(x_4, x_2) + d(x_4, x_3)}{2}, d(x_4,x_1))} \approx 0.82222
            \end{align*}
 
            Therefore the values of the silhouette for the clusters are:
@@ -481,7 +481,14 @@ and the following initial mixture:
     \item \textbf{Knowing the purity of the clustering solution is 0.75, identify the number of possible classes (ground truth).}
 
           \vskip 0.3cm
-          2 ou 3
+          Given the purity score of 0.75 and the presence of four observations, we can deduce that approximately 75\% of the observations ($0.75 \times 4 = 3$) 
+           were correctly assigned to their respective clusters. However, it also implies that one observation was misclassified.
+
+          The unaccounted observation may belong to the opposing cluster, or possibly a cluster that wasn't initially considered, as our analysis began with a 
+           default assumption of two clusters.
+
+          Therefore, the number of possible classes is either two or three.
+          
 \end{enumerate}
 
 \vskip 0.5cm
