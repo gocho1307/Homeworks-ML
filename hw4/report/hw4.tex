@@ -532,13 +532,44 @@ normalize the data using sklearn's \texttt{MinMaxScaler}.
         \item \textbf{Identify the variability explained by the top two principal components.}
 
               \vskip 0.3cm
-              Raquel
+              \lstinputlisting[language=Python]{./assets/code_2a.py}
+            
+              The explained variability for the top 2 PCs is 56.181445\% and 20.955953\% respectively.
+
+             And the total explained variability is 77.1374\%.
 
         \item \textbf{For each one of these two components, sort the input variables by relevance by
               inspecting the absolute weights of the linear projection.}
 
               \vskip 0.3cm
-              Raquel
+              \lstinputlisting[language=Python]{./assets/code_2b.py}
+
+
+              \begin{minipage}[t]{0.45\linewidth}
+                \textbf{Top Variables for PC1:}
+                \begin{enumerate}[label=\arabic*.]
+                    \item \texttt{pelvic\_incidence}
+                    \item \texttt{lumba\_lordosis\_angle}
+                    \item \texttt{pelvic\_tilt}
+                    \item \texttt{sacral\_slope}
+                    \item \texttt{degree\_spondylolisthesis}
+                    \item \texttt{pelvic\_radius}
+                \end{enumerate}
+                \end{minipage}
+                \hfill
+                \begin{minipage}[t]{0.45\linewidth}
+                \textbf{Top Variables for PC2:}
+                \begin{enumerate}[label=\arabic*.]
+                    \item \texttt{pelvic\_tilt}
+                    \item \texttt{pelvic\_radius}
+                    \item \texttt{sacral\_slope}
+                    \item \texttt{pelvic\_incidence}
+                    \item \texttt{lumbar\_lordosis\_angle}
+                    \item \texttt{degree\_spondylolisthesis}
+                \end{enumerate}
+              \end{minipage}
+            
+
     \end{enumerate}
 
     \item \textbf{Visualize side-by-side the data using: i) the ground diagnoses, and ii) the \textit{previously} learned
@@ -546,7 +577,14 @@ normalize the data using sklearn's \texttt{MinMaxScaler}.
           space using PCA and then color observations using the reference and cluster annotations.}
 
           \vskip 0.3cm
-          Raquel
+          \lstinputlisting[language=Python]{./assets/code_3.py}
+
+          \begin{figure}[H]
+            \centering
+            \includegraphics[width=17cm]{./assets/ex3-plot.png}
+            \caption{Projected data}
+            \label{fig:PartII-ex3}
+        \end{figure}
 
     \item \textbf{Considering the results from questions (1) and (3), identify two ways on how clustering can
           be used to characterize the population of ill and healthy individuals.}
