@@ -298,17 +298,94 @@ and the following initial mixture:
     \item \textbf{Given the new observation, $x_{new} = \begin{bmatrix} 1 & 0.3 & 0.7 \end{bmatrix}^T$, determine the cluster memberships (posteriors).}
 
           \vskip 0.3cm
-          Raquel
+          As per the \textit{FAQ}, we will be using the updated values obtained in exercise 1.
+
+          Using the equation on \eqref{ex1-likelihood-multivariate}, we can compute the value of $P(y_2,y_3|c_k)$ for the new observation:
+
+          \begin{equation*}
+            \begin{aligned}
+                P(y_2,y_3|c_1) & = \mathcal{N}(x_{new} | u'_1, \Sigma'_{1})   \\
+                             & \approx 0.02708 \\
+                P(y_2,y_3|c_2)  & = \mathcal{N}(x_{new} | u'_2, \Sigma'_{2})     \\
+                             & \approx 0.06843 \\
+            \end{aligned}
+          \end{equation*}
+
+          Now, by using the equation on , we can compute the posteriors:
+
+          \begin{equation*}
+            \begin{alignat*}{3}
+              P(c_1 | x_{new}) & = \frac{P(y_1|c_1)P(y_2,y_3|c_1)P(c_1)}{P(y_1)P(y_2,y_3)} \\
+                               & = \frac{0.23404 \cdot 0.02708 \cdot 0.38617}{0.23404 \cdot 0.02708 \cdot 0.38617 + 0.66732 \cdot 0.06843 \cdot 0.6137} \\
+                               & \approx 0.08029 && && \\
+              P(c_2 | x_{new}) & = \frac{P(y_1|c_2)P(y_2,y_3|c_2)P(c_2)}{P(y_1)P(y_2,y_3)} \\
+                               & = \frac{0.66732 \cdot 0.06843 \cdot 0.6137}{0.23404 \cdot 0.02708 \cdot 0.38617 + 0.66732 \cdot 0.06843 \cdot 0.6137} \\
+                               & \approx 0.91971 && &&
+            \end{alignat*}
+           \end{equation*}
 
     \item \textbf{Performing a hard assignment of observations to clusters under a ML assumption, identify the silhouette of both clusters under a Manhattan distance.}
 
           \vskip 0.3cm
-          Raquel
+          As per the \textit{FAQ}, we will be using the updated values obtained in exercise 1.
+
+          Firstly, we need to calculate the updated posteriors in a similar manner to our previous calculations. For the sake of simplification, we will provide the 
+           resulting posteriors directly:
+
+          \begin{center}
+            \captionsetup{type=table}
+            \begin{tabular}{c|cccc}
+                Cluster & $P(c_k | x_1)$ & $P(c_k | x_2)$& $P(c_k | x_3)$ & $P(c_k | x_4)$                            \\
+                \hline
+                \colorbox{bmint}{Cluster 1}                                               &
+                0.13297                                                                   &
+                0.89978                                                                   &
+                0.66578                                                                   &
+                0.01774                                                                  \\
+                \colorbox{byellow}{Cluster 2}                                             &
+                0.86703                                                                   &
+                0.10022                                                                   &
+                0.33422                                                                   &
+                0.98225                                                                  \\
+            \end{tabular}
+            \captionof{table}{Updated posteriors for the 2 clusters}
+          \end{center}
+
+          Based on the calculated posteriors, we can infer that $x_1$ and $x_4$ belong in cluster 2, while $x_2$ and $x_3$ are assigned to cluster 1.
+
+          The Manhattan distance is given by the following equation:
+
+          \begin{equation}\label{ex3-manhattan}
+            d(P, Q) = |x_2 - x_1| + |y_2 - y_1| + |z_2 - z_1|
+          \end{equation}
+
+          And the silhouette is given by;
+
+          \begin{equation}\label{ex3-silhouette}
+            S(i) = \frac{b(i) - a(i)}{\max\{a(i), b(i)\}}
+          \end{equation}
+
+          By replacing the values on the equation \eqref{ex3-silhouette}, we get the following values:
+
+          \begin{align*}
+              S(x_1) = 0.82222 \\
+              S(x_2) = 0.66667 \\
+              S(x_3) = 0.49999 \\
+              S(x_1) = 0.82222 \\
+           \end{align*}
+
+           Therefore the values of the silhouette for the clusters are:
+
+          \begin{align*}
+              S(c_1) = \frac{S(x_2) + S(x_3)}{2} = 0.58333 \\
+              S(c_2) = \frac{S(x_1) + S(x_4)}{2} = 0.82222\\
+           \end{align*}
+        
 
     \item \textbf{Knowing the purity of the clustering solution is 0.75, identify the number of possible classes (ground truth).}
 
           \vskip 0.3cm
-          Raquel
+          2 ou 3
 \end{enumerate}
 
 \vskip 0.5cm
