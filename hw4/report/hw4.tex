@@ -425,8 +425,19 @@ and the following initial mixture:
           \vskip 0.3cm
           As per the \textit{FAQ}, we will be using the updated values obtained in exercise 1.
 
-          Firstly, we need to calculate the updated posteriors in a similar manner to our previous calculations. For the sake of simplification, we will provide the
-           resulting posteriors directly:
+          Firstly, we need to calculate the updated likelihoods. For that we need to use the equation on \eqref{exI1-likelihood-multivariate} and multiply it with the Bernoulli probability. 
+          We will show how we compute the likelihoods for $x_1$ and then only present the results for the other likelihoods for simplification purposes.
+
+          \begin{equation*}
+            \begin{align*}
+                P(x_1| c_1) &= P(y_1 | c_1) \cdot P(y_2, y_3 | c_1) = \\
+                            &= p'_1 \cdot \mathcal{N}(x_{1} | u'_1, \Sigma'_{1}) = \\
+                            & \approx 0.23147 \\
+                P(x_1| c_2) &= P(y_1 | c_2) \cdot P(y_2, y_3 | c_2) = \\
+                            &= p'_2 \cdot \mathcal{N}(x_{1} | u'_2, \Sigma'_{2}) = \\
+                            & \approx 0.94954 \\
+            \end{align*}
+          \end{equation*}
 
           \begin{center}
             \captionsetup{type=table}
@@ -434,20 +445,20 @@ and the following initial mixture:
                 Cluster & $P(c_k | x_1)$ & $P(c_k | x_2)$& $P(c_k | x_3)$ & $P(c_k | x_4)$                            \\
                 \hline
                 \colorbox{bmint}{Cluster 1}                                               &
-                0.13297                                                                   &
-                0.89978                                                                   &
-                0.66578                                                                   &
-                0.01774                                                                  \\
+                0.23147                                                                   &
+                1.26633                                                                   &
+                1.43811                                                                   &
+                0.02077                                                                  \\
                 \colorbox{byellow}{Cluster 2}                                             &
-                0.86703                                                                   &
-                0.10022                                                                   &
-                0.33422                                                                   &
-                0.98225                                                                  \\
+                0.94954                                                                   &
+                0.08874                                                                   &
+                0.45417                                                                   &
+                0.72331                                                                  \\
             \end{tabular}
-            \captionof{table}{Updated posteriors for the 2 clusters}
+            \captionof{table}{Updated likelihoods for the 2 clusters}
           \end{center}
 
-          Based on the calculated posteriors, we can infer that $x_1$ and $x_4$ belong in cluster 2, while $x_2$ and $x_3$ are assigned to cluster 1.
+          Based on the calculated likelihoods, we can infer that $x_1$ and $x_4$ belong in cluster 2, while $x_2$ and $x_3$ are assigned to cluster 1.
 
           The Manhattan distance is given by the following equation:
 
