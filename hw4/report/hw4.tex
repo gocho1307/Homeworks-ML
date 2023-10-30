@@ -460,7 +460,7 @@ and the following initial mixture:
 
         \vskip 0.3cm
         \textbf{Note:} As per the \textit{FAQ}, we will be using the updated values obtained in exercise 1 and only show the calculus for the
-        observation $x_2$, only presenting the remaining results in Table \ref{exI3-likelihood-table}.
+        observation $x_2$, presenting the remaining results in Table \ref{exI3-likelihood-table}.
 
         Firstly, we need to calculate the updated likelihoods. For that, we consider $\{y_1\} \ind \{y_2, y_3\}$ and multiply $P(y_1|c_k)$ by $P(y_2,y_3|c_k)$,
         which is given by the equation \eqref{exI1-likelihood-multivariate}:
@@ -590,9 +590,10 @@ and the following initial mixture:
         We know that the number of observations correctly assigned to a cluster is 3. Since there are 4 observations in total, we can conclude that one observation was
         misclassified.
 
-        The number of possible classes needs to be greater than or equal to the number of clusters. If we assume the minimum number of classes, which is two ($L_1$ and $L_2$),
-        we know that the misclassified observation is in the opposing class. But there is also a possibility that there is a class ($L_3$), that wasn't initially considered,
-        where the misclassified observation should be.
+        If we had just one class, we have $\sum_{k=1}^2 \text{max}_j\left\{\left|C_k \cap L_j\right|\right\} = \left|C_1 \cap L_1\right| + \left|C_2 \cap L_1\right| = |C_1| + |C_2| = 4 \neq 3$, because
+        every observation would be in $L_1$, and so there needs to be at least two classes.
+        If we assume the minimum number of classes, which is two ($L_1$ and $L_2$), we know that the misclassified observation is in the opposing class.
+        But there is also a possibility that there is a class ($L_3$), that wasn't initially considered, where the misclassified observation should be.
 
         Below are all the possible cases for only one misclassified observation, knowing that $C_1 = \left\{x_2, x_3\right\}$ and $C_2 = \left\{x_1, x_4\right\}$ from the previous exercise:
 
@@ -699,7 +700,7 @@ normalize the data using sklearn's \texttt{MinMaxScaler}.
         \end{enumerate}
 
   \item \textbf{Visualize side-by-side the data using: i) the ground diagnoses, and ii) the \textit{previously} learned
-          $k = 3$ clustering solution. To this end, projected the normalized data onto a 2-dimensional data
+          $k = 3$ clustering solution. To this end, project the normalized data onto a 2-dimensional data
           space using PCA and then color observations using the reference and cluster annotations.}
 
         \vskip 0.3cm
@@ -716,22 +717,23 @@ normalize the data using sklearn's \texttt{MinMaxScaler}.
           be used to characterize the population of ill and healthy individuals.}
 
         \vskip 0.3cm
-        
-        By analyzing our results for exercise 1, we can see that most silhouette scores were moderate,  indicating there is some evidence for clusters to be
-         cohesive and well-separated. Additionally, the purity scores were high, raging from 0.63226 until 0.67742, signifying precise clustering in relation to the known categories.
-        
-        On exercise 3, the visualizations provided a clear comparison between the ground diagnoses and the clustering solution with \(k=3\). This allowed us to visually assess how well
-         the clusters align with the actual diagnoses, appearing to perform well.
-        
-        Given the favorable results obtained in both the quantitative evaluation (silhouette and purity scores) and the visual representations, clustering appears to be a viable method to analyze and categorize individuals based on their health status.
-        
-        \textbf{Therefore, clustering can be used to characterize the population in ways such as the following:}
-        
-        \begin{itemize}
-            \item \textbf{Identifying High-Risk Groups}: Clustering can group individuals based on certain risk factors for a specific disease, which can help individuals with preventive measures. 
-        
-            \item \textbf{Identifying Disease Subgroups}: Clustering can be used to identify subgroups within a population of individuals with a particular disease, for example cancer. 
-        \end{itemize}
+        By analyzing our results for exercise 1, we can see that most silhouette scores were moderate, indicating that there is some evidence for clusters to be
+        cohesive and well-separated. Additionally, the purity scores were high, ranging from 0.63226 to 0.67742, which signifies precise clustering in relation to the known classes.
 
+        On exercise 3, the visualizations provided a clear comparison between the ground diagnoses and the clustering solution with $k=3$. This allowed us to visually assess how well
+        the clusters align with the actual diagnoses, appearing to perform well.
+
+        Given the favorable results obtained in both the quantitative evaluation (silhouette and purity scores) and the visual representations, clustering appears to be a viable method
+        to analyze and categorize individuals based on their health status.
+
+        \textbf{Therefore, clustering can be used to characterize the population in ways such as the following:}
+
+        \begin{itemize}
+          \item \textbf{Identifying high-risk groups}: Clustering can group individuals based on certain risk factors for a specific disease, which can help individuals with preventive measures
+                for particular diseases, such as cancer. Therefore, grouping up individuals helps to characterize the symptoms and the general population of a certain disease.
+
+          \item \textbf{Identifying relations between diseases}: Clustering can also be used to assess how separated certain clusters are from each other. This can help to better define different diseases,
+                and how they are related to each other in terms of their symptoms and other variables.
+        \end{itemize}
 \end{enumerate}
 \end{document}
