@@ -716,19 +716,22 @@ normalize the data using sklearn's \texttt{MinMaxScaler}.
           be used to characterize the population of ill and healthy individuals.}
 
         \vskip 0.3cm
-        By examining exercise 1, we observe that employing 2 clusters yields the highest silhouette score ($0.36044$),
-        indicating there is some evidence for clusters to be well-separated. This suggests a potential representation of ill and healthy individuals.
+        
+        By analyzing our results for exercise 1, we can see that most silhouette scores were moderate,  indicating there is some evidence for clusters to be
+         cohesive and well-separated. Additionally, the purity scores were high, raging from 0.63226 until 0.67742, signifying precise clustering in relation to the known categories.
+        
+        On exercise 3, the visualizations provided a clear comparison between the ground diagnoses and the clustering solution with \(k=3\). This allowed us to visually assess how well
+         the clusters align with the actual diagnoses, appearing to perform well.
+        
+        Given the favorable results obtained in both the quantitative evaluation (silhouette and purity scores) and the visual representations, clustering appears to be a viable method to analyze and categorize individuals based on their health status.
+        
+        \textbf{Therefore, clustering can be used to characterize the population in ways such as the following:}
+        
+        \begin{itemize}
+            \item \textbf{Identifying High-Risk Groups}: Clustering can group individuals based on certain risk factors for a specific disease, which can help individuals with preventive measures. 
+        
+            \item \textbf{Identifying Disease Subgroups}: Clustering can be used to identify subgroups within a population of individuals with a particular disease, for example cancer. 
+        \end{itemize}
 
-        However, when we turn our attention to exercise 3 and compare the ground diagnoses with the K-means Clustering ($k=3$),
-        we notice that Cluster 0 aligns with the normal class. This suggests that in this particular case, valuing purity over silhouette might be more pertinent.
-
-        Furthermore, the purity scores reinforce the efficacy of using 3 clusters, since it has the highest score ($0.66774$).
-        This suggests that the 3-cluster configuration has a higher accuracy.
-
-        Additionally, considering the visual representation in exercise 3, it becomes evident that selecting 4 or 5 clusters seems impractical,
-        as there are only 3 distinct classes in the dataset. This further supports the choice of 2 or 3 clusters as the most suitable options.
-
-        In summary, the most effective approach for characterizing the population of ill and healthy individuals is either 2 or 3 clusters, taking into
-        account both silhouette, purity scores and the inherent class structure of the dataset.
 \end{enumerate}
 \end{document}
