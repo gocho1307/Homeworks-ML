@@ -129,6 +129,7 @@ dmypy.json
 .pyre/
 
 # LaTeX
+*.bak*
 *.aux
 *.bcf
 *.fdb_latexmk
