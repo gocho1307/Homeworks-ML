@@ -555,10 +555,14 @@ and the following initial mixture:
         \allowdisplaybreaks
         \addtolength{\jot}{0.7em}
         \begin{align*}
-          S(x_1) = \frac{\frac{d(x_1, x_2) \,+\, d(x_1, x_3)}{2} - d(x_1,x_4)}{\max\left\{\frac{d(x_1, x_2) \,+\, d(x_1, x_3)}{2}, d(x_1,x_4)\right\}} \approx 0.82222 \\
-          S(x_2) = \frac{\frac{d(x_2, x_1) \,+\, d(x_2, x_4)}{2} - d(x_2,x_3)}{\max\left\{\frac{d(x_2, x_1) \,+\, d(x_2, x_4)}{2}, d(x_2,x_3)\right\}} \approx 0.66667 \\
-          S(x_3) = \frac{\frac{d(x_3, x_1) \,+\, d(x_3, x_4)}{2} - d(x_3,x_2)}{\max\left\{\frac{d(x_3, x_1) \,+\, d(x_3, x_4)}{2}, d(x_3,x_2)\right\}} \approx 0.49999 \\
-          S(x_4) = \frac{\frac{d(x_4, x_2) \,+\, d(x_4, x_3)}{2} - d(x_4,x_1)}{\max\left\{\frac{d(x_4, x_2) \,+\, d(x_4, x_3)}{2}, d(x_4,x_1)\right\}} \approx 0.82222
+          S(x_1) & = \frac{\frac{d(x_1, x_2) \,+\, d(x_1, x_3)}{2} - d(x_1,x_4)}{\max\left\{\frac{d(x_1, x_2) \,+\, d(x_1, x_3)}{2}, d(x_1,x_4)\right\}}
+          = \frac{2.25 - 0.4}{\max\left\{2.25, 0.4\right\}} = \frac{2.25 - 0.4}{2.25} \approx 0.82222                                                    \\
+          S(x_2) & = \frac{\frac{d(x_2, x_1) \,+\, d(x_2, x_4)}{2} - d(x_2,x_3)}{\max\left\{\frac{d(x_2, x_1) \,+\, d(x_2, x_4)}{2}, d(x_2,x_3)\right\}}
+          = \frac{2.7 - 0.9}{\max\left\{2.7, 0.9\right\}} = \frac{2.7 - 0.9}{2.7} \approx 0.66667                                                        \\
+          S(x_3) & = \frac{\frac{d(x_3, x_1) \,+\, d(x_3, x_4)}{2} - d(x_3,x_2)}{\max\left\{\frac{d(x_3, x_1) \,+\, d(x_3, x_4)}{2}, d(x_3,x_2)\right\}}
+          = \frac{1.8 - 0.9}{\max\left\{1.8, 0.9\right\}} = \frac{1.8 - 0.9}{1.8} = 0.5                                                                  \\
+          S(x_4) & = \frac{\frac{d(x_4, x_2) \,+\, d(x_4, x_3)}{2} - d(x_4,x_1)}{\max\left\{\frac{d(x_4, x_2) \,+\, d(x_4, x_3)}{2}, d(x_4,x_1)\right\}}
+          = \frac{2.25 - 0.4}{\max\left\{2.25, 0.4\right\}} = \frac{2.25 - 0.4}{2.25} \approx 0.82222
         \end{align*}
         \endgroup
 
@@ -658,7 +662,7 @@ normalize the data using sklearn's \texttt{MinMaxScaler}.
 
                 The explained variability for the top 2 PCs is 56.181445\% and 20.955953\%, respectively.
 
-                And the total explained variability is 77.1374\%.
+                And the total explained variability is 77.13740\%, rounded to 5 decimal places.
 
           \item \textbf{For each one of these two components, sort the input variables by relevance by
                   inspecting the absolute weights of the linear projection.}
@@ -671,7 +675,7 @@ normalize the data using sklearn's \texttt{MinMaxScaler}.
                   \textbf{Top Variables for PC1:}
                   \begin{enumerate}[label=\arabic*.]
                     \item \texttt{pelvic\_incidence}
-                    \item \texttt{lumba\_lordosis\_angle}
+                    \item \texttt{lumbar\_lordosis\_angle}
                     \item \texttt{pelvic\_tilt}
                     \item \texttt{sacral\_slope}
                     \item \texttt{degree\_spondylolisthesis}
@@ -704,7 +708,7 @@ normalize the data using sklearn's \texttt{MinMaxScaler}.
         \begin{figure}[H]
           \centering
           \includegraphics[width=18cm]{./assets/exII3-plot.png}
-          \caption{Projected data}
+          \caption{Projected data for the Ground Diagnoses and K-Means Clustering with k=3}
           \label{fig:PartII-ex3}
         \end{figure}
 
