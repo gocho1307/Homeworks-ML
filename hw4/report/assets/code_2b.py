@@ -1,10 +1,8 @@
 # Get the absolute weights (loadings) of the top two principal components
-pc_weights = np.abs(pca.components_[:2, :])
-
-# Get the feature names
-feature_names = X.columns
+pc_weights = np.abs(pca.components_)
 
 # Sort the feature names by relevance for each PC
+feature_names = X.columns
 sorted_features_pc1 = [feature_names[i] for i in np.argsort(pc_weights[0])[::-1]]
 sorted_features_pc2 = [feature_names[i] for i in np.argsort(pc_weights[1])[::-1]]
 
