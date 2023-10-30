@@ -712,6 +712,19 @@ normalize the data using sklearn's \texttt{MinMaxScaler}.
           be used to characterize the population of ill and healthy individuals.}
 
         \vskip 0.3cm
-        Raquel
+        By examining exercise 1, we observe that employing 2 clusters yields the highest silhouette score ($0.36044$), 
+         indicating there is some evidence for clusters to be well-separated. This suggests a potential representation of ill and healthy individuals.
+  
+        However, when we turn our attention to exercise 3 and compare the ground diagnoses with the K-means Clustering ($k=3$),
+         we notice that Cluster 0 aligns with the normal class. This suggests that in this particular case, valuing purity over silhouette might be more pertinent.
+  
+        Furthermore, the purity scores reinforce the efficacy of using 3 clusters, since it has the highest score ($0.66774$). 
+         This suggests that the 3-cluster configuration has a higher accuracy.
+
+         Additionally, considering the visual representation in exercise 3, it becomes evident that selecting 4 or 5 clusters seems impractical, 
+          as there are only 3 distinct classes in the dataset. This further supports the choice of 2 or 3 clusters as the most suitable options. 
+        
+        In summary, the most effective approach for characterizing the population of ill and healthy individuals is either 2 or 3 clusters, taking into
+         account both silhouette, purity scores and the inherent class structure of the dataset
 \end{enumerate}
 \end{document}
