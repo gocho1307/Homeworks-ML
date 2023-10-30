@@ -83,8 +83,7 @@ and the following initial mixture:
           \textbf{\textit{Hint:} we suggest you to use numpy and scipy, however disclose the intermediary results step by step.}
 
           \vskip 0.3cm
-          The EM (Expectation-Maximization) algorithm has four major steps:
-          Initialization, Expectation, Maximization and Evaluate.
+          The EM (Expectation-Maximization) algorithm has four major steps: Initialization, Expectation, Maximization and Verification.
 
           \vskip 0.2cm
           {
@@ -530,7 +529,7 @@ and the following initial mixture:
               \label{exI3-manhattan-distances}
           \end{center}
 
-          And the Cohesion ($a(x_i)$), Separation ($b(x_i)$) and Silhouette ($S(x_i)$), for a given observation $x_i$, are given by:
+          The Cohesion ($a(x_i)$), Separation ($b(x_i)$) and Silhouette ($S(x_i)$), for a given observation $x_i$, are given by:
 
           \vskip -0.3cm
           \begin{equation*}
@@ -575,13 +574,42 @@ and the following initial mixture:
     \item \textbf{Knowing the purity of the clustering solution is 0.75, identify the number of possible classes (ground truth).}
 
           \vskip 0.3cm
-          Given the purity score of 0.75 and the presence of four observations, we can deduce that approximately 75\% of the observations ($0.75 \times 4 = 3$)
-           were correctly assigned to their respective clusters. However, it also implies that one observation was misclassified.
+          Since we know that the purity of the clustering solution is 0.75, we can deduce the number of correctly labeled observations:
 
-          The unaccounted observation may belong to the opposing cluster, or possibly a cluster that wasn't initially considered, as our analysis began with a
-           default assumption of two clusters.
+          \vskip -0.5cm
+          \begin{align*}
+              \text{purity} & = \frac{1}{n} \sum_{k=1}^K \text{max}_j\left\{\left|C_k \cap L_j\right|\right\}
+                            = \frac{1}{4} \left(\text{max}_j\left\{\left|C_1 \cap L_j\right|\right\} + \text{max}_j\left\{\left|C_2 \cap L_j\right|\right\}\right) = 0.75 \\
+              & \Rightarrow \text{max}_j\left\{\left|C_1 \cap L_j\right|\right\} + \text{max}_j\left\{\left|C_2 \cap L_j\right|\right\} = 4 \times 0.75 = 3
+          \end{align*}
 
-          Therefore, the number of possible classes is either two or three.
+          We know that the number of observations correctly assigned to a cluster is 3. Since there are 4 observations in total, we can conclude that one observation was
+          misclassified.
+
+          The number of possible classes needs to be greater than or equal to the number of clusters. If we assume the minimum number of classes, which is two ($L_1$ and $L_2$),
+          we know that the misclassified observation is in the opposing class. But there is also a possibility that there is a class ($L_3$), that wasn't initially considered,
+          where the misclassified observation should be.
+
+          Below are all the possible cases for only one misclassified observation, knowing that $C_1 = \left\{x_2, x_3\right\}$ and $C_2 = \left\{x_1, x_4\right\}$ from the previous exercise:
+
+          \begin{equation}\label{exI4-purity-cases-1}
+              \begin{array}{c|c|c|c}
+                  \centering
+                  L_1 = \left\{x_2, x_3, x_4\right\} \quad & \quad L_1 = \left\{x_2, x_3, x_1\right\} \quad & \quad L_1 = \left\{x_2\right\} \quad & \quad L_1 = \left\{x_3\right\} \\
+                  L_2 = \left\{x_1\right\} \quad & \quad L_2 = \left\{x_4\right\} \quad & \quad L_2 = \left\{x_1, x_4, x_3\right\} \quad & \quad L_2 = \left\{x_1, x_4, x_2\right\}
+              \end{array}
+          \end{equation}
+
+          \begin{equation}\label{exI4-purity-cases-2}
+              \begin{array}{c|c|c|c}
+                  \centering
+                  L_1 = \left\{x_2, x_3\right\} \quad & \quad L_1 = \left\{x_2, x_3\right\} \quad & \quad L_1 = \left\{x_2\right\} \quad & \quad L_1 = \left\{x_3\right\} \\
+                  L_2 = \left\{x_1\right\} \quad & \quad L_2 = \left\{x_4\right\} \quad & \quad L_2 = \left\{x_1, x_4\right\} \quad & \quad L_2 = \left\{x_1, x_4\right\} \\
+                  L_3 = \left\{x_4\right\} \quad & \quad L_3 = \left\{x_1\right\} \quad & \quad L_3 = \left\{x_3\right\} \quad & \quad L_3 = \left\{x_2\right\}
+              \end{array}
+          \end{equation}
+
+          \textbf{Therefore}, the number of possible classes (ground truth) is either two \eqref{exI4-purity-cases-1} or three \eqref{exI4-purity-cases-2}.
 \end{enumerate}
 
 \vskip 0.5cm
